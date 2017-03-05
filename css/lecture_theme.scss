@@ -9,7 +9,7 @@
 // Include theme-specific fonts
 @import url(../reveal.js/lib/font/source-sans-pro/source-sans-pro.css);
 
-$themeColor: #00f;
+$themeColor: #444;
 
 // Override theme settings (see ../template/settings.scss)
 $backgroundColor: #fff;
@@ -25,7 +25,7 @@ $headingTextShadow: none;
 $headingLetterSpacing: normal;
 $headingTextTransform: none;
 $headingFontWeight: 600;
-$linkColor: #2a76dd;
+$linkColor: #00f;
 $linkColorHover: lighten( $linkColor, 15% );
 $selectionBackgroundColor: lighten( $linkColor, 25% );
 
@@ -48,23 +48,14 @@ section.has-dark-background {
 $citeColor: #a00;
 $alertColor: #f00;
 
+section.titlepage > div {
+    margin-top: 1em;
+}
+
 section.titlepage .title {
+    background-color: $themeColor;
+    color: $backgroundColor;
     font-size: 1.5em;
-}
-
-section.titlepage .authors {
-    font-size: 1em;
-    font-weight: normal;
-
-    padding-top: 1em;
-}
-
-section.titlepage .institution {
-    padding-top: 1em;
-}
-
-section.titlepage .date {
-    padding-top: 1em;
 }
 
 div.figure.inline {
@@ -126,21 +117,4 @@ div.textbox > .title {
 div.textbox.alert > .title {
     background: $alertColor;
     color: $backgroundColor;
-}
-
-
-// Parameter table style
-table.params th {
-    border: 0px;
-    background-color: darkblue;
-    color: white;
-}
-
-table.params td {
-    border: 0px;
-    background-color: lightgrey;
-}
-
-table.params td:first-child {
-    text-align: center;
 }

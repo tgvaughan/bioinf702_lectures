@@ -19,6 +19,8 @@ description: descr
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
+course: BIOINF 702
+
 # Build settings
 markdown: kramdown
 exclude:
@@ -30,8 +32,10 @@ defaults:
         scope:
             path: ""
         values:
+            lecturer: Tim Vaughan
+            layout: lecture
             reveal:
-                center: true
+                center: false
                 controls: false
                 progress: false
                 history: false

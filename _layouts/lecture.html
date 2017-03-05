@@ -27,10 +27,14 @@
 		<div class="reveal">
 			<div class="slides">
 
-
                 <section class="titlepage center">
-                    <h1 class="title">{{page.title}}</h1>
-                    <h2 class="speaker">{{page.speaker}}</h2>
+                    <div class="course">{{site.course}}</div>
+
+                    <div class="title">{{page.title}}</div>
+
+                    <div class="lecturer">Lecturer: {{page.lecturer}}</div>
+
+                    <div class="date">{{page.date | date: "%-d %B %Y"}}</div>
                 </section>
                 {{content}}
 
