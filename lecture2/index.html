@@ -12,6 +12,7 @@ reveal:
     <ol class="spaced" style="margin-top:10%">
         <li>No lab this Friday! (Despite what timetable says.)</li>
         <li>Assignment 1 will be <b>available</b> on the morning of <b>Monday the 13<sup>th</sup> of March</b>.</li>
+        <li>My office is room 467 (fourth floor) of building 303S (in the CS department)</li>
         <li>Office hours:
             <ul>
                 <li>1-3pm, Wednesday</li>
@@ -493,7 +494,7 @@ reveal:
 </section>
 <section>
     <section class="center">
-        <h2>Pairwise Alignemnt Algorithms</h2>
+        <h2>Pairwise Alignment Algorithms</h2>
     </section>
 
    <section>
@@ -519,49 +520,28 @@ reveal:
    </section>
 
    <section>
-       <h2>Principle of Optimality</h2>
+       <h3>Principle of Optimality</h3>
 
        <br>
        <br>
 
        <p>Given sequences:</p>
        \begin{align*}
-       X &= (x_1, x_2, \ldots, x_m)\\
-       Y &= (y_1, y_2, \ldots, y_n)
+       X &amp;= (x_1, x_2, \ldots, x_m)\\
+       Y &amp;= (y_1, y_2, \ldots, y_n)
        \end{align*}
 
        <br>
 
        <p>Define $F(i,j)$ to be the score of the <b>best</b> alignment between</p>
        \begin{align*}
-       &(x_1, x_2, \ldots, x_i)\\
-       &(y_1, y_2, \ldots, y_j)\\
+       &amp;(x_1, x_2, \ldots, x_i)\\
+       &amp;(y_1, y_2, \ldots, y_j)\\
        \end{align*}
    </section>
 
    <section>
-       <h2>Principle of Optimality</h2>
-
-       <br>
-       <br>
-
-       <p>Given sequences:</p>
-       \begin{align*}
-       Y &= (y_1, y_2, \ldots, y_n)
-       X &= (x_1, x_2, \ldots, x_m)\\
-       \end{align*}
-
-       <br>
-
-       <p>Define $F(i,j)$ to be the score of the <b>best</b> alignment between</p>
-       \begin{align*}
-       &(y_1, y_2, \ldots, y_j)\\
-       &(x_1, x_2, \ldots, x_i)\\
-       \end{align*}
-   </section>
-
-   <section>
-       <h2>Principle of Optimality</h2>
+       <h3>Dynamic Programming recurrences</h3>
 
        <table>
            <tr>
@@ -646,11 +626,9 @@ reveal:
    </section>
 
    <section>
-       <h3>Principle of Optimality</h3>
+       <h3>Basis</h3>
 
-       <p>Basis:</p>
-
-       <ul class="spaced">
+       <ul class="spaced" style="margin-top:10%">
            <li>$F(0,0) = 0$
 
            </li>
@@ -674,16 +652,284 @@ reveal:
    </section>
 
    <section>
+       <h3>Example</h3>
+
+       <blockquote style="margin-top:20%">
+           <a href="http://experiments.mostafa.io/public/needleman-wunsch/index.html">Online interactive demo</a>
+       </blockquote>
+   </section>
+
+   <section>
        <h3>Smith-Waterman algorithm</h3>
+
+       <ul class="spaced" style="margin-top:5%">
+           <li>Computes <b>local alignment</b></li>
+           <li>Looks for best alignment of subsequences of X and Y, ignoring scores of regions on either side.</li>
+       </ul>
+
+       <div class="figure">
+           <img data-src="smith_waterman.svg" style="width:80%;box-shadow:none">
+       </div>
+   </section>
+
+   <section>
+       <h2>Principle of Optimality</h2>
+
+       <br>
+
+       <p>Given sequences:</p>
+       \begin{align*}
+       Y &amp;= (y_1, y_2, \ldots, y_n)\\
+       X &amp;= (x_1, x_2, \ldots, x_m)
+       \end{align*}
+
+       <br>
+
+       <p>Define $F(i,j)$ to be the score of the best <b>suffix</b> alignment between</p>
+
+       $(y_r, y_{r+1}, \ldots, y_j)$ where $r\leq j$
+
+       <p>and</p>
+
+       $(x_s, y_{s+1}, \ldots, x_i)$ where $s\leq i$
+
+       <blockquote>
+           Includes empty alignment with score $0$.
+       </blockquote>
+   </section>
+
+   <section>
+       <h3>Dynamic Programming recurrences</h3>
+
+       <table style="font-size:0.8em">
+           <tr>
+               <td>Optimal alignment</td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;width:97%">
+                       $y_s, y_{s+1}, y_{s+2}, \ldots, y_j$
+                   </div>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;width:97%">
+                       $x_r, x_{r+1}, x_{r+2}, \ldots, x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i,j)$
+               </td>
+           </tr>
+
+           <tr>
+               <td> Comes from...  </td>
+               <td style="width:35%">
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_s, y_{s+1}, \ldots, y_{j-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $y_j$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_r, x_{r+1}, \ldots, x_{i-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i-1,j-1) + s(x_i,y_j)$
+               </td>
+           </tr>
+           <tr>
+               <td> Or...  </td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_s, y_{s+1}, \ldots, y_{j-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $y_j$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_r, x_{r+1}, \ldots, x_{i}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $\phantom{x_i}$
+                   </div>
+               </td>
+               <td>
+                   $F(i,j-1) - d$
+               </td>
+           </tr>
+           <tr>
+               <td> Or...  </td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_s, y_{s+1}, \ldots, y_{j}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $\phantom{y_j}$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_r, x_{r+1}, \ldots, x_{i-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i-1,j) - d$
+               </td>
+           </tr>
+           <tr>
+               <td> Or...  </td>
+               <td>
+                   <div style="border:solid 1px black;border-right:solid 0.5em blue;display:inline-block;width:97%">
+                       $y_s, y_{s+1}, y_{s+2}, \ldots, y_{j}$
+                   </div><br>
+                   <div style="border:solid 1px black;border-right:solid 0.5em blue;margin-top:5px;display:inline-block;width:97%">
+                       $x_r, x_{r+1}, x_{r+2}, \ldots, x_{i}$
+                   </div>
+               </td>
+               <td>
+                   $F(i-1,j) - d$
+               </td>
+           </tr>
+       </table>
+
+       <div style="font-size:0.8em;margin-top:0.5em">
+       \begin{align*}
+       F(i,j) = \max\left\{\begin{array}{l}
+       F(i-1,j-1) + s(x_i,y_j)\\
+       F(i,j-1) - d\\
+       F(i-1,j) - d\\
+       0
+       \end{array}\right.
+       \end{align*}
+
+       $$\implies F(i,0) = F(0,j) = 0$$
+       </div>
+   </section>
+
+   <section>
+       <h3>Example</h3>
+
+       <div class="figure">
+           <img data-src="smith_waterman_example.png" style="width:80%"><br>
+           <a class="cite">Durbin, Eddy, Krogh, Mitchison, "Biological sequence analysis", Cambridge Uni Press, 1998</a>
+       </div>
+
    </section>
 
    <section>
        <h3>Repeated matches</h3>
+
+       <ul style="margin-top:10%">
+           <li>For long sequences we may be interested in <b>all local alignments</b><br>
+               with significant score ($&gt;$ threshold $T$)</li>
+           <li>e.g. copies of a repeated domain or motif in a protein.</li>
+       </ul>
+
+       <p style="text-align:center">$X$ is the (short) sequence containing the motif</p>
+       <p style="text-align:center">$Y$ is the (long) target sequence</p>
+
+       <ul>
+           <li>Method is <b>asymmetric</b>.</li>
+       </ul>
+   </section>
+
+   <section>
+       <h3>Principle of Optimality</h3>
+
+       <br>
+
+       <p>Given sequences:</p>
+       \begin{align*}
+       Y &amp;= (y_1, y_2, \ldots, y_n)\\
+       X &amp;= (x_1, x_2, \ldots, x_m)
+       \end{align*}
+
+       <br>
+
+       <p>Define $F(i,j)$ (for $i\geq 1$) to be the best sum of match scores in
+
+       $(y_1, y_2, y3, \ldots, y_j)$
+
+       <p>and</p>
+
+       $(x_1, y_2, y_3, \ldots, x_i)$
+
+       <p>assuming $y_j$ is <b>in a matched region</b> and match ends in $x_i$ or $y_j$.</p>
+
+       <blockquote>
+           $F(i,j)$ has a different meaning here!
+       </blockquote>
+   </section>
+
+   <section>
+       <h3>Ends of matches</h3>
+
+       <ul style="margin-top:10%">
+           <li>$F(0,0) = 0$</li>
+           <li>$F(0,j)$ is the best sum of completed match scores to $(y_1,
+               y_2,\ldots, y_j)$ assuming that $y_j$ is <b>not in a matched
+                   region</b>.</li>
+       </ul>
+
+       <div style="margin-top:1em">
+       \begin{align*}
+       F(0,j) = \max\left\{\begin{array}{l}
+       F(0,j-1)\\
+       F(i,j-1) - T,~~i=1,\ldots,n
+       \end{array}\right.
+       \end{align*}
+       </div>
+
+       <br>
+
+       <p>Row $0$ therefore marks unmatched regions and ends of matches in $Y$.</p>
+   </section>
+
+   <section>
+       <h3>General recurrence</h3>
+
+       <div style="margin-top:10%">
+       \begin{align*}
+       F(i,j) = \max\left\{\begin{array}{l}
+       F(0,j)\\
+       F(i-1,j-1) + s(x_i, y_j)\\
+       F(i,j-1) - d\\
+       F(i-1,j) - d
+       \end{array}\right.
+       \end{align*}
+       </div>
+   </section>
+
+   <section>
+       <h3>Example</h3>
+
+       <div class="figure">
+           <img data-src="repeated_match_example.png" style="width:80%"><br>
+           <a class="cite">Durbin, Eddy, Krogh, Mitchison, "Biological sequence analysis", Cambridge Uni Press, 1998</a>
+       </div>
    </section>
 
    <section>
        <h3>Overlap matches</h3>
+
+       <p style="margin-top:5%">Don't penalize overhanging ends: $F(i,0)=F(0,j)=0$.</p>
+
+       <p style="margin-top:1em">Otherwise,</p>
+
+       <div style="margin-top:1em">
+       \begin{align*}
+       F(i,j) = \max\left\{\begin{array}{l}
+       F(i-1,j-1) + s(x_i,y_j)\\
+       F(i,j-1)-d\\
+       F(i-1,j)-d
+       \end{array}\right.
+       \end{align*}
+       </div>
+
    </section>
 
+   <section>
+       <h3>Example</h3>
+
+       <div class="figure">
+           <img data-src="overlap_match_example.png" style="width:80%"><br>
+           <a class="cite">Durbin, Eddy, Krogh, Mitchison, "Biological sequence analysis", Cambridge Uni Press, 1998</a>
+       </div>
+   </section>
 
 </section>

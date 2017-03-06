@@ -89,6 +89,10 @@ div.figure div.caption {
     background: red;
 }
 
+.reveal blockquote a {
+    color: $backgroundColor;
+}
+
 .reveal p {
     text-align: left;
 }
