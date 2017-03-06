@@ -457,9 +457,205 @@ reveal:
 
    <section>
        <h3>Variation of match/mismatch probs with $d$</h3>
+
+       <div class="figure">
+           <img data-src="match_probs.png">
+       </div>
    </section>
    <section>
        <h3>Variation of match/mismatch scores with $d$</h3>
+
+       <div class="figure">
+           <img data-src="match_scores.png">
+       </div>
+   </section>
+
+   <section>
+       <h3>What about gaps?</h3>
+
+       <div class="figure">
+           <img data-src="gap_penalty.svg" style="box-shadow:none">
+       </div>
+
+       <p>Two main approaches:</p>
+       <ol class="spaced">
+           <li><b>Linear</b> score:
+               $$\gamma(g) = -gd$$
+               where $d$ is the <b>gap penalty</b></li>
+
+           <li><b>Affine</b> score:
+               $$\gamma(g) = -d - (g-1)e$$
+               where $e$ is the <b>gap extension penalty</b>
+       </ol>
+
+   </section>
+
+</section>
+<section>
+    <section class="center">
+        <h2>Pairwise Alignemnt Algorithms</h2>
+    </section>
+
+   <section>
+       <h3>Needleman &amp; Wunsch algorithm</h3>
+
+       <ul>
+           <li>Dynamic programming algorithm for global alignment.</li>
+           <li>Needleman &amp; Wunsch (1970), modified by Gotoh (1982)</li>
+       </ul>
+
+           <br>
+           <br>
+
+       <div class="textbox" style="width:40%;margin-left:30%">
+           <div class="title">Assumptions</div>
+           <ul>
+               <li>Linear gap penalty $d$</li>
+               <li>Symmetric scoring matrix $s$:
+                   $$s(a,b)=s(b,a)$$
+                   $$s(a,-)=s(-,a) = -d$$
+           </ul>
+       </div>
+   </section>
+
+   <section>
+       <h2>Principle of Optimality</h2>
+
+       <br>
+       <br>
+
+       <p>Given sequences:</p>
+       \begin{align*}
+       X &= (x_1, x_2, \ldots, x_m)\\
+       Y &= (y_1, y_2, \ldots, y_n)
+       \end{align*}
+
+       <br>
+
+       <p>Define $F(i,j)$ to be the score of the <b>best</b> alignment between</p>
+       \begin{align*}
+       &(x_1, x_2, \ldots, x_i)\\
+       &(y_1, y_2, \ldots, y_j)\\
+       \end{align*}
+   </section>
+
+   <section>
+       <h2>Principle of Optimality</h2>
+
+       <br>
+       <br>
+
+       <p>Given sequences:</p>
+       \begin{align*}
+       Y &= (y_1, y_2, \ldots, y_n)
+       X &= (x_1, x_2, \ldots, x_m)\\
+       \end{align*}
+
+       <br>
+
+       <p>Define $F(i,j)$ to be the score of the <b>best</b> alignment between</p>
+       \begin{align*}
+       &(y_1, y_2, \ldots, y_j)\\
+       &(x_1, x_2, \ldots, x_i)\\
+       \end{align*}
+   </section>
+
+   <section>
+       <h2>Principle of Optimality</h2>
+
+       <table>
+           <tr>
+               <td>Optimal alignment</td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;width:97%">
+                       $y_1, y_2, y_3, \ldots, y_j$
+                   </div>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;width:97%">
+                       $x_1, x_2, x_3, \ldots, x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i,j)$
+               </td>
+           </tr>
+
+           <tr>
+               <td> Comes from...  </td>
+               <td style="width:35%">
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_1, y_2, y_3, \ldots, y_{j-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $y_j$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_1, x_2, x_3, \ldots, x_{i-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i-1,j-1) + s(x_i,y_j)$
+               </td>
+           </tr>
+           <tr>
+               <td> Or...  </td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_1, y_2, y_3, \ldots, y_{j-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $y_j$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_1, x_2, x_3, \ldots, x_{i}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $\phantom{x_i}$
+                   </div>
+               </td>
+               <td>
+                   $F(i,j-1) - d$
+               </td>
+           </tr>
+           <tr>
+               <td> Or...  </td>
+               <td>
+                   <div style="border:solid 1px black;background-color:lime;display:inline-block;width:85%">
+                       $y_1, y_2, y_3, \ldots, y_{j}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $\phantom{y_j}$
+                   </div><br>
+                   <div style="border:solid 1px black;background-color:lime;margin-top:5px;display:inline-block;width:85%">
+                       $x_1, x_2, x_3, \ldots, x_{i-1}$
+                   </div><div style="border:solid 1px black; background-color:red;display:inline-block;width:12%">
+                       $x_i$
+                   </div>
+               </td>
+               <td>
+                   $F(i-1,j) - d$
+               </td>
+           </tr>
+       </table>
+
+       <p>Therefore,</p>
+       \begin{align*}
+       F(i,j) = \max\left\{\begin{array}{l}
+       F(i-1,j-1) + s(x_i,y_j)\\
+       F(i,j-1) - d\\
+       F(i-1,j) - d
+       \end{array}\right.
+       \end{align*}
+   </section>
+
+
+   <section>
+       <h3>Smith-Waterman algorithm</h3>
+   </section>
+
+   <section>
+       <h3>Repeated matches</h3>
+   </section>
+
+   <section>
+       <h3>Overlap matches</h3>
    </section>
 
 
