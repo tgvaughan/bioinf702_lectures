@@ -61,7 +61,7 @@
                         {% for lecturePrime in week.lectures %}
                         <tr>
                             {% if forloop.index == 1 %}
-                            <td rowspan="{{week.lectures | size}}">Week {{weekNum}}</td>
+                            <td rowspan="{{week.lectures | size}}">Week {{week.week}}</td>
                             {% endif %}
 
                             {% if lecturePrime == lecture %}
