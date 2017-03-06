@@ -1,0 +1,38 @@
+- week: 1
+  lectures:
+    - title: Introduction - Developing Darwin's Computer
+      lecturer: Alexei Drummond
+      date: 2017-03-06
+
+    - title: Homology and Pairwise Alignment
+      lecturer: Tim Vaughan
+      slide_credit: Alexei Drummond
+      date: 2017-03-07
+
+    - title: Multiple Sequence Alignment
+      lecturer: Tim Vaughan
+
+- week: 2
+  lectures:
+    - title: Hidden Markov Models
+      lecturer: Tim Vaughan
+
+    - title: Phylogeny
+      lecturer: Alexei Drummond
+
+    - title: Parsimony-based Phylogenetic Inference
+      lecturer: Alexei Drummond
+
+- week: 3
+  lectures:
+    - title: Distance-based Phylogenetic Inference
+      lecturer: Alexei Drummond
+
+    - title: Bayesian Inference
+      lecturer: Tim Vaughan
+
+    - title: Models of Sequence Evolution
+
+- week: 4-6
+  lectures:
+    - title: Statistical Phylogenetics

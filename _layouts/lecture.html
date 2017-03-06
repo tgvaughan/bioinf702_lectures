@@ -1,3 +1,13 @@
+{% assign i = 0 %}
+{% for week in site.data.lectures %}
+{% for lecturePrime in week.lectures %}
+{% assign i = i | plus:1 %}
+{% if i == page.lecture_num %}
+{% assign lecture = lecturePrime %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
 <!doctype html>
 <html>
 	<head>
@@ -30,12 +40,43 @@
                 <section class="titlepage center">
                     <div class="course">{{site.course}}</div>
 
-                    <div class="title">{{page.title}}</div>
+                    <div class="title">{{lecture.title}}</div>
 
-                    <div class="lecturer">Lecturer: {{page.lecturer}}</div>
+                    <div class="lecturer">Lecturer: {{lecture.lecturer}}
+                        {% if page.slide_credit != null %}
+                        <br>Based on slides by {{lecture.slide_credit}}
+                        {% endif %}
+                    </div>
 
-                    <div class="date">{{page.date | date: "%-d %B %Y"}}</div>
+                    <div class="date">{{lecture.date | date: "%-d %B %Y"}}</div>
                 </section>
+
+                <section>
+                    <h2>Overview of Lectures</h2>
+
+                    <table class="overview">
+                        {% for week in site.data.lectures %}
+                        {% assign weekNum = forloop.index %}
+
+                        {% for lecturePrime in week.lectures %}
+                        <tr>
+                            {% if forloop.index == 1 %}
+                            <td rowspan="{{week.lectures | size}}">Week {{weekNum}}</td>
+                            {% endif %}
+
+                            {% if lecturePrime == lecture %}
+                            <td class="current">
+                            {% else %}
+                            <td>
+                            {% endif %}
+                            {{lecturePrime.title}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </table>
+
+                </section>
+
                 {{content}}
 
 			</div>

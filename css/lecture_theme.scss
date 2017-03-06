@@ -118,3 +118,25 @@ div.textbox.alert > .title {
     background: $alertColor;
     color: $backgroundColor;
 }
+
+// Spaced list
+ol.spaced > li {
+    margin-bottom: 1em;
+}
+
+ol.spaced:last-child {
+    margin: 0em;
+}
+
+// Lecture overview table
+table.overview td.current {
+    font-weight: bold;
+}
+
+table.overview tr td {
+    border: 0px;
+}
+
+table.overview tr:nth-child(6n), table.overview tr:nth-child(6n-1), table.overview tr:nth-child(6n-2) {
+    background-color: lightgrey;
+}
