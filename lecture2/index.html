@@ -312,7 +312,7 @@ reveal:
 
         <br>
 
-        <hr style="margin-top:1em">
+        <hr style="margin-top:1em; border-top: 2px dashed black">
 
         <br>
 
@@ -366,15 +366,101 @@ reveal:
     </section>
 
     <section>
-        <h3>Evolutionary interpretation of match/mismatch scores</h3>
+        <h3>Interpretation of match/mismatch scores (DNA)</h3>
+
+        <div style="display:inline-block; width:400px">
+                $P_{a=b}=\frac{1}{4} + \frac{3}{4}e^{-\frac{3}{4}d}$
+
+                <br>
+
+                \begin{align*}
+                P_{a\neq b} = & 1-P_{a=b}\\
+                & \frac{3}{4} - \frac{3}{4}e^{-\frac{3}{4}d}
+                \end{align*}
+
+                <br>
+        </div>
+        <div class="figure inline">
+        <svg width="400" height="150">
+            <line x1="50" y1="100" x2="350" y2="100" fill="none" stroke="black" stroke-width="2"/>
+            <text x="30" y="110">a</text>
+            <text x="360" y="110">b</text>
+
+            <line x1="50" y1="50" x2="350" y2="50" fill="none" stroke="gray" stroke-width="2"
+            marker-end="url(#endarrow)" marker-start="url(#startarrow)"/>
+            <text x="170" y="40">d = &mu;t</text>
+        </svg><br>
+        <ul style="font-size:0.8em">
+            <li>$d=0.1$ is roughly 90% similarity</li>
+            <li>$d$ is average number of changes per site</li>
+        </ul>
+        </div>
+
+        <hr style="margin-top:1em; border-top: 2px dashed black">
+
+        <div style="display:inline-block; width:400px">
+            $\lim_{d\rightarrow\infty}P_{a=b}(d)=\frac{1}{4}$
+
+                <br>
+                <br>
+
+            $\lim_{d\rightarrow\infty}P_{a\neq b}(d)=\frac{3}{4}$
+
+                <br>
+                <br>
+        </div>
+        <div class="figure inline">
+        <svg width="400" height="150">
+            <line x1="50" y1="100" x2="350" y2="100" fill="none" stroke="black" stroke-width="2"/>
+            <polygon points="195 110, 195 90, 205 90, 205 110" fill="white"/>
+
+            <line x1="195" y1="110" x2="195" y2="90" fill="none" stroke="black" stroke-width="2"/>
+            <line x1="205" y1="110" x2="205" y2="90" fill="none" stroke="black" stroke-width="2"/>
+            <text x="30" y="110">a</text>
+            <text x="360" y="110">b</text>
+
+            <line x1="50" y1="50" x2="350" y2="50" fill="none" stroke="gray" stroke-width="2"
+            marker-end="url(#endarrow)" marker-start="url(#startarrow)"/>
+            <text x="170" y="40">d = &infin;</text>
+        </svg>
+        </div>
+
     </section>
 
     <section>
         <h3>Log-odds match score</h3>
+
+        <br>
+        <br>
+
+        <div style="font-size:2em">
+        \begin{align*}
+        s(a,a) &= \frac{1}{\lambda}\log\frac{P_{aa}(d)}{\lim_{d\rightarrow\infty}P_{aa}}\\
+        &=\frac{1}{\lambda}\log\frac{P_{aa}(d)}{1/4}
+        \end{align*}
+        </div>
     </section>
 
     <section>
         <h3>Log-odds mismatch score</h3>
-    </section>
+ 
+        <br>
+        <br>
+
+        <div style="font-size:2em">
+        \begin{align*}
+        s(a,b) &= \frac{1}{\lambda}\log\frac{P_{ab}(d)}{\lim_{d\rightarrow\infty}P_{ab}}\\
+        &=\frac{1}{\lambda}\log\frac{P_{ab}(d)}{3/4}
+        \end{align*}
+        </div>
+   </section>
+
+   <section>
+       <h3>Variation of match/mismatch probs with $d$</h3>
+   </section>
+   <section>
+       <h3>Variation of match/mismatch scores with $d$</h3>
+   </section>
+
 
 </section>
