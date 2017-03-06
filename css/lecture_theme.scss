@@ -120,11 +120,11 @@ div.textbox.alert > .title {
 }
 
 // Spaced list
-ol.spaced > li {
+.spaced > li {
     margin-bottom: 1em;
 }
 
-ol.spaced:last-child {
+.spaced:last-child {
     margin: 0em;
 }
 

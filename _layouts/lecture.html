@@ -40,10 +40,10 @@
                 <section class="titlepage center">
                     <div class="course">{{site.course}}</div>
 
-                    <div class="title">{{lecture.title}}</div>
+                    <div class="title">Lecture {{page.lecture_num}}: {{lecture.title}}</div>
 
                     <div class="lecturer">Lecturer: {{lecture.lecturer}}
-                        {% if page.slide_credit != null %}
+                        {% if lecture.slide_credit != null %}
                         <br>Based on slides by {{lecture.slide_credit}}
                         {% endif %}
                     </div>
