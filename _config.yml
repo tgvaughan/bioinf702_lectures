@@ -39,6 +39,6 @@ defaults:
                 progress: false
                 history: false
                 center: false
-                mouseWheel: false
+                mouseWheel: true
                 slideNumber: false
                 transition: none

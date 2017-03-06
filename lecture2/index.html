@@ -3,6 +3,7 @@ lecture_num: 2
 
 reveal:
     history: true
+    slideNumber: true
 ---
 
 <section>
@@ -20,12 +21,32 @@ reveal:
     </ol>
 </section>
 
-<section class="center">
+<section>
     <h2>Sequence Homology</h2>
 
-    <div class="textbox">
-        Test
+    <div class="textbox" style="width: 80%; margin-left:10%; margin-top:2em">
+        <div class="title">Definition of Homology</div>
+        Homology is the existence of a <b>shared ancestry</b> between a pair of biological traits or sequences.
     </div>
+
+
+    <ul style="margin-top:2em">
+        <li>Expect homologous sequence regions to display a degree of similarity.</li>
+        <li>The statement that two sequence regions are homolgous is an <b>evolutionary
+                hypothesis</b> based on similarity: it is rarely possible to observe homology
+            directly.</li>
+        <li>Homologous sequences are referred to as <b>homologs</b>.</li>
+        <li style="margin-top: 1em">Different kinds of homologs:
+            <ul>
+                <li><b>Orthology</b>: ancestral sequences separated by <b>speciation</b>.</li>
+                <li><b>Paralogy</b>: ancestral sequences seaparated by <b>gene duplication</b>.</li>
+                <li><b>Xenology</b>: homologs due to <b>horizontal gene transfer</b>.</li>
+                <li>...</li>
+            </ul>
+        </li>
+
+    </ul>
+
 </section>
 
 <section>
@@ -34,15 +55,42 @@ reveal:
     </section>
 
     <section>
-        <h3>The goal of sequence alignment</h3>
+        <h3>The goal of pairwise alignment</h3>
+
+        <blockquote style="margin-top:10%">
+            Aligning one sequence with another allows us to easilly assess the degree to which the two sequences are homologous.
+        </blockquote>
+
+        <blockquote style="margin-top:2em">Alignment allows us to break down the question of sequence
+            similarity into a large number of smaller questions about character
+            similarity.</blockquote>
+    </section>
+
+    <section>
+        <h3>Dot Plots</h3>
+
+        <p>A simple means of assessing pairwise homology visually.</p>
+
+        <p>Consider the following pair of sequences:</o>
+        <ol>
+            <li>decided to build three ships, three Arks in space</li>
+            <li>decided to build three Arks in space</li>
+        </ol>
+        <div class="figure">
+            <img data-src="dotplot.png">
+            <div class="cite"><a class="cite" href="https://www.jwhitham.org/magrathea/adiff.html">https://www.jwhitham.org/magrathea/adiff.html</a></div>
+        </div>
+
+        <ul style="margin-top:1em;">
+            <li>Each row corresponds to a position on seq 1, each column to a position on seq 2.</li>
+            <li>Pixel $(i,j)$ is coloured if the characters at site $i$ on seq 1 and $j$ on seq 2 match.</li>
+            <li>Diagonal lines indicate runs of matching sites.</li>
+        </ul>
     </section>
 
     <section>
         <h3>Dynamic Programming</h3>
-    </section>
 
-    <section>
-        <h3>Pairwise Alignment</h3>
     </section>
 
     <section>
