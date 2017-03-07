@@ -434,15 +434,113 @@ reveal:
 
     <section>
         <h3>Profile alignment</h3>
+
+        <img data-src="profile_align.svg" style="width:70%;">
+
+        <br>
+
+        Total alignment score: $S(A) + S(B) + S(A\times B)$
     </section>
+
+    <section>
+        <h3>CLUSTALW</h3>
+
+        <ul class="spaced" style="margin-top:2em;">
+            <li><a href="https://doi.org/10.1093/nar/22.22.4673">Thompson, Higgins, Gibson (1994)</a> (55k citations!)</li>
+        <li>Widely used implementation of profile-based progressive multiple alignment</li>
+        <li>Essentially Feng-Doolittle, but uses profile alignment.</li>
+        </ul>
+
+        <br>
+
+        <p>Overview:</p>
+        <ol>
+            <li>Calculate matrix of $\binom{N}{2}$ distances between all pairs
+                of $N$ sequences.</li>
+            <li>Construct a guide tree using a clustering algorithm such as
+                UPGMA or neighbour-joining.</li>
+            <li>Progressively align at internal nodes in order of decreasing
+            similarity using sequence-sequence, sequence-profile and
+            profile-profile alignment.</li>
+        </ol>
+
+        <br>
+
+        <p>Employs many other heuristics.</p>
+    </section>
+
 </section>
 
 <section>
     <h2>Iterative refinement</h2>
+
+    <p>I.e. "hill climbing".  Slightly change solution to improve score.  Converge to local optimum.</p>
+
+    <p>E.g. <a href="http://dx.doi.org/10.1016/0022-2836(87)90316-0">Barton-Sternberg (1987)</a> multiple alignment:</p>
+    <ol>
+        <li>Find the two sequences with the highest pairwise similarity and align them using standard dynamic programming alignment.</li>
+        <li>Find sequence most similar to a profile of the alignment of the first two and align using profile-sequence alignment.</li>
+        <li>Repeat 2 until all sequences have been included.</li>
+        <li>Remove sequence $X^{(1)}$ and realign it to a profile of the remaining aligned sequences $X^{(2)},\ldots,X^{(N)}$ by profile-sequence alignment. Repeat for sequences $X^{(2)},\ldots,X^{(N)}$.</li>
+        <li>Repeat previous step a fixed number of times, or until the alignment score converges to some value.</li>
+    </ol>
 </section>
 
 <section>
-    <h2>Bali-Phy</h2>
+    <h2>Alignment: General considerations</h2>
+
+    <ul class="spaced" style="margin-top:2em;width:80%">
+        <li>These algorithms simply try to maximize the number of matches
+            <ul>
+                <li>Even the "best" alignment may not be the <b>correct</b> biological one.</li>
+            </ul>
+        </li>
+
+        <li>Multiple alignments are done progressively
+            <ul>
+                <li>Such alignments get progressively worse as you add sequences.</li>
+                <li>Mistakes that occur during the alignment process are frozen in.</li>
+            </ul>
+        </li>
+
+        <li>Unless the sequences are very similar you will almost certainly
+        have to correct manually.</li>
+    </ul>
+
+    <blockquote>
+        Is there a better alternative?
+    </blockquote>
+</section>
+
+<section>
+    <h2>Statistics: fitting vs modeling</h2>
+
+    <ul class="spaced" style="margin-top:2em; width:80%">
+        <li>Statistical fitting of sequence variation:
+        <ul>
+            <li>Count frequencies of changes in real data sets</li>
+            <li>Build empirical statistical descriptions of the data (BLOSUM62)</li>
+            <li>Compare observed frequencies to well-defined null hypothesis for testing (log-odds ratio and scores)</li>
+            <li>Use scores in <i>ad hoc</i> algorithms for search and alignment (BLAST and ClustalX)</li>
+        </ul>
+        </li>
+
+        <li>Probabilistic models of sequence evolution:
+            <ul>
+                <li>Describe a probabilistic model in terms of a process of evolution, rates of substitution, insertion and deletion.</li>
+                <li>Estimate parameters of the model and compare models using Bayes factors.</li>
+                <li>Use Bayesian inference to co-estimate alignment and evolutionary history, together with estimate uncertainties.</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>BAli-Phy</h2>
+
+    <img data-src="baliphy.jpeg" style="width:100%">
+
+    <a href="https://doi.org/10.1093/bioinformatics/btl175">Suchard and Redelings, Bioinformatics (2006)</a>
 </section>
 
 <section>
