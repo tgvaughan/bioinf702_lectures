@@ -65,7 +65,7 @@ reveal:
     </section>
 
     <section>
-        <h3>Scoring function: Sum of pairs</h3>
+        <h3>Scoring function: Sum of pairs (SP)</h3>
 
         <dl class="spaced">
             <dt>Column score:</dt>
@@ -87,7 +87,45 @@ reveal:
     </section>
 
     <section>
-        <h3>Scoring function: tree based</h3>
+        <h3>Problems with SP scoring of MSAs</h3>
+
+        <ul class="spaced" style="margin-top:10%;width:60%">
+            <li>Substitution scores derived as log-odds scores for <b>pairwise</b> comparisons.</li>
+            <li>The "right thing" would be to construct log-odds scores for triples, quadruples, etc. (depending on the number of rows in the alignment). E.g.
+                \begin{align*}
+                s(a,b,c) &amp; = \log\frac{p_{abc}}{f_af_bf_c}\\
+                &amp; \neq \log\frac{p_{ab}}{f_af_b}
+                         + \log\frac{p_{ac}}{f_af_c}
+                         + \log\frac{p_{bc}}{f_bf_c}
+                \end{align*}
+            </li>
+
+            <li>No probabilistic justification!</li>
+        </ul>
+    </section>
+
+
+    <section>
+        <h3>Another way to think about the problem</h3>
+
+        <img data-src="tree_vs_SP.svg" style="width:100%;box-shadow:none">
+    </section>
+
+    <section>
+        <h3>Tree-based scores</h3>
+        
+        <p style="margin-top:10%">Thought to be the most biologically appropriate, but</p>
+        <ul class="spaced" style="width:60%">
+            <li>We don't know the tree.</li>
+            <li>We need to infer the characters on internal nodes to identify
+            most parsimonious history.</li>
+            <li>There may be different trees for different parts of the alignment (recombination!)</li>
+        </ul>
+
+        <blockquote>
+            Sum of pairs is almost always used in practice.
+        </blockquote>
+
     </section>
 </section>
 
