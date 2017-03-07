@@ -29,9 +29,11 @@ reveal:
 <section>
     <h2>What is a Multiple Sequence Alignment?</h2>
 
+    <div class="figure">
     <img data-src="ebola_align.png" style="width:50%">
+    </div>
 
-    <div class="textbox">
+    <div class="textbox" style="margin-top:1em">
         <p>Given sequences $X^{(1)},\ldots,X^{(N)}$ of lengths $n_1,\ldots,n_N$, seek
         $A^{(1)},\ldots,A^{(N)}$ of length $n\geq\max\{n_i\}$ such that</p>
         <ul>
@@ -108,7 +110,7 @@ reveal:
     <section>
         <h3>Another way to think about the problem</h3>
 
-        <img data-src="tree_vs_SP.svg" style="width:100%;box-shadow:none">
+        <img data-src="tree_vs_SP.svg" style="width:100%">
     </section>
 
     <section>
@@ -163,8 +165,8 @@ reveal:
         <h3>Na&iuml;ve approach</h3>
 
         <div style="width:80%;height:400px;position:relative;top:2em;left:10%">
-        <img data-src="MDP.svg" style="width:100%;box-shadow:none;position:absolute;left:0;top:0">
-        <img class="fragment" data-src="MDP2.svg" style="width:100%;box-shadow:none;position:absolute;left:0;top:0;background-color:white">
+        <img data-src="MDP.svg" style="width:100%;position:absolute;left:0;top:0">
+        <img class="fragment" data-src="MDP2.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
         </div>
     </section>
 
@@ -193,12 +195,15 @@ reveal:
         <h3>Improved DP algorithm</h3>
 
         <ul>
-            <li><a href="">Carrillo &amp; Lipman (1988)</a> presented an algorithm implemented by the program MSA <a href="">(Lipman, Altschul &amp; Kececioglu, 1989)</a> with improved scaling properties.</li>
+            <li><a href="">Carrillo &amp; Lipman (1988)</a> presented an
+                algorithm implemented by the program MSA <a href="">(Lipman,
+                    Altschul &amp; Kececioglu, 1989)</a> with improved scaling
+                properties.</li>
             <li>Implements constraints on pairwise alignment scores that can be
                 part of the optimal multiple sequence alignment.</li>
         </ul>
 
-        <img data-src="MDP_MSA.svg" style="width:70%;box-shadow:none">
+        <img data-src="MDP_MSA.svg" style="width:70%">
 
         <p>A big improvement, but still impractical for most alignment problems.</p>
     </section>
@@ -233,7 +238,7 @@ reveal:
     <section>
         <h3>General idea</h3>
 
-        <img data-src="progressive.svg" style="box-shadow:none;width:80&">
+        <img data-src="progressive.svg" style="width:80&">
 
         <p>Decisions:</p>
         <ol>
@@ -246,7 +251,7 @@ reveal:
     <section>
         <h3>Guide trees</h3>
 
-        <img data-src="guide_tree.svg" style="box-shadow:none;width:80%">
+        <img data-src="guide_tree.svg" style="width:80%">
 
         <ul class="spaced" style="margin-top:1em">
             <li>Progressive alignment algorithms employ "guide trees" to guide the order
@@ -258,7 +263,112 @@ reveal:
     </section>
 
     <section>
-        <h3>The UPGMA clustering (tree-building) algorithm</h3>
+        <h3>The UPGMA tree-building algorithm</h3>
+
+        <ul>
+            <li>Clustering algorithm based on pairwise distances.</li>
+            <li>Requires some distance  $d(k,l)$ for every pair of items.</li>
+        </ul>
+
+        <div style="position:relative;width:100%;height:400px">
+            <div style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA6.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & A & B & C & D \\
+                        A & - & 4 & 8 & 8 \\
+                        B &   & - & 8 & 8 \\
+                        C &   &   & - & 8 \\
+                        D &   &   &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+            <div class="fragment"
+                style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA5.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & A & B & C & D \\
+                        A & - & 4 & 8 & 8 \\
+                        B &   & - & 8 & 8 \\
+                        C &   &   & - & 8 \\
+                        D &   &   &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+            <div class="fragment"
+                style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA4.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & E & C & D \\
+                        E & - & 8 & 8 \\
+                        C &   & - & 6 \\
+                        D &   &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+            <div class="fragment"
+                style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA3.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & E & C & D \\
+                        E & - & 8 & 8 \\
+                        C &   & - & 6 \\
+                        D &   &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+            <div class="fragment"
+                style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA2.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & E & F \\
+                        E & - & 8 \\
+                        F &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+            <div class="fragment"
+                style="position:absolute;left:0;top:0;width:100%;height:400px;background-color:white">
+                <img data-src="UPGMA1.svg" style="position:absolute;left:0;top:0;width:50%">
+                <div style="position:absolute;right:0;top:2em;width:50%">
+                    <p>Distance matrix:</p>
+                    \begin{equation*}
+                        d = \begin{array}{cccc}
+                          & E & F \\
+                        E & - & 8 \\
+                        F &   & -
+                        \end{array}
+                    \end{equation*}
+                </div>
+            </div>
+
+
+        </div>
     </section>
 
     <section>

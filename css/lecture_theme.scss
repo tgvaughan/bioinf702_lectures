@@ -62,8 +62,9 @@ div.figure.inline {
     display: inline-block;
 }
 
-div.figure img {
+.reveal div.figure img {
     margin-bottom: 0px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 div.figure div.cite {
@@ -75,8 +76,8 @@ div.figure div.caption {
 }
 
 .reveal section img {
+    box-shadow: none;
     border: none;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .reveal blockquote {
