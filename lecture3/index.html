@@ -372,21 +372,24 @@ reveal:
     </section>
 
     <section>
-        <h2>Feng-Doolittle</h2>
+        <h3>Feng-Doolittle: Overview</h3>
 
-        <p style="margin-top:2em">Overview:</p>
-        <ol class="spaced">
-            <li>Calculate diagonal matrix of $\binom{N}{2}$ distances between
+        <p>Progressive alignment algorithm published in 1987 (<a class="cite"
+                    href="http://dx.doi.org/10.1007/BF02603120">Feng and
+                    Doolittle, J. Mol Evol</a>).</p>
+
+        <ol class="spaced" style="width:80%">
+                <li class="fragment">Calculate diagonal matrix of $\binom{N}{2}$ distances between
                 all pairs of $N$ sequences by standard pairwise alignment,
                 converting raw alignment scores to approximate pairwise
                 "distances":
                 \[
-                d(k,l) = -\log\frac{S(k,l)-S_{\text{rand}}}{S_{\text{max}}-S_{\text{rand}}}
+                d(k,l) = -\log\frac{S(A^{(k)},A^{(l)})-S_{\text{rand}}}{S_{\text{max}}-S_{\text{rand}}}
                 \]
-            </li>
-            <li>Construct guide tree using UPGMA or some other clustering
+            </li class="fragment">
+            <li class="fragment">Construct guide tree using UPGMA or some other clustering
                 algorithm.</li>
-            <li>Starting from the first internal node added to the tree, align
+            <li class="fragment">Starting from the first internal node added to the tree, align
                 the child nodes (which may be two sequences, a sequence and an
                 alignment, or two alignments). Repeat for all other nodes in
                 the order that they were added to the tree, until all sequences
@@ -394,9 +397,43 @@ reveal:
         </ol>
     </section>
 
+    <section>
+        <h3>Feng-Doolittle: Sequence$\leftrightarrow$Group alignment</h3>
+
+        <div style="width:100%;height:500px;position:relative;top:2em;">
+            <img data-src="FD_seq_to_group.svg" style="width:100%;position:absolute;left:0;top:0">
+            <img class="fragment" data-src="FD_seq_to_group2.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_seq_to_group3.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_seq_to_group4.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_seq_to_group5.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+        </div>
+    </section>
 
     <section>
-        <h2>Profile alignment</h2>
+        <h3>Feng-Doolittle: Group$\leftrightarrow$Group alignment</h3>
+
+        <div style="width:100%;height:500px;position:relative;top:1em;">
+            <img data-src="FD_group_to_group.svg" style="width:100%;position:absolute;left:0;top:0">
+            <img class="fragment" data-src="FD_group_to_group2.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_group_to_group3.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_group_to_group4.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_group_to_group5.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+            <img class="fragment" data-src="FD_group_to_group6.svg" style="width:100%;position:absolute;left:0;top:0;background-color:white">
+        </div>
+    </section>
+
+    <section>
+        <h3>Feng-Doolittle</h3>
+
+        <ul class="spaced" style="margin-top:10%">
+            <li>After alignment is completed, gap symbols replaced by neutral "X" character.</li>
+            <li>Feng and Doolittle call this the rule of "once a gap, always a gap".</li>
+            <li>Encourages gaps to occur in same columns in subsequent alignments.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>Profile alignment</h3>
     </section>
 </section>
 
