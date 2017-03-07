@@ -22,4 +22,101 @@ reveal:
     </ol>
 </section>
 
+<section>
+    <h2>Recap of previous lecture</h2>
+</section>
 
+<section>
+    <h2>What is a Multiple Sequence Alignment?</h2>
+
+    <img data-src="ebola_align.png" style="width:50%">
+
+    <div class="textbox">
+        <p>Given sequences $X^{(1)},\ldots,X^{(N)}$ of lengths $n_1,\ldots,n_N$, seek
+        $A^{(1)},\ldots,A^{(N)}$ of length $n\geq\max\{n_i\}$ such that</p>
+        <ul>
+            <li>Obtain $X^{(i)}$ from $A^{(i)}$ by removing gap characters,</li>
+            <li>No columns contain all gaps,</li>
+            <li>The <b>score</b> of the alignment is optimal.</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>Nomenclature</h2>
+
+    <div class="textbox" style="margin-top:10%; width:50%; position:relative; left:25%">
+        <dl class="spaced">
+            <dt>Sequence $i$</dt>
+            <dd>$X^{(i)} = (x^{(i)}_1,x^{(i)}_2,\ldots,x^{(i)}_{n_i})$</dd>
+
+            <dt>Row $i$ in alignment</dt>
+            <dd>$A^{(i)} = (a^{(i)}_1,a^{(i)}_2,\ldots,a^{(i)}_n)$</dd>
+
+            <dt>Column $j$ in alignment</dt>
+            <dd>$A_j = (a_j^{(1)}, a_j^{(2)}, \ldots, a_j^{(N)})$</dd>
+        </dl>
+    </div>
+</section>
+
+<section>
+    <section class="center">
+        <h2>Scoring Multiple Sequence Alignments</h2>
+    </section>
+
+    <section>
+        <h3>Scoring function: Sum of pairs</h3>
+
+        <dl class="spaced">
+            <dt>Column score:</dt>
+            <dd>$$S(A_i) = \sum_{j=1}^N\sum_{k=j+1}^N s(a_i^{(j)},a_i^{(k)})$$</dd>
+        </dl>
+
+        <pre style="font-size:2em;padding-bottom:0px;width:50%;padding">
+     A-CTCAT
+     A-GTC-T
+     ACGTC-T</pre>
+
+        <dl class="spaced">
+            <dt>Column 3 score:</dt>
+            <dd>$s(C,G) + s(C,G) + s(G,G) = \text{match}+2\times\text{mismatch}$</dd>
+
+            <dt>Column 6 score:</dt>
+            <dd>$s(A,-) + s(A,-) + s(-,-) = -2\times\text{gap} + s(-,-) = -2\times\text{gap}$</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h3>Scoring function: tree based</h3>
+    </section>
+</section>
+
+<section>
+    <section class="center">
+        <h2>Na&iuml;ve Dynamic Programming Algorithm</h2>
+    </section>
+
+    <section>
+        <h3>Computational burden of naive algorithm</h3>
+    </section>
+</section>
+
+
+<section>
+    <section class="center">
+        <h2>Progressive alignment</h2>
+    </section>
+
+    <section>
+        <h2>Feng-Doolittle</h2>
+    </section>
+
+
+    <section>
+        <h2>Profile alignment</h2>
+    </section>
+</section>
+
+<section>
+    <h2>Iterative refinement</h2>
+</section>
