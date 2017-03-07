@@ -160,11 +160,67 @@ reveal:
     </section>
 
     <section>
-        <h3>Computational burden of naive algorithm</h3>
+        <h3>Na&iuml;ve approach</h3>
+
+        <div style="width:80%;height:400px;position:relative;top:2em;left:10%">
+        <img data-src="MDP.svg" style="width:100%;box-shadow:none;position:absolute;left:0;top:0">
+        <img class="fragment" data-src="MDP2.svg" style="width:100%;box-shadow:none;position:absolute;left:0;top:0;background-color:white">
+        </div>
+    </section>
+
+    <section>
+        <h3>Computational burden of na&iuml;ve DP approach</h3>
+
+        <ul class="spaced" style="width:60%;margin-top:2em;">
+            <li>$F$ consists of $\prod_{q=1}^{N}n_q$ terms:
+                <ul><li>$\sim O(n^N)$ space complexity.</li></ul></li>
+            <li>Computing each element of $F$ requires maximizing over $2^N-1$ possibilities:
+                <ul><li>$\sim O(2^Nn^N)$ time complexity.</li>
+                    <li>(traceback negligible cost in comparison)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <blockquote style="margin-top:2em">
+            Even aside from the time cost, the space requirement for this
+            algorithm is prohibitive.  Storing $F$ for an alignment of 5$\times$100
+            character sequences requires $101^5\simeq 10^{10}$ numbers.  Assuming 32 bit
+            integers, this equates to $\sim$39 Gb of memory!
+        </blockquote>
     </section>
 
     <section>
         <h3>Improved DP algorithm</h3>
+
+        <ul>
+            <li><a href="">Carrillo &amp; Lipman (1988)</a> presented an algorithm implemented by the program MSA <a href="">(Lipman, Altschul &amp; Kececioglu, 1989)</a> with improved scaling properties.</li>
+            <li>Implements constraints on pairwise alignment scores that can be
+                part of the optimal multiple sequence alignment.</li>
+        </ul>
+
+        <img data-src="MDP_MSA.svg" style="width:70%;box-shadow:none">
+
+        <p>A big improvement, but still impractical for most alignment problems.</p>
+    </section>
+
+    <section>
+        <h3>Multiple Alignment Software</h3>
+
+        <blockquote style="margin-top:2em">Really need approximation methods.</blockquote>
+
+        <p style="margin-top:1em">Different techniques:</p>
+        <ol class="spaced" style="width:80%">
+            <li>Progressive global alignment of sequence starting with an
+                alignment of the most similar sequences and then building a
+                full alignment by adding more sequences.</li>
+            <li>Iterative methods that make an initial alignment of groups of
+                sequences and then iteratively refine the alignment to achieve
+                a better result. (Barton-Sternberg, Simulated annealing,
+                stochastic hill climbing, genetic algorithms.)</li>
+            <li>Use of probabilistic models of the indel and substitution
+                process to do statistical inference of alignment. ("Statistical
+                alignment.")</li>
+        </ol>
     </section>
 </section>
 
@@ -172,6 +228,37 @@ reveal:
 <section>
     <section class="center">
         <h2>Progressive alignment</h2>
+    </section>
+
+    <section>
+        <h3>General idea</h3>
+
+        <img data-src="progressive.svg" style="box-shadow:none;width:80&">
+
+        <p>Decisions:</p>
+        <ol>
+            <li>Order of alignments.</li>
+            <li>Alignment of sequence to group only, or allow group to group.</li>
+            <li>Method of alignment, scoring function.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h3>Guide trees</h3>
+
+        <img data-src="guide_tree.svg" style="box-shadow:none;width:80%">
+
+        <ul class="spaced" style="margin-top:1em">
+            <li>Progressive alignment algorithms employ "guide trees" to guide the order
+                in which sequences are progressively aligned.</li>
+            <li>In practice these are very rough phylogenetic trees (cheap to
+                compute), unsuitable for serious phylogenetic inference but
+                used instead simply to bootstrap the alignment process.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>The UPGMA clustering (tree-building) algorithm</h3>
     </section>
 
     <section>
@@ -186,4 +273,16 @@ reveal:
 
 <section>
     <h2>Iterative refinement</h2>
+</section>
+
+<section>
+    <h2>Summary</h2>
+</section>
+
+<section>
+    <h2>Recommended reading</h2>
+
+    <ul>
+        <li>Chapter 6 of "Biological Sequence Analysis", Durbin et al., CUP, 1998.</li>
+    </ul>
 </section>
