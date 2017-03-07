@@ -373,6 +373,25 @@ reveal:
 
     <section>
         <h2>Feng-Doolittle</h2>
+
+        <p style="margin-top:2em">Overview:</p>
+        <ol class="spaced">
+            <li>Calculate diagonal matrix of $\binom{N}{2}$ distances between
+                all pairs of $N$ sequences by standard pairwise alignment,
+                converting raw alignment scores to approximate pairwise
+                "distances":
+                \[
+                d(k,l) = -\log\frac{S(k,l)-S_{\text{rand}}}{S_{\text{max}}-S_{\text{rand}}}
+                \]
+            </li>
+            <li>Construct guide tree using UPGMA or some other clustering
+                algorithm.</li>
+            <li>Starting from the first internal node added to the tree, align
+                the child nodes (which may be two sequences, a sequence and an
+                alignment, or two alignments). Repeat for all other nodes in
+                the order that they were added to the tree, until all sequences
+                have been aligned.</li>
+        </ol>
     </section>
 
 
@@ -383,6 +402,10 @@ reveal:
 
 <section>
     <h2>Iterative refinement</h2>
+</section>
+
+<section>
+    <h2>Bali-Phy</h2>
 </section>
 
 <section>
