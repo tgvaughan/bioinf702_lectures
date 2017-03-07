@@ -131,11 +131,40 @@ reveal:
 
 <section>
     <section class="center">
-        <h2>Na&iuml;ve Dynamic Programming Algorithm</h2>
+        <h2>Multidimensional Dynamic Programming</h2>
+    </section>
+
+    <section>
+        <h3>Na&iuml;ve approach</h3>
+
+        <p>Define $F(i_1,i_2,\ldots,i_N)$ to be the score of the best alignment up to
+        the subsequences ending in $x^{(1)}_{i_1}, x^{(2)}_{i_2}, \ldots, x^{(N)}_{i_N}$.</p>
+
+        <p>We can then find the following recurrence relation:</p>
+
+        <div style="font-size:0.8em">
+        \begin{align*}
+        F(i_1,i_2,\ldots,i_N)=\max\left\{\begin{array}{lcl}
+        F(i_1-1,i_2-1,\ldots,i_N-1) &amp; + &amp; S(x^{(1)}_{i_1},x^{(2)}_{i_2},\ldots,x^{(N)}_{i_N})\\
+        F(i_1, i_2-1, \ldots,i_N-1) &amp; + &amp; S(-,x^{(2)}_{i_2},\ldots,x^{(N)}_{i_N})\\
+        F(i_1-1, i_2, i_3-1, \ldots,i_N-1) &amp; + &amp; S(x^{(1)}_{i_1},-,\ldots,x^{(N)}_{i_N}) \\
+        &amp; \vdots &amp;\\
+        F(i_1-1, i_2-1, \ldots,i_N) &amp; + &amp; S(x^{(1)}_{i_1},x^{(2)}_{i_2},\ldots,-)\\
+        F(i_1, i_2, i_3-1, \ldots,i_N) &amp; + &amp; S(-,-,\ldots,x^{(N)}_{i_N})\\
+        &amp; \vdots &amp;\\
+        F(i_1, i_2-1, \ldots, i_{N-1}-1, i_N) &amp; + &amp; S(-,x^{(2)}_{i_2},\ldots,-)\\
+        &amp; \vdots &amp;
+        \end{array}\right.
+        \end{align*}
+        </div>
     </section>
 
     <section>
         <h3>Computational burden of naive algorithm</h3>
+    </section>
+
+    <section>
+        <h3>Improved DP algorithm</h3>
     </section>
 </section>
 
