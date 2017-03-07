@@ -23,10 +23,6 @@ reveal:
 </section>
 
 <section>
-    <h2>Recap of previous lecture</h2>
-</section>
-
-<section>
     <h2>What is a Multiple Sequence Alignment?</h2>
 
     <div class="figure">
@@ -545,6 +541,24 @@ reveal:
 
 <section>
     <h2>Summary</h2>
+
+    <ol style="width:80%">
+        <li>Multiple sequence alignments usually scored using the sum of
+            pairwise alignment scores. (Sum of pairs, SP.)</li>
+        <li>Score can be maximized using dynamic programming, but scales as
+            $\sim O(n^N)$ where $n$ is the average sequence length
+            and $N$ is the number of sequences in the alignment.</li>
+        <li>Lipman et al. improved this scaling, but still impractical for all
+            but very small alignments.</li>
+        <li>Progressive alignment (e.g. Feng-Doolittle) is a very approximate
+            method based on building up alignment from successive pairwise
+            alignments.</li>
+        <li>Practical computationally but has many flaws, some of which are
+            addressed via iterative refinement.</li>
+
+        <li>Philosophically optimal approach is a Bayesian model-based joint
+            inference of the MSA and phylogeny.</li>
+    </ol>
 </section>
 
 <section>
