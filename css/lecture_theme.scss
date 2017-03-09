@@ -94,6 +94,16 @@ div.figure div.caption {
     color: $backgroundColor;
 }
 
+.reveal blockquote div.cite {
+    margin-top:1em;
+    text-align:right;
+    font-style: italic;
+}
+
+.reveal blockquote div.cite:before {
+    content: "\2014 ";
+}
+
 .reveal p {
     text-align: left;
 }
