@@ -32,21 +32,21 @@ reveal:
         <h3>Markov Chains</h3>
 
         <ul class="spaced" style="margin-top:2em">
-            <li>Markov Chains are discrete stochastic processes which obey the Makov property:
+            <li class="fragment">Markov Chains are discrete stochastic processes which obey the Makov property:
 
                 <blockquote>
                     $$P(X_{i}|X_{i-1},X_{i-2},\ldots,X_0) = P(X_i|X_{i-1})$$
                 </blockquote>
             </li>
 
-            <li>The index $i$ is often interpreted as "time", but it need not be.</li>
+            <li class="fragment">The index $i$ is often interpreted as "time", but it need not be.</li>
 
-            <li>Homogeneous Markov chains satisfy the additional requirement:
+            <li class="fragment">Homogeneous Markov chains satisfy the additional requirement:
                 <blockquote>
                     $$P(X_{i+1}=y|X_{i}=x)=P(X_i=y|X_{i-1}=x)$$
                 </blockquote>
             </li>
-            <li>This allows the vector $\vec{P}_i$ of probabilities at $i$ to be expressed as
+            <li class="fragment">This allows the vector $\vec{P}_i$ of probabilities at $i$ to be expressed as
                 $$\vec{P}_i=M\vec{P}_{i-1}=M^i\vec{P}_{0}$$
                 where $M$ is the matrix of <b>transition probailities</b>.</li>
         </ul>
@@ -81,10 +81,10 @@ reveal:
 
         <ul class="spaced" style="margin-top:10%">
             <li>For HMMs, observations are tied to states probabilistically.</li>
-            <li>Consider $Y_1,Y_2,\ldots,Y_N$ to be the sequence of hidden states
+            <li class="fragment">Consider $Y_1,Y_2,\ldots,Y_N$ to be the sequence of hidden states
                 evolving according to the transition probability matrix $M$.</li>
-            <li>Observations $X_1,X_2,\ldots,X_N$ are each drawn from $P(X_i|Y_i)$.</li>
-            <li>Assuming homogeneity lets us define
+            <li class="fragment">Observations $X_1,X_2,\ldots,X_N$ are each drawn from $P(X_i|Y_i)$.</li>
+            <li class="fragment">Assuming homogeneity lets us define
                 $$P(X_i=x|Y_i=y) =e_y(x)$$
                 to be the <b>emission probability</b>.</li>
         </ul>
@@ -121,15 +121,15 @@ reveal:
         \end{align*}
 
         <ul>
-            <li>Question: Many possible paths!! How do we find the best one?</li>
-            <li>Answer: Dynamic Programming!</li>
+            <li class="fragment">Question: Many possible paths!! How do we find the best one?</li>
+            <li class="fragment">Answer: Dynamic Programming!</li>
         </ul>
 
-        <p>Define $v_k(i)$ as the joint probability of the most probable (sub) path ending with
-        observation number $i$ in state $k$.  If this is known for all states $k$, can compute:</p>
-        $$v_l(i+1) = e_l(x_{i+1})\max_{k}(v_k(i)M_{kl})$$
+        <p class="fragment">Define $v_k(i)$ as the joint probability of the most probable (sub) path ending with
+        observation number $i$ in state $k$.  If this is known for all states $k$, can compute:
+        $$v_l(i+1) = e_l(x_{i+1})\max_{k}(v_k(i)M_{kl})$$</p>
 
-        <blockquote>
+        <blockquote class="fragment">
             Optimal substructure!
         </blockquote>
     </section>
@@ -215,9 +215,9 @@ reveal:
         <p>This algorithm computes the probability of the sequence of observations given the model.<br>
         It is trivial to derive.</p>
 
-        <p>Define $f_k(i) = P(X_1,\ldots,X_i,Y_i=k)$.</p>
+        <p class="fragment">Define $f_k(i) = P(X_1,\ldots,X_i,Y_i=k)$.</p>
 
-        <div class="textbox" style="width:70%;margin-left:15%;">
+        <div class="textbox fragment" style="width:70%;margin-left:15%;">
             <dl class="spaced">
                 <dt>Initialization</dt><dd> $$f_k(0) = P(Y_0=k)$$ </dd>
                 <dt>Recursion ($i=1\ldots L$)</dt>
@@ -233,21 +233,21 @@ reveal:
         <h2>Posterior state probabilities</h2>
 
         <p>It is interesting to know the posterior probability of hidden states at each site.</p>
-        <blockquote>
+        <blockquote class="fragment">
             This is <b>NOT</b> the posterior distribution over paths. Stringing together the
             most probable states may not even produce a valid path!
         </blockquote>
 
-        <p>Start by considering:<p>
+        <p class="fragment">Start by considering:
         \begin{align*}
         P(\vec{X}, Y_i=k) &amp;= P(X_1,\ldots,X_i,Y_i=k)P(X_{i+1},\ldots,X_L|X_1,\ldots,X_{i},Y_i=k)\\
         &amp; = P(X_1,\ldots,X_i,Y_i=k)P(X_{i+1},\ldots,X_L|Y_i=k)\\
         &amp; \equiv f_k(i) b_k(i)
-        \end{align*}
+        \end{align*}</p>
 
-        <p>Use a similar recursion to the forward algorithm to find $b_k(i)$.</p>
+        <p class="fragment">Use a similar recursion to the forward algorithm to find $b_k(i)$.</p>
 
-        <p>Then $$P(Y_i=k|\vec{X}) = \frac{f_k(i)b_k(i)}{P(\vec{X})}$$ where
+        <p class="fragment">Then $$P(Y_i=k|\vec{X}) = \frac{f_k(i)b_k(i)}{P(\vec{X})}$$ where
         $P(\vec{X})$ is computed using either the forward or backward
         algorithms.</p>
     </section>
@@ -257,9 +257,9 @@ reveal:
 
         <p>This algorithm implements the recursion required to compute $b_k(i)$</p>
 
-        <p>Define $b_k(i) = P(X_{i+1},\ldots,X_L|Y_i=k)$.</p>
+        <p class="fragment">Define $b_k(i) = P(X_{i+1},\ldots,X_L|Y_i=k)$.</p>
 
-        <div class="textbox" style="width:70%;margin-left:15%;">
+        <div class="textbox fragment" style="width:70%;margin-left:15%;">
             <dl class="spaced">
                 <dt>Initialization</dt><dd> $$b_k(L+1) = 1$$</dd>
                 <dt>Recursion ($i=L-1\ldots 1$)</dt>
@@ -322,11 +322,11 @@ reveal:
         where $\mathcal{A}_{kl}$ are the number of transitions between states
         $k$ and $l$ on the trajectory.</p>
 
-        <p>Similarly,
+        <p class="fragment">Similarly,
         $$e_{k}(x) = \frac{E_{k}(x)}{\sum_{k'}E_{k'}(x)}$$
         where $E_k(x)$ is the number of emissions of $x$ from state $k$.</p>
 
-        <p>These are maximum likelihood (point) estimates. Can use <i>pseudo-count</i> offsets to
+        <p class="fragment">These are maximum likelihood (point) estimates. Can use <i>pseudo-count</i> offsets to
         avoid problems due to overfitting and insufficient data.</p>
         
     </section>
@@ -372,8 +372,8 @@ reveal:
     <section>
         <h3>Pairwise alignment with HMMs</h3>
 
-        <p style="margin-top:5%">The following FSM describes an HMM that generates pairs of aligned sequences:</p>
-        <img data-src="pair_HMM.svg" style="width:80%;margin-top:2em">
+        <p>The following FSM describes an HMM that generates pairs of aligned sequences:</p>
+        <img data-src="pair_HMM.svg" style="width:80%">
     </section>
 
     <section>
@@ -417,15 +417,16 @@ reveal:
     <section>
         <h3>Log-odds formulation</h3>
 
-        <ul style="width:70%;margin-top:10%">
-            <li>Can produce (more!) exact analogues of the dynamic programming algorithms we saw earlier.</li>
-            <li>Needleman &amp; Wunch essentially produces a Viterbi path
+        <ul style="width:70%;margin-top:5%">
+            <li class="fragment">Can produce (more!) exact analogues of the dynamic programming algorithms we saw earlier.</li>
+            <li class="fragment">Needleman &amp; Wunch essentially produces a Viterbi path
             through a pair HMM with the following correspondences:</li>
         </ul>
 
         <br>
         <br>
 
+        <div class="fragment">
         \begin{align*}
         s(a,b) &amp;= \log\frac{p_{ab}}{q_aq_b} + \log\frac{(1-2\delta-\tau)}{(1-\eta)^2}\\
         d &amp;= -\log\frac{\delta(1-\epsilon-\tau)}{(1-\eta)(1-2\delta-\tau)}\\
@@ -433,25 +434,26 @@ reveal:
         \end{align*}
 
         <br>
-        (Here $\eta$ is the parameter determining the length of the alignment under the null model
-        without the assumption of homology, used to construct log-odds values.)
+
+        Here $\eta$ is the parameter determining the length of the alignment under the null model
+        without the assumption of homology, used to construct log-odds values.)</div>
     </section>
 
     <section>
         <h3>Pairwise alignment probabilities</h3>
 
         <ul style="width:80%;margin-top:2em">
-            <li>Pair HMMs aren't just useful for rationalizing Needleman &amp; Wunch.</li>
-            <li>They allow us to compute the overall probability that sequences are related by <b>any</b> alignment:
+            <li class="fragment">Pair HMMs aren't just useful for rationalizing Needleman &amp; Wunch.</li>
+            <li class="fragment">They allow us to compute the overall probability that sequences are related by <b>any</b> alignment:
                 $$P(\vec{x},\vec{y}) = \sum_{\text{alignments }\alpha}P(\vec{x},\vec{y},\alpha)$$
             </li>
-            <li>Calculate this sum using the <b>forward algorithm</b>.</li>
-            <li>Can use this to evaluate the posterior probability that a given alignment is correct:
+            <li class="fragment">Calculate this sum using the <b>forward algorithm</b>.</li>
+            <li class="fragment">Can use this to evaluate the posterior probability that a given alignment is correct:
                 $$P(\alpha|\vec{x},\vec{y})=\frac{P(\vec{x},\vec{y},\alpha)}{P(\vec{x},\vec{y})}$$
             </li>
-            <li>Can sample from this probability distribution!</li>
+            <li class="fragment">Can sample from this probability distribution!</li>
 
-            <li>Can also use the combined <b>forward</b> and <b>backward</b> algorithms to produce the probability that
+            <li class="fragment">Can also use the combined <b>forward</b> and <b>backward</b> algorithms to produce the probability that
                 characters $x_i$ and $y_j$ are aligned:
                 $$P(x_i\diamond y_j|\vec{x},\vec{y}) = \frac{f_M(i,j)b_M(i,j)}{P(\vec{x},\vec{y})}$$
             </li>
@@ -461,19 +463,19 @@ reveal:
     <section>
         <h3>Profile alignment with HMMs</h3>
 
-        <p>Use a single HMM to model an entire multiple sequence alignment:</p>
-        <blockquote style="width:50%;text-align:center">
+        <p class="fragment">Use a single HMM to model an entire multiple sequence alignment:</p>
+        <blockquote style="width:50%;text-align:center" class="fragment">
             <pre style="box-shadow:none;width:30%;font-size:1em;margin-top:0;margin-bottom:0;padding:0">
 VGA--HAGEY
 V----NVDEV
 VEA--DVAGH
 IAGADNGAGV </pre>
         </blockquote>
-        <img data-src="profile_HMM.svg" style="width:60%"><br>
+        <img class="fragment" data-src="profile_HMM.svg" style="width:60%"><br>
 
         <ul>
-            <li>Parameters can be estimated using Baum-Welch.</li>
-            <li>Once we have this <b>profile HMM</b> we can use it to search for other sequences which fit the
+            <li class="fragment">Parameters can be estimated using Baum-Welch.</li>
+            <li class="fragment">Once we have this <b>profile HMM</b> we can use it to search for other sequences which fit the
             profile and thus assess their candidacy for inclusion in the family.</li>
         </ul>
     </section>
@@ -481,5 +483,34 @@ IAGADNGAGV </pre>
 
 <section>
     <h2>Summary</h2>
+
+    <ol>
+        <li class="fragment">Hidden Markov models (HMMs) model the stochastic generation of observations from a hidden state evolving according to a Markov chain.</li>
+        <li class="fragment">Many useful algorithms exist for working with HMMS:
+            <ul>
+                <li class="fragment">The <b>Viterbi algorithm</b> for finding the optimal path,</li>
+                <li class="fragment">the <b>forward algorithm</b> for finding the probability of the observations, and</li>
+                <li class="fragment">the <b>backward algorithm</b> which allows the posterior probability of hidden states to be computed.</li>
+            </ul>
+        </li>
+        <li class="fragment">Many applications of HMMs to bioinformatics:
+            <ul>
+                <li class="fragment">Pairwise alignment:
+                    <ul>
+                        <li class="fragment">Needleman-Wunch can be considered an application of Viterbi to a pair HMM</li>
+                        <li class="fragment">Can compute alignment probabilities.</li>
+                    </ul>
+                </li>
+                <li class="fragment">Profile alignment:
+                    <ul>
+                        <li class="fragment">Model MSA as an HMM.</li>
+                        <li class="fragment">Estimate parameters using <b>Baum-Welch algorithm</b>.
+                        <li class="fragment">Allows much more accurate classification of alignments than Feng-Doolittle.</li>
+                        <li class="fragment">Implemented in Clustal$\Omega$.</li>
+                </li>
+            </ul>
+        </li>
+
+    </ol>
 </section>
 
