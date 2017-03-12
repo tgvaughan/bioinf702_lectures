@@ -20,6 +20,131 @@ information held in molecular sequences about the process
 and history of evolution
         </li>
     </ul>
+</section>
 
+<section>
+    <h2>Phylogenetics</h2>
+
+
+    <ul class="spaced" style="margin-top:5%; width:85%">
+		<li> Similarity (due to homology) is viewed as evidence of common ancestry </li>
+    	<ul class="spaced">
+			<li>Homology: the result of inheritance from a common ancestor</li>
+		</ul>
+		<li> Phylogenetic trees are used to portray relationships based upon common ancestry </li>
+		<li>Monophyletic groups (clades) - contain species which are more closely related to each other than to any outside of the group </li>
+		<li>Phylogenetics has in recent years become a statistical science based on probabilistic models of evolution (more on this in later lectures). </li>
+	</ul>
 
 </section>
+
+<section>
+	<h2>A typical molecular phylogenetic analysis</h2>
+	
+    <ol class="spaced" style="margin-top:5%; width:70%">
+	<li> Collect homologous sequences </li>
+	<li> Construct a multiple sequence alignment </li>
+	<li> Phylogeny reconstruction </li>
+	<li> Test the reliability of the estimated phylogeny  </li>
+	<li> Interpretation and application of phylogenies  </li>
+	</ol>
+</section>
+
+<section>
+	<h2>Applications of phylogenetics</h2>
+	
+	
+    <ul class="spaced" style="margin-top:5%; width:85%">
+	<li> Inferring relationships among species and genes </li> 
+	<li> Estimating divergence times </li>
+	<li> Identifying functional elements in comparisons of genomic sequences </li>
+	<li> Detecting molecular adaptation </li>
+	<li> Forensics </li>
+	<li> Studying the emergence and spread of viral pandemics </li>
+	<li> many more... </li>
+	</ul>
+</section>
+
+<section>
+	<h2>Types of phylogenies and representations</h2>
+</section>
+
+<section>
+	<h2>Bifurcating (binary) and multifurcating trees</h2>
+</section>
+
+<section>
+	<h2>Rooted and unrooted trees</h2>
+</section>
+
+<section>
+	<h2>Rooting trees using an outgroup</h2>
+</section>
+
+<section>
+	<h2>The same unrooted tree</h2>
+</section>
+
+<section>
+	<h2>Anatomy of a tree</h2>
+</section>
+
+<section>
+	<h2>How many trees are there?</h2>
+</section>
+
+<section>
+	<h2>Counting unrooted trees with stepwise addition algorithm</h2>
+</section>
+
+<section>
+	<h2>The topological distance between two trees</h2>
+</section>
+
+<section>
+	<h2>Phylogenetic reconstruction</h2>
+	
+	There are essentially two types of data for phylogenetic tree estimation:
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+
+		<li><font color="red">Distance data</font>, usually stored in a distance matrix, e.g. DNA×DNA hybridisation data, morphometric differences, immunological data, pairwise genetic distances</li>
+		<li><font color="red">Character data</font>, usually stored in a character array, e.g. multiple sequence alignment of DNA sequences, morphological characters.</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Phylogenetic reconstruction</h2>
+	
+	<div align="left">
+	There are a huge number of possible trees even for small data sets. 
+	</div>
+	<div align="left">
+	<br>
+	We have three options:
+	</div>
+	<ul class="spaced" style="margin-top:5%; width:85%">
+		<li>Construct a tree according to some clustering algorithm</li>
+		<li>Assign a goodness of fit criterion (an objective function) and find the tree(s) which optimise(s) this criterion</li>
+		<li>Admit it is a statistical estimation problem and find the most probable phylogenies under a statistical model.</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Phylogenetic reconstruction</h2>
+</section>
+
+<section>
+	<h2> Clustering Algorithm</h2>
+	
+	<div align="left">
+	Common clustering algorithms are <font color="red">Neighbour-joining</font> and <font color="red">UPGMA</font> (Unweighted Pair-Group Method using Arithmetic averages).
+The clustering algorithms are usually very fast, and simple but there is no explicit optimality criterion, so
+	</div>
+
+	<ul class="spaced" style="margin-top:5%; width:85%">
+		<li>the method provides no measure of how good the tree is!</li>
+		<li>we do not get any idea about other potential trees - were there any better trees?</li>
+	</ul>
+</section>
+
