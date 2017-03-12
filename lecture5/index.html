@@ -142,10 +142,34 @@ and history of evolution
 
 <section>
 	<h2>Counting unrooted trees with stepwise addition algorithm</h2>
+	
+	<img data-src="stepwiseAddition.png" style="width:100%">
+	
+	$$T_3 = 1 \rightarrow T_4 = 1 \times 3 \rightarrow T_5 = 1 \times 3 \times 5$$
+<br>
+$T_n = 1 \times 3 \times 5 \times \dots  \times (2n−5)$ unrooted trees with $n$ leaves 
+<br>
+<br>
+$T_{20} = 2.2 \times 10^{20}$, $T_{53} \approx$ number particles in the universe
+	
 </section>
 
 <section>
 	<h2>The topological distance between two trees</h2>
+	
+	<div class="spaced" style="text-align: left;">
+	The partition distance (Robinson and Foulds, 1981) is defined as the total number of bipartitions that are in one tree but not in the other. 
+	</div>	
+	<div class="spaced" style="text-align: left;">
+	Each internal branch defines a <font color="red">bipartition</font> (<font color="red">split</font>) of species.
+	</div>	
+	<img data-src="robinsonFoulds.png" style="width:80%">
+	
+	<div class="spaced" style="text-align: left; margin-left:10%;">
+	The distance between these two trees is 2. 
+	<br>
+	The partition distance ranges from 0 to $2(n − 3)$ for $n$ species
+	</div>
 </section>
 
 <section>
@@ -160,6 +184,15 @@ and history of evolution
 		<li><font color="red">Distance data</font>, usually stored in a distance matrix, e.g. DNA×DNA hybridisation data, morphometric differences, immunological data, pairwise genetic distances</li>
 		<li><font color="red">Character data</font>, usually stored in a character array, e.g. multiple sequence alignment of DNA sequences, morphological characters.</li>
 	</ul>
+	
+	<table>
+	<tr><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
+	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td>3</td><td>5</td><td>6</td><td>5</td></tr>
+	<tr><td style="border-right: solid 1px;">B</td><td>3</td><td>0</td><td>4</td><td>7</td><td>6</td></tr>
+	<tr><td style="border-right: solid 1px;">C</td><td>5</td><td>4</td><td>0</td><td>5</td><td>4</td></tr>
+	<tr><td style="border-right: solid 1px;">D</td><td>6</td><td>7</td><td>5</td><td>0</td><td>1</td></tr>
+	<tr><td style="border-right: solid 1px;">E</td><td>5</td><td>6</td><td>4</td><td>1</td><td>0</td></tr>
+	</table>
 </section>
 
 <section>
