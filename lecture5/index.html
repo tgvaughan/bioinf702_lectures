@@ -67,10 +67,20 @@ and history of evolution
 
 <section>
 	<h2>Types of phylogenies and representations</h2>
+	
+	<img data-src="typesOfPhylogenies.svg" style="width:95%">
 </section>
 
 <section>
 	<h2>Bifurcating (binary) and multifurcating trees</h2>
+	
+	<img data-src="bifurcatingAndMultifurcatingTrees.svg" style="width:85%">
+	
+	<ul style="margin-left:5%; width:70%">
+	<li>In a rooted tree a <font color="red">polytomy</font> is a node with more than 2 children. <br>
+	<li>In an unrooted tree a <font color="red">polytomy</font> is a node of degree 4 or greater.
+	</ul>
+
 </section>
 
 <section>
@@ -104,9 +114,11 @@ and history of evolution
 <section>
 	<h2>Phylogenetic reconstruction</h2>
 	
+	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
 	There are essentially two types of data for phylogenetic tree estimation:
-	
-	<ul class="spaced" style="margin-top:5%; width:85%">
+	</div>
+
+	<ul class="spaced" style="margin-top:5%; width:70%">
 
 		<li><font color="red">Distance data</font>, usually stored in a distance matrix, e.g. DNA×DNA hybridisation data, morphometric differences, immunological data, pairwise genetic distances</li>
 		<li><font color="red">Character data</font>, usually stored in a character array, e.g. multiple sequence alignment of DNA sequences, morphological characters.</li>
@@ -116,14 +128,13 @@ and history of evolution
 <section>
 	<h2>Phylogenetic reconstruction</h2>
 	
-	<div align="left">
+	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
 	There are a huge number of possible trees even for small data sets. 
 	</div>
-	<div align="left">
-	<br>
+	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
 	We have three options:
 	</div>
-	<ul class="spaced" style="margin-top:5%; width:85%">
+	<ul class="spaced" style="margin-top:5%; width:70%">
 		<li>Construct a tree according to some clustering algorithm</li>
 		<li>Assign a goodness of fit criterion (an objective function) and find the tree(s) which optimise(s) this criterion</li>
 		<li>Admit it is a statistical estimation problem and find the most probable phylogenies under a statistical model.</li>
@@ -135,16 +146,31 @@ and history of evolution
 </section>
 
 <section>
-	<h2> Clustering Algorithm</h2>
+	<h2> Clustering algorithms</h2>
 	
-	<div align="left">
+	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
 	Common clustering algorithms are <font color="red">Neighbour-joining</font> and <font color="red">UPGMA</font> (Unweighted Pair-Group Method using Arithmetic averages).
 The clustering algorithms are usually very fast, and simple but there is no explicit optimality criterion, so
 	</div>
 
-	<ul class="spaced" style="margin-top:5%; width:85%">
+	<ul class="spaced" style="margin-top:5%; width:70%">
 		<li>the method provides no measure of how good the tree is!</li>
 		<li>we do not get any idea about other potential trees - were there any better trees?</li>
 	</ul>
 </section>
+
+<section>
+	<h2> Clustering algorithms</h2>
+	<ul class="spaced" style="margin-top:5%; width:70%">
+		<li>The UPGMA and neighbor-joining (NJ) methods are both
+greedy heuristics which join, at each step, the two closest*
+sub-trees that are not already joined.</li>
+		<li>They are based on the minimum evolution principle.</li>
+		<li>An important concept in both of these methods is a pair of
+neighbors, which is defined as two nodes that are connected
+via a single node:</li>
+	</ul>
+</section>
+
+
 
