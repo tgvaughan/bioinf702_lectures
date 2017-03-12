@@ -180,14 +180,23 @@ HMM = (function() {
                 string +=    "   0.5 -";
             else
                 string +=    "        ";
+
             var top = (nLines - l)/nLines;
             var bot = (nLines - l - 1)/nLines;
+
             for (i=0; i<N; i++) {
                 if (posterior[i]>= bot && posterior[i]<top)
                     string += "#";
                 else
                     string += " ";
             }
+
+            if (l==0)
+                string +=    " - 1";
+            else if (l == nLines-1)
+                string +=    " - 0";
+            else if (l == nLines/2)
+                string +=    " - 0.5";
             string += "\n";
         }
 
