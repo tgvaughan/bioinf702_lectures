@@ -280,7 +280,55 @@ reveal:
     </section>
 
     <section>
-        <h3>Baum-Welch Algorithm</h3>
+        <h3>Known state trajectory</h3>
+
+        <p style="margin-top:10%">When the hidden state trajectory $\vec{Y}$ is known, can use the
+        following estimators for the transition and emission probabilities:
+
+        $$M_{kl} = \frac{A_{kl}}{\sum_{l'}A_{kl'}}$$
+
+        where $\mathcal{A}_{kl}$ are the number of transitions between states
+        $k$ and $l$ on the trajectory.</p>
+
+        <p>Similarly,
+        $$e_{k}(x) = \frac{E_{k}(x)}{\sum_{k'}E_{k'}(x)}$$
+        where $E_k(x)$ is the number of emissions of $x$ from state $k$.</p>
+
+        <p>These are maximum likelihood (point) estimates. Can use <i>pseudo-count</i> offsets to
+        avoid problems due to overfitting and insufficient data.</p>
+        
+    </section>
+
+    <section>
+        <h3>Unknown hidden states: Baum-Welch Algorithm</h3>
+
+        <div class="textbox">
+            <dl>
+                <dt>Initialization</dt><dd>Pick arbitrary model parameters.</dd>
+                <dt>Iterate</dt><dd>
+                <ol>
+                    <li>Set $A$ and $E$ to their pseudo-count values.</li>
+                    <li>For each training sequence $\vec{X}^j$:
+                        <ol>
+                            <li>Calculate $f_k(i)$ for $\vec{X}^j$ using forward algorithm</li>
+                            <li>Calculate $b_k(i)$ for $\vec{X}^j$ using backward algorithm</li>
+                            <li>Add the contribution of $j$ to $A$ and $E$ using equations below.</li>
+                        </ol>
+                    </li>
+                    <li>Update values for $M$ and $e$ based on ML estimates.</li>
+                    <li>Compute likelihood of new model.</li>
+                    <li>If change in likelihood is "small enough", stop.</li>
+                </dd>
+            </dl>
+
+            <br>
+
+        $$\langle A_{kl}\rangle = \sum_j\frac{1}{P(\vec{X}^j)}\sum_i f_k^j(i)M_{kl}e_l(x^{j}_{i+1})b^j_l(i+1)$$
+
+        $$\langle E_k(x)\rangle = \sum_j\frac{1}{P(\vec{X}^j)}\sum_{i \text{ s.t. } X^j_i=x}f_k^j(i)b_k^j(i)$$
+
+        </div>
+
     </section>
 </section>
 
