@@ -372,7 +372,8 @@ reveal:
     <section>
         <h3>Pairwise alignment with HMMs</h3>
 
-        <img data-src="pair_HMM.svg" style="width:80%">
+        <p style="margin-top:5%">The following FSM describes an HMM that generates pairs of aligned sequences:</p>
+        <img data-src="pair_HMM.svg" style="width:80%;margin-top:2em">
     </section>
 
     <section>
@@ -416,15 +417,60 @@ reveal:
     <section>
         <h3>Log-odds formulation</h3>
 
-        <p>Can produce 
+        <ul style="width:70%;margin-top:10%">
+            <li>Can produce (more!) exact analogues of the dynamic programming algorithms we saw earlier.</li>
+            <li>Needleman &amp; Wunch essentially produces a Viterbi path
+            through a pair HMM with the following correspondences:</li>
+        </ul>
+
+        <br>
+        <br>
+
+        \begin{align*}
+        s(a,b) &amp;= \log\frac{p_{ab}}{q_aq_b} + \log\frac{(1-2\delta-\tau)}{(1-\eta)^2}\\
+        d &amp;= -\log\frac{\delta(1-\epsilon-\tau)}{(1-\eta)(1-2\delta-\tau)}\\
+        e &amp;= -\log\frac{\epsilon}{1-\eta}
+        \end{align*}
+
+        <br>
+        (Here $\eta$ is the parameter determining the length of the alignment under the null model
+        without the assumption of homology, used to construct log-odds values.)
     </section>
 
     <section>
         <h3>Pairwise alignment probabilities</h3>
+
+        <ul style="width:80%;margin-top:2em">
+            <li>Pair HMMs aren't just useful for rationalizing Needleman &amp; Wunch.</li>
+            <li>They allow us to compute the overall probability that sequences are related by <b>any</b> alignment:
+                $$P(\vec{x},\vec{y}) = \sum_{\text{alignments }\alpha}P(\vec{x},\vec{y},\alpha)$$
+            </li>
+            <li>Calculate this sum using the <b>forward algorithm</b>.</li>
+            <li>Can use this to evaluate the posterior probability that a given alignment is correct:
+                $$P(\alpha|\vec{x},\vec{y})=\frac{P(\vec{x},\vec{y},\alpha)}{P(\vec{x},\vec{y})}$$
+            </li>
+            <li>Can sample from this probability distribution!</li>
+
+            <li>Can also use the combined <b>forward</b> and <b>backward</b> algorithms to produce the probability that
+                characters $x_i$ and $y_j$ are aligned:
+                $$P(x_i\diamond y_j|\vec{x},\vec{y}) = \frac{f_M(i,j)b_M(i,j)}{P(\vec{x},\vec{y})}$$
+            </li>
+        </ul>
     </section>
 
     <section>
         <h3>Profile alignment with HMMs</h3>
+
+        <blockquote style="width:50%;text-align:center">
+            <pre style="box-shadow:none;width:30%;font-size:1em">
+VGA--HAGEY
+V----NVDEV
+VEA--DVAGH
+VKG------D
+VYS--TYETS
+FNA--NIPKH
+IAGADNGAGV </pre>
+        </blockquote>
     </section>
 </section>
 
