@@ -12,6 +12,15 @@ $(document).ready(function() {
                                 + "\n"
                                 + HMM.getViterbiString(HMM.viterbi(res[1])));
     });
+
+    $("#HMMforwardBackward").click(function(e) {
+        e.preventDefault();
+        var res = HMM.sim();
+        $("#HMMforwardBackwardOutput").text(HMM.getSimString(res[0], res[1]) + "\n"
+                                + HMM.getViterbiString(HMM.viterbi(res[1])) + "\n\n"
+                                + HMM.getPosteriorString(HMM.forwardBackward(res[1])));
+    });
+
 });
 
 HMM = (function() {
@@ -116,10 +125,81 @@ HMM = (function() {
         return path;
     }
 
+    function forwardBackward(obs_sequence) {
+        var f = Array(N), b = Array(N);
+
+        // forward
+        f[0] = [1, 0];
+
+        var i;
+        for (i=1; i<N; i++) {
+            var x = obs_sequence[i];
+
+            f[i] = [
+                e[0][x]*(f[i-1][0]*M[0][0] + f[i-1][1]*M[1][0]),
+                e[1][x]*(f[i-1][0]*M[0][1] + f[i-1][1]*M[1][1]),
+            ];
+        }
+
+        var P = f[N-1][0] + f[N-1][1];
+
+        // backward
+        b[N-1] = [1, 1];
+
+        for (i=N-1; i>0; i--) {
+            var x = obs_sequence[i];
+
+            b[i-1] = [
+                M[0][0]*e[0][x]*b[i][0] + M[0][1]*e[1][x]*b[i][1],
+                M[1][0]*e[0][x]*b[i][0] + M[1][1]*e[1][x]*b[i][1]
+            ];
+        }
+
+        // posterior
+        var fairPosterior = [];
+
+        for (i=0; i<N; i++) {
+            fairPosterior[i] = f[i][0]*b[i][0]/P;
+        }
+
+        return fairPosterior;
+    }
+
+    function getPosteriorString(posterior) {
+        var string = "Posterior fairness:\n";
+
+        var nLines = 20;
+
+        var l, i;
+        for (l=0; l<nLines; l++) {
+            if (l==0)
+                string +=    "     1 -";
+            else if (l == nLines-1)
+                string +=    "     0 -";
+            else if (l == nLines/2)
+                string +=    "   0.5 -";
+            else
+                string +=    "        ";
+            var top = (nLines - l)/nLines;
+            var bot = (nLines - l - 1)/nLines;
+            for (i=0; i<N; i++) {
+                if (posterior[i]>= bot && posterior[i]<top)
+                    string += "#";
+                else
+                    string += " ";
+            }
+            string += "\n";
+        }
+
+        return string;
+    }
+
     return {
         sim: sim,
         getSimString: getSimString,
         viterbi: viterbi,
-        getViterbiString: getViterbiString
+        getViterbiString: getViterbiString,
+        forwardBackward: forwardBackward,
+        getPosteriorString: getPosteriorString
     }
 })();

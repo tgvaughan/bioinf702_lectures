@@ -106,7 +106,7 @@ reveal:
 
 <section>
     <section class="center">
-        <h2>Viterbi Algorithm</h2>
+        <h2>Finding optimal paths</h2>
     </section>
 
     <section>
@@ -173,15 +173,115 @@ reveal:
 </section>
 
 <section>
-    <h2>Forward Algorithm</h2>
+    <section class="center">
+        <h2>Computing Probabilities</h2>
+    </section>
+
+    <section>
+        <h2>Forward Algorithm</h2>
+
+        <p>This algorithm computes the probability of the sequence of observations given the model.<br>
+        It is trivial to derive.</p>
+
+        <p>Define $f_k(i) = P(X_1,\ldots,X_i,Y_i=k)$.</p>
+
+        <div class="textbox" style="width:70%;margin-left:15%;">
+            <dl class="spaced">
+                <dt>Initialization</dt><dd> $$f_k(0) = P(Y_0=k)$$ </dd>
+                <dt>Recursion ($i=1\ldots L$)</dt>
+                <dd>$$f_l(i) = e_l(x_i)\sum_k f_k(i-1)M_{kl}$$</dd>
+                <dt>Termination</dt>
+                <dd>$P(\vec{X})=\sum_k f_k(L)$</dd>
+            </dl>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>Posterior state probabilities</h2>
+
+        <p>It is interesting to know the posterior probability of hidden states at each site.</p>
+        <blockquote>
+            This is <b>NOT</b> the posterior distribution over paths. Stringing together the
+            most probable states may not even produce a valid path!
+        </blockquote>
+
+        <p>Start by considering:<p>
+        \begin{align*}
+        P(\vec{X}, Y_i=k) &amp;= P(X_1,\ldots,X_i,Y_i=k)P(X_{i+1},\ldots,X_L|X_1,\ldots,X_{i},Y_i=k)\\
+        &amp; = P(X_1,\ldots,X_i,Y_i=k)P(X_{i+1},\ldots,X_L|Y_i=k)\\
+        &amp; \equiv f_k(i) b_k(i)
+        \end{align*}
+
+        <p>Use a similar recursion to the forward algorithm to find $b_k(i)$.</p>
+
+        <p>Then $$P(Y_i=k|\vec{X}) = \frac{f_k(i)b_k(i)}{P(\vec{X})}$$ where
+        $P(\vec{X})$ is computed using either the forward or backward
+        algorithms.</p>
+    </section>
+
+    <section>
+        <h2>Backward Algorithm</h2>
+
+        <p>This algorithm implements the recursion required to compute $b_k(i)$</p>
+
+        <p>Define $b_k(i) = P(X_{i+1},\ldots,X_L|Y_i=k)$.</p>
+
+        <div class="textbox" style="width:70%;margin-left:15%;">
+            <dl class="spaced">
+                <dt>Initialization</dt><dd> $$b_k(L+1) = 1$$</dd>
+                <dt>Recursion ($i=L-1\ldots 1$)</dt>
+                <dd>$$b_l(i) = \sum_k M_{lk}e_k(x_{i+1})b_k(i+1)$$</dd>
+                <dt>Termination</dt>
+                <dd>$P(\vec{X})=\sum_k P(Y_1=k)e_k(x_1)b_k(1)$</dd>
+            </dl>
+        </div>
+    </section>
+
+    <section>
+        <h2>Posterior fairness probabilities</h2>
+
+        <div class="textbox" style="margin-top:10%">
+            <div class="title"><a id="HMMforwardBackward" href="#" style="color:white">Run Forward-Backward Demo</a></div>
+            <pre id="HMMforwardBackwardOutput">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </pre>
+        </div>
+
+    </section>
 </section>
 
 <section>
-    <h2>Backward Algorithm</h2>
-</section>
+    <section class="center">
+        <h2>Parameter inference</h2>
+    </section>
 
-<section>
-    <h2>Baum-Welch Algorithm</h2>
+    <section>
+        <h3>Baum-Welch Algorithm</h3>
+    </section>
 </section>
 
 <section>
