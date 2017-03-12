@@ -461,16 +461,21 @@ reveal:
     <section>
         <h3>Profile alignment with HMMs</h3>
 
+        <p>Use a single HMM to model an entire multiple sequence alignment:</p>
         <blockquote style="width:50%;text-align:center">
-            <pre style="box-shadow:none;width:30%;font-size:1em">
+            <pre style="box-shadow:none;width:30%;font-size:1em;margin-top:0;margin-bottom:0;padding:0">
 VGA--HAGEY
 V----NVDEV
 VEA--DVAGH
-VKG------D
-VYS--TYETS
-FNA--NIPKH
 IAGADNGAGV </pre>
         </blockquote>
+        <img data-src="profile_HMM.svg" style="width:60%"><br>
+
+        <ul>
+            <li>Parameters can be estimated using Baum-Welch.</li>
+            <li>Once we have this <b>profile HMM</b> we can use it to search for other sequences which fit the
+            profile and thus assess their candidacy for inclusion in the family.</li>
+        </ul>
     </section>
 </section>
 
