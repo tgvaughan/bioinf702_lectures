@@ -9,7 +9,7 @@ reveal:
     <h2>House-keeping</h2>
 
     <ol class="spaced" style="margin-top:10%">
-        <li>No lab this Friday! (Despite what timetable says.)</li>
+        <li>Lab this Friday. Details to be announced.</li>
         <li>Assignment 1 is <b>now available on Canvas</b>.</li>
         <li>My office is room 467 (fourth floor) of building 303S (in the CS department)</li>
         <li>Office hours:
@@ -28,7 +28,39 @@ reveal:
     </section>
 
     <section>
-        <h3>Markov Chains</h2>
+        <h3>Markov Chains</h3>
+
+        <ul class="spaced" style="margin-top:2em">
+            <li>Markov Chains are discrete stochastic processes which obey the Makov property:
+
+                <blockquote>
+                    $$P(X_{i}|X_{i-1},X_{i-2},\ldots,X_0) = P(X_i|X_{i-1})$$
+                </blockquote>
+            </li>
+
+            <li>The index $i$ is often interpreted as "time", but it need not be.</li>
+
+            <li>Homogeneous Markov chains satisfy the additional requirement:
+                <blockquote>
+                    $$P(X_{i+1}=y|X_{i}=x)=P(X_i=y|X_{i-1}=x)$$
+                </blockquote>
+            </li>
+            <li>This allows the vector $\vec{P}_i$ of probabilities at $i$ to be expressed as
+                $$\vec{P}_i=M\vec{P}_{i-1}=M^i\vec{P}_{0}$$
+                where $M$ is the matrix of <b>transition probailities</b>.</li>
+        </ul>
+
+    </section>
+
+    <section>
+        <h3>Markov Chains as Finite State Machines</h3>
+
+        <p>Homogeneous Markov chains can be represented as finite state machines.</p>
+
+        <img data-src="DNA_FSM.svg" style="width:50%">
+
+        <p>Arrows can be labeled with transition probabilities to complete the description.</p>
+
     </section>
 
     <section>
