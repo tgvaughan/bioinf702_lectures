@@ -11,7 +11,7 @@ reveal:
 
     <ol class="spaced" style="margin-top:10%">
         <li>Lab this Friday. Details to be announced.</li>
-        <li>Assignment 1 is <b>now available on Canvas</b>.</li>
+        <li>Assignment 1 will be <b>available on Canvas this afternoon</b>.</li>
         <li>My office is room 467 (fourth floor) of building 303S (in the CS department)</li>
         <li>Office hours:
             <ul>
@@ -377,6 +377,46 @@ reveal:
 
     <section>
         <h3>Most likely pairwise alignment</h3>
+
+        <div class="textbox">
+            <div class="title">Viterbi algorithm for pair HMMs</div>
+
+            <dl class="spaced">
+                <dt>Initialization</dt><dd>
+                $v_M(0,0)=1$, $v_X(0,0) = v_Y(0,0) = 0$<br>
+                $v_k(i,-1)=v_k(-1,j)=v_k(i,0)=v_k(0,j)=0$
+                </dd>
+                <dt>Recurrence:</dt><dd>
+                \begin{align*}
+                v_M(i,j) &amp;= p_{x_iy_j}\max\left\{\begin{array}{l}
+                (1-2\delta-\tau)v_M(i-1,j-1)\\
+                (1-\epsilon-\tau)v_X(i-1,j-1)\\
+                (1-\epsilon-\tau)v_Y(i-1,j-1)
+                \end{array}\right.\\
+
+                v_X(i,j) &amp; = q_{x_i}\max\left\{\begin{array}{l}
+                \delta v_M(i-1,j)\\
+                \epsilon v_X(i-1,j);
+                \end{array}\right.\\
+
+                v_Y(i,j) &amp; = q_{y_i}\max\left\{\begin{array}{l}
+                \delta v_M(i,j-1)\\
+                \epsilon v_X(i,j-1);
+                \end{array}\right.
+
+                \end{align*}
+                </dd>
+                <dt>Termination:</dt><dd>
+                $v_E=\tau\max(v_M(n,m), v_X(n,m), v_Y(n,m))$
+                </dd>
+            </dl>
+        </div>
+    </section>
+
+    <section>
+        <h3>Log-odds formulation</h3>
+
+        <p>Can produce 
     </section>
 
     <section>
@@ -386,5 +426,9 @@ reveal:
     <section>
         <h3>Profile alignment with HMMs</h3>
     </section>
+</section>
+
+<section>
+    <h2>Summary</h2>
 </section>
 
