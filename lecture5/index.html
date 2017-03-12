@@ -111,10 +111,33 @@ and history of evolution
 
 <section>
 	<h2>Anatomy of a tree</h2>
+
+	<img data-src="AnatomyOfTree.png" style="width:100%">
+
 </section>
 
 <section>
 	<h2>How many trees are there?</h2>
+	
+	<div class="spaced" style="text-align: left;"> For $n$ taxa there are: </div>
+	$$T_n^{(R)}=(2n−3)(2n−5)\dots(3)(1)$$
+	
+	<div class="spaced" style="text-align: left;">rooted, binary trees </div>
+	<br>
+	<table style="font-size:0.9em; border-collapse:collapse">
+	<tr><td style="border-top: solid 1px;">$n$</td><td style="border-top: solid 1px;">#trees</td><td style="border-top: solid 1px;"></td></tr>
+	<tr><td style="border-bottom:none;">4</td><td style="border-bottom:none;">15</td><td style="border-bottom:none;">enumerable by hand</td><tr>
+	<tr><td style="border-bottom:none;">5</td><td style="border-bottom:none;">105</td><td style="border-bottom:none;">enumerable by hand on a rainy day</td><tr>
+	<tr><td style="border-bottom:none;">6</td><td style="border-bottom:none;">945</td><td style="border-bottom:none;">enumerable by computer</td><tr>
+	<tr><td style="border-bottom:none;">7</td><td style="border-bottom:none;">10395</td><td style="border-bottom:none;">still searchable very quickly on computer</td><tr>
+	<tr><td style="border-bottom:none;">8</td><td style="border-bottom:none;">135135</td><td style="border-bottom:none;">about the number of hairs on your head</td><tr>
+	<tr><td style="border-bottom:none;">9</td><td style="border-bottom:none;">2027025</td><td style="border-bottom:none;">greater than the population of Auckland</td><tr>
+	<tr><td style="border-bottom:none;">10</td><td style="border-bottom:none;">34459425</td><td style="border-bottom:none;">$\approx$ upper limit for exhaustive search</td><tr>
+	<tr><td style="border-bottom:none;">20</td><td style="border-bottom:none;">$8.2 \times 10^{21}$</td><td style="border-bottom:none;">$\approx$ upper limit of branch-and-bound searching</td><tr>
+	<tr><td style="border-bottom:none;">48</td><td style="border-bottom:none;">$3.21 \times 10^{70}$</td><td style="border-bottom:none;">$\approx$ the number of particles in the Universe</td><tr>
+	<tr><td style="border-bottom: solid 1px;">136</td><td style="border-bottom: solid 1px;">$2.11 \times 10^{267}$</td><td style="border-bottom: solid 1px;">number of trees to choose from in the "Out of Africa" data (Vigilante <i>et al.</i> 1991)</td><tr>
+	</table>
+
 </section>
 
 <section>
@@ -128,7 +151,7 @@ and history of evolution
 <section>
 	<h2>Phylogenetic reconstruction</h2>
 	
-	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
+	<div style="margin-top:5%; margin-left:5%; width:85%; text-align: left;">
 	There are essentially two types of data for phylogenetic tree estimation:
 	</div>
 
@@ -142,10 +165,10 @@ and history of evolution
 <section>
 	<h2>Phylogenetic reconstruction</h2>
 	
-	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
+	<div style="margin-top:5%; margin-left:5%; width:85%; text-align: left;">
 	There are a huge number of possible trees even for small data sets. 
 	</div>
-	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
+	<div style="margin-top:5%; margin-left:5%; width:85%; text-align: left;">
 	We have three options:
 	</div>
 	<ul class="spaced" style="margin-top:5%; width:70%">
@@ -162,7 +185,7 @@ and history of evolution
 <section>
 	<h2> Clustering algorithms</h2>
 	
-	<div align="left" style="margin-top:5%; margin-left:5%; width:85%">
+	<div style="margin-top:5%; margin-left:5%; width:85%; text-align: left;">
 	Common clustering algorithms are <font color="red">Neighbour-joining</font> and <font color="red">UPGMA</font> (Unweighted Pair-Group Method using Arithmetic averages).
 The clustering algorithms are usually very fast, and simple but there is no explicit optimality criterion, so
 	</div>
