@@ -3,6 +3,7 @@ lecture_num: 4
 
 reveal:
     history: true
+    slideNumber: true
 ---
 
 <section>
@@ -60,17 +61,115 @@ reveal:
         <img data-src="DNA_FSM.svg" style="width:50%">
 
         <p>Arrows can be labeled with transition probabilities to complete the description.</p>
+    </section>
 
+    <section>
+        <h3>Modelling begin and end states</h3>
+
+        <p>Including the begin and end states explicitly allows the length of
+        the chain to be modelled.</p>
+
+        <img data-src="DNA_FSM_BE.svg" style="width:60%">
+
+        <p>If the transition probabilities to the end state are uniform, i.e.
+        $M_{x\mathcal{E}}=p~~\forall x$ then the length has a geometric distribution:</p>
+        $$P(L=l)=P(X_{l+1}=\mathcal{E})=(1-p)^{l}p$$
     </section>
 
     <section>
         <h3>Markov Chains with hidden state</h3>
+
+        <ul class="spaced" style="margin-top:10%">
+            <li>For HMMs, observations are tied to states probabilistically.</li>
+            <li>Consider $Y_1,Y_2,\ldots,Y_N$ to be the sequence of hidden states
+                evolving according to the transition probability matrix $M$.</li>
+            <li>Observations $X_1,X_2,\ldots,X_N$ are each drawn from $P(X_i|Y_i)$.</li>
+            <li>Assuming homogeneity lets us define
+                $$P(X_i=x|Y_i=y) =e_y(x)$$
+                to be the <b>emission probability</b>.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>HMM example: occasionally dishonest casino</h3>
+
+        <img data-src="HT_HMM.svg" style="width:60%">
+
+        <div class="textbox">
+            <div class="title"><a id="HMMsim" href="#" style="color:white">Run Demo</a></div>
+            <pre id="HMMsim_output">
+
+            </pre>
+        </div>
     </section>
 </section>
 
-
 <section>
-    <h2>Most probable path: Viterbi Algorithm</h2>
+    <section class="center">
+        <h2>Viterbi Algorithm</h2>
+    </section>
+
+    <section>
+        <h3>Most probable paths</h3>
+
+        <p>The most probable path $\vec{Y}$ through the hidden state space is:</p>
+
+        \begin{align*}
+        \vec{Y}^* &amp;= \underset{\vec{Y}}{\text{argmax}}~P(\vec{Y}|\vec{X})\\
+        &amp; = \underset{\vec{Y}}{\text{argmax}}~\frac{P(\vec{Y},\vec{X})}{P(\vec{X})}\\
+        &amp; = \underset{\vec{Y}}{\text{argmax}}~P(\vec{Y},\vec{X})
+        \end{align*}
+
+        <ul>
+            <li>Question: Many possible paths!! How do we find the best one?</li>
+            <li>Answer: Dynamic Programming!</li>
+        </ul>
+
+        <p>Define $v_k(i)$ as the joint probability of the most probable (sub) path ending with
+        observation number $i$ in state $k$.  If this is known for all states $k$, can compute:</p>
+        $$v_l(i+1) = e_l(x_{i+1})\max_{k}(v_k(i)M_{kl})$$
+
+        <blockquote>
+            Optimal substructure!
+        </blockquote>
+    </section>
+
+    <section>
+        <h3>Viterbi Algorithm</h3>
+
+        <div class="textbox" style="width:70%;margin-left:15%;margin-top:10%">
+            <dl>
+                <dt>Initialization ($i=0$):</dt><dd>
+                $v_{k}(0) = \delta_{k,k_0}$ where $k_0=\underset{k}{\text{argmax}}~P(Y_0=k)$
+                </dd>
+                <dt>Recursion ($i = 1\ldots L$):</dt><dd></dd>
+                $$v_l(i) = e_l(x_i)\max_{k}(v_k(i-1)M_{kl})$$
+                $$\text{ptr}_i(l) = \underset{k}{\text{argmax}}(v_k(i-1)M_{kl})$$
+                <dt>Termination:</dt><dd>
+                $$P(\vec{X},\vec{Y}^*) = \max_k(v_k(L))$$
+                $$Y^*_L = \underset{k}{\text{argmax}}(v_k(L))$$
+                </dd>
+                <dt>Traceback ($i = L\ldots 1$):</dt><dd>
+                $$Y^*_{i-1} = \text{ptr}_i(Y^*_i)$$
+                </dd>
+            </dl>
+        </div>
+
+        <p>(Optimal path through network whiteboard example.)</p>
+
+    </section>
+
+    <section>
+        <h3>Detecting coin fairness</h3>
+
+        <div class="textbox" style="margin-top:20%">
+            <div class="title"><a id="HMMviterbi" href="#" style="color:white">Run Viterbi Demo</a></div>
+            <pre id="HMMviterbi_output">
+
+
+            </pre>
+        </div>
+    </section>
 </section>
 
 <section>

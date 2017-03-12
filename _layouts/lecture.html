@@ -31,6 +31,14 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? '{{site.baseurl}}/reveal.js/css/print/pdf.css' : '{{site.baseurl}}/reveal.js/css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+        <!-- Include lecture-specific JS -->
+        {% for file in site.static_files %}{% if file.path contains page.dir and file.extname == ".js"%}
+            <script src="{{site.baseurl}}{{file.path}}"></script>
+        {% endif %} {% endfor %}
 	</head>
 
 	<body>
