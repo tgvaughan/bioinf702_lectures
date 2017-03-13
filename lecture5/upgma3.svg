@@ -6,7 +6,7 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    viewBox="0 0 157.26524 154.77689"
-   height="154.77689"
+   height="250"
    width="157.26524"
    xml:space="preserve"
    version="1.1"
@@ -93,7 +93,7 @@
        y="-86.431999"
        x="214.58501"
        id="text5514"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          id="tspan5516"
          y="-86.431999"
@@ -102,7 +102,7 @@
        y="-86.431999"
        x="248.90401"
        id="text5518"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          id="tspan5520"
          y="-86.431999"
@@ -111,7 +111,7 @@
        y="-86.431999"
        x="282.92001"
        id="text5522"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          id="tspan5524"
          y="-86.431999"
@@ -120,7 +120,7 @@
        y="-86.431999"
        x="317.08801"
        id="text5526"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          id="tspan5528"
          y="-86.431999"
@@ -139,7 +139,7 @@
        y="-134.908"
        x="242.923"
        id="text5538"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          y="-134.908"
          x="242.923"
@@ -153,7 +153,7 @@
        y="-151.237"
        x="210.746"
        id="text5546"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          y="-151.237"
          x="210.746"
@@ -162,7 +162,7 @@
        y="-128.52901"
        x="277.866"
        id="text5550"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="scale(1,-1)"><tspan
          y="-128.52901"
          x="277.866"

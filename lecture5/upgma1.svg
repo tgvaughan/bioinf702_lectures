@@ -14,7 +14,7 @@
    inkscape:version="0.91 r13725"
    xml:space="preserve"
    width="103.3885"
-   height="93.646126"
+   height="250"
    viewBox="0 0 103.3885 93.646126"
    sodipodi:docname="upgma1.svg"><metadata
      id="metadata3396"><rdf:RDF><cc:Work
@@ -132,7 +132,7 @@
          id="path3784"
          inkscape:connector-curvature="0" /></g><text
        transform="scale(1,-1)"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:11px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="text3786"
        x="235.41901"
        y="-115.46"><tspan
@@ -141,7 +141,7 @@
          id="tspan3788">A</tspan></text>
 <text
        transform="scale(1,-1)"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:11px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="text3790"
        x="292.263"
        y="-115.46"><tspan
@@ -150,7 +150,7 @@
          id="tspan3792">C</tspan></text>
 <text
        transform="scale(1,-1)"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:11px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="text3794"
        x="233.50301"
        y="-147.562"><tspan
@@ -160,7 +160,7 @@
          id="tspan3796">3.5</tspan></text>
 <text
        transform="scale(1,-1)"
-       style="font-variant:normal;font-weight:normal;font-size:10.90909958px;font-family:CMSS10;-inkscape-font-specification:CMSS10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="font-variant:normal;font-weight:normal;font-size:11px;font-family:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="text3798"
        x="287.36099"
        y="-147.562"><tspan
