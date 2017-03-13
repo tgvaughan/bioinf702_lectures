@@ -188,7 +188,7 @@ $T_{20} = 2.2 \times 10^{20}$, $T_{53} \approx$ number particles in the universe
 	</div>
 	<div style="float:left; width:45%; margin-left:0%;">
 	Distances<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
 	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td>3</td><td>5</td><td>6</td><td>5</td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td>3</td><td>0</td><td>4</td><td>7</td><td>6</td></tr>
@@ -199,7 +199,7 @@ $T_{20} = 2.2 \times 10^{20}$, $T_{53} \approx$ number particles in the universe
 	</div>
 	<div style="float:right; width:40%; margin-right:12%;">
 	Characters<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
 	<tr><td style="border-right: solid 1px;">A</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
@@ -272,7 +272,7 @@ via a single node:</li>
 	<div style="float:left; width:50%;">
 	
 	Distances<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
 	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td></td><td></td><td></td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td>8</td><td>0</td><td></td><td></td></tr>
@@ -297,7 +297,7 @@ via a single node:</li>
 	<div style="float:left; width:50%;">
 	
 	Distances<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>AC</td><td>B</td><td>D</td></tr>
 	<tr><td style="border-right: solid 1px;">AC</td><td>0</td><td></td><td></td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td><font color="red"><b>8.5</b></font></td><td>0</td><td></td></tr>
@@ -320,7 +320,7 @@ via a single node:</li>
 	<div style="float:left; width:50%;">
 	
 	Distances<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue;">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>ABC</td><td>D</td></tr>
 	<tr><td style="border-right: solid 1px;">ABC</td><td>0</td><td></td></tr>
 	<tr><td style="border-right: solid 1px;">D</td><td><font color="red"><b>12.33</b></font></td><td>0</td></tr>
@@ -345,7 +345,7 @@ via a single node:</li>
 	<div style="float:left; width:50%;">
 	
 	Distances<br>
-	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<table class="noborders" style="margin: 0 auto; ">
 	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
 	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td></td><td></td><td></td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td>8</td><td>0</td><td></td><td></td></tr>
@@ -363,3 +363,68 @@ via a single node:</li>
 	</div>
 </section>
 
+<section>
+	<h2>Neighbour-joining algorithm<br> (Saitou and Nei, 1987)</h2>
+	
+	 <ul class="spaced" style="margin-top:5%; width:70%">
+	 <li>Most widely-used distance-based method for phylogenetic reconstruction
+	 <li>UPGMA illustrated that it is not enough to pick the closest neighbors (at least when there is rate heterogeneity across branches)
+	 <li>Idea: take into account averaged distances to other leaves as well
+	 <li>Produces an unrooted tree
+	 </ul>
+</section>
+
+<section>
+	<h2>The basic idea</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:70%">
+	<li>We start by computing the “average distance” from i to every other taxon
+		$$r_i = \frac{1}{n−2} \sum_j d_{ij}$$
+	<li>We then compute new corrected distances for all pairs of $(i,j)$: 
+		$$d_{ij}^∗ = d_{ij} − r_i − r_j$$
+	<li>We are effectively pushing each node $i$ closer to all other nodes by $r_i$.
+
+</section>
+
+<section>
+	<h2>The basic idea</h2>
+	
+		$$d_{ij}^∗ = d_{ij} − r_i − r_j$$
+
+	<div style="margin-left:15%; margin-top:5%; width:70%; text-align:left">
+	The effect is to correct for long branches.
+	</div>
+
+<div style="float:right; width:50%">
+<br>
+$$d= 
+ \begin{bmatrix}
+  0 & 8 &7 & 12 \\
+  8 & 0 & 9 & 14 \\
+  7  & 9  & 0 & 11  \\
+  12 & 14 & 11 & 0
+ \end{bmatrix}$$
+<br>
+$$r = [13.5, 15.5, 13.5, 18.5]$$
+<br>
+
+$$d^{*}= 
+ \begin{bmatrix}
+  0 & -21 & -20 & -20 \\
+  -21 & 0 & -20 & -20 \\
+  -20  & -20  & 0 & -21  \\
+  -20 & -20 & -21 & 0
+ \end{bmatrix}$$
+ </div>	
+ 
+ <div style="float:left; width:50%">
+	<img data-src="nj.png" style="height:250px;">
+</div>
+
+
+<div style="margin-left:15%; margin-top:5%; width:70%; text-align:left">
+This is the result of the Neighbour-joining algorithm on same distance matrix as used in the UPGMA example. 
+AB and CD are grouped instead of AC.
+</div>
+
+</section>
