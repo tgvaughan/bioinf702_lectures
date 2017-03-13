@@ -51,10 +51,12 @@
                     <div class="title">Lecture {{page.lecture_num}}: {{lecture.title}}</div>
 
                     <div class="lecturer">Lecturer: {{lecture.lecturer}}
-                        {% if lecture.slide_credit != null %}
-                        <br>{{lecture.slide_credit}}
-                        {% endif %}
                     </div>
+
+                    {% if lecture.slide_credit != null %}
+                    <div class="slide_credit">{{lecture.slide_credit}}</div>
+                    {% endif %}
+
 
                     <div class="date">{{lecture.date | date: "%-d %B %Y"}}</div>
                 </section>
