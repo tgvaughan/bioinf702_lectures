@@ -1,0 +1,164 @@
+---
+lecture_num: 6
+---
+<section>
+	<h2>Characters</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>An organism is comprised of a set of features.
+	<li>When organisms/taxa differ with respect to a feature (e.g. presence/absence of wings or a different nucleotide at a specific sites in a sequence) the different conditions are termed character states.
+	<li>The collection of character states (e.g. A, C, G, T) with respect to a feature constitute a character.
+	<li>Similarities and differences in character states provide the basis for inferring phylogeny (i.e. provide evidence of ancestral/evolutionary relationships).
+	</ul>
+</section>
+
+<section>
+	<h2>When do characters support the correct tree?</h2>
+	
+	<img data-src="CharactersSupportTree.png" style="width:100%">
+
+</section>
+
+<section>
+	<h2>Reversals</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>If a character reverts to an ancestral state this can also affect phylogenetic inference.
+	</ul>
+	
+	<img data-src="Reversals.png" style="width:100%">
+</section>
+
+<section>
+	<h2>Parsimony</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>Key issue: how to separate homoplasy from congruence
+	<li>The parsimony criterion favors hypotheses that maximize
+congruence and minimise homplasy
+	<li>Parsimony methods provide one way of choosing among alternative phylogenetic hypotheses
+	<li>It depends on the idea of the fit of a character to a tree
+	<li>Initially, we can define the fit of a character to a tree as the
+minimum number of steps required to explain the observed distribution of character states at the tips.
+	<li>This is an optimization problem
+	<li>Characters differ in their fit to different trees
+	</ul>
+
+</section>
+
+<section>
+	<h2>Parsimony</h2>
+	
+	<img data-src="Parsimony.png" style="width:95%">
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>Given a set of characters, such as aligned sequences, parsimony analysis works by determining the fit (minimum number of steps) of each character on a given tree.
+	<li>The sum over all characters is called the tree length.
+	<li>The most parsimonious trees (MPTs) have the minimum tree length.
+	</ul>
+
+</section>
+
+<section>
+	<h2>Finding optimal trees</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>Exhaustive tree search evaluates all possible trees
+	<li>Branch-and-bound
+	<li>Heuristic search is not guaranteed to find the optimal tree
+		<ul>
+		<li>stepwise addition 	
+		<li>star decomposition 	
+		<li>branch swapping
+			<ul>
+			<li>nearest neighbor interchange (NNI)
+			<li>subtree-pruning and regrafting (SPR) 	
+			<li>tree bisection and reconnection (TBR)
+			</ul>
+		</ul>
+	</ul>
+</section>
+
+<section>
+	<h2>Heuristics</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>The number of possible trees increases exponentially with the number of taxa making exhaustive searches impractical for many data sets (an NP complete problem)
+	<li>Heuristic methods are used to search tree space for most parsimonious trees by building or selecting an initial tree and swapping branches to search for better ones
+	<li>The trees found are not guaranteed to be the most parsimonious - they are best guesses
+	<li>General approach is starting tree + local search
+	<li>Starting tree constructed by adding one sequence at a time, perhaps with some searching in between additions
+		<ul>
+		<li>More on this in later lectures
+		</ul>
+	</ul>
+
+</section>
+
+<section>
+	<h2>Representing trees</h2>
+	
+	<img data-src="InternalStorage.png" style="width:100%">
+
+	<div align="left" style="margin-top:5%; margin-left:15%; width:70%">
+	This table is in pre-order (parents before children). The opposite is post-order (parents after children). 
+	You will need to know how to traverse a tree in pre- or post- order.	
+	</div>
+</section>
+
+<section>
+	<h2>Computing the "length" of a character</h2>
+	
+	<img data-src="LengthOfCharacter.png" style="width:100%">
+	
+	Internal nodes (L = left child, R = right child):
+	
+	$$\quad m[v,X]=\underset{Y}{\min}\{m[L,Y]+c(X,Y)\}+\underset{Z}{\min}\{m[R,Z]+c(X,Z)\}$$
+
+<br>
+Leaves:
+
+$\quad m[v,X] = 
+\begin{cases}
+ 0 & \mbox{if character state for $v$ is $X$}\\
+  \infty & \mbox{otherwise}
+\end{cases}$
+
+</section>
+
+<section>
+	<h2>Complexity of calculating tree length for a single tree</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	 <li>Given n taxa there are $2n − 1$ nodes in a rooted binary tree,
+	<li>If there are S possible character states (S = 4 for DNA) then
+at each node we need to do $O(S^2)$ calculations
+	<li>If the sequence alignment is L long, then there are L
+characters to consider.
+	</ul>
+	<br>
+	$O(nS^{2}L)$ time
+
+<br><br>
+$O(nS)$ space
+
+
+</section>
+
+<section>
+	<h2>Special case: Fitch Parsimony</h2>
+
+	<img data-src="fitchAlgorithm.png" style="width:100%">
+</section>
+
+<section>
+	<h2>Parsimony summary</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:85%">
+	<li>The “small parsimony problem” is efficiently computed by dynamic programming on the tree
+	<li>The “large parsimony problem” requires computing the parsimony score on all trees - there is no efficient solution for this
+	<li>The maximum parsimony principle attempts to find the evolutionary tree that requires the least number of events to explain the data.
+	<li>It is not based on a model, and does not allow for the possibility that multiple substitutions may have occurred on a branch in the tree.
+	</ul>
+
+</section>
