@@ -124,17 +124,17 @@ and history of evolution
 	
 	<div class="spaced" style="text-align: left;">rooted, binary trees </div>
 	<br>
-	<table style="font-size:0.9em; border-collapse:collapse">
-	<tr><td style="border-top: solid 1px;">$n$</td><td style="border-top: solid 1px;">#trees</td><td style="border-top: solid 1px;"></td></tr>
-	<tr><td style="border-bottom:none;">4</td><td style="border-bottom:none;">15</td><td style="border-bottom:none;">enumerable by hand</td><tr>
-	<tr><td style="border-bottom:none;">5</td><td style="border-bottom:none;">105</td><td style="border-bottom:none;">enumerable by hand on a rainy day</td><tr>
-	<tr><td style="border-bottom:none;">6</td><td style="border-bottom:none;">945</td><td style="border-bottom:none;">enumerable by computer</td><tr>
-	<tr><td style="border-bottom:none;">7</td><td style="border-bottom:none;">10395</td><td style="border-bottom:none;">still searchable very quickly on computer</td><tr>
-	<tr><td style="border-bottom:none;">8</td><td style="border-bottom:none;">135135</td><td style="border-bottom:none;">about the number of hairs on your head</td><tr>
-	<tr><td style="border-bottom:none;">9</td><td style="border-bottom:none;">2027025</td><td style="border-bottom:none;">greater than the population of Auckland</td><tr>
-	<tr><td style="border-bottom:none;">10</td><td style="border-bottom:none;">34459425</td><td style="border-bottom:none;">$\approx$ upper limit for exhaustive search</td><tr>
-	<tr><td style="border-bottom:none;">20</td><td style="border-bottom:none;">$8.2 \times 10^{21}$</td><td style="border-bottom:none;">$\approx$ upper limit of branch-and-bound searching</td><tr>
-	<tr><td style="border-bottom:none;">48</td><td style="border-bottom:none;">$3.21 \times 10^{70}$</td><td style="border-bottom:none;">$\approx$ the number of particles in the Universe</td><tr>
+	<table class="noborders" style="font-size:0.9em; border-collapse:collapse">
+	<tr><td style="border-bottom: solid 1px; border-top: solid 1px;">$n$</td><td style="border-bottom: solid 1px; border-top: solid 1px;">#trees</td><td style="border-bottom: solid 1px; border-top: solid 1px;"></td></tr>
+	<tr><td>4</td><td>15</td><td>enumerable by hand</td><tr>
+	<tr><td>5</td><td>105</td><td>enumerable by hand on a rainy day</td><tr>
+	<tr><td>6</td><td>945</td><td>enumerable by computer</td><tr>
+	<tr><td>7</td><td>10395</td><td>still searchable very quickly on computer</td><tr>
+	<tr><td>8</td><td>135135</td><td>about the number of hairs on your head</td><tr>
+	<tr><td>9</td><td>2027025</td><td>greater than the population of Auckland</td><tr>
+	<tr><td>10</td><td>34459425</td><td>$\approx$ upper limit for exhaustive search</td><tr>
+	<tr><td>20</td><td>$8.2 \times 10^{21}$</td><td>$\approx$ upper limit of branch-and-bound searching</td><tr>
+	<tr><td>48</td><td>$3.21 \times 10^{70}$</td><td>$\approx$ the number of particles in the Universe</td><tr>
 	<tr><td style="border-bottom: solid 1px;">136</td><td style="border-bottom: solid 1px;">$2.11 \times 10^{267}$</td><td style="border-bottom: solid 1px;">number of trees to choose from in the "Out of Africa" data (Vigilante <i>et al.</i> 1991)</td><tr>
 	</table>
 
@@ -175,24 +175,39 @@ $T_{20} = 2.2 \times 10^{20}$, $T_{53} \approx$ number particles in the universe
 <section>
 	<h2>Phylogenetic reconstruction</h2>
 	
+	<div>
 	<div style="margin-top:5%; margin-left:5%; width:85%; text-align: left;">
 	There are essentially two types of data for phylogenetic tree estimation:
 	</div>
 
-	<ul class="spaced" style="margin-top:5%; width:70%">
+	<ul class="spaced" style="margin-top:2%; width:85%">
 
 		<li><font color="red">Distance data</font>, usually stored in a distance matrix, e.g. DNA×DNA hybridisation data, morphometric differences, immunological data, pairwise genetic distances</li>
 		<li><font color="red">Character data</font>, usually stored in a character array, e.g. multiple sequence alignment of DNA sequences, morphological characters.</li>
 	</ul>
-	
-	<table>
-	<tr><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
+	</div>
+	<div style="float:left; width:45%; margin-left:0%;">
+	Distances<br>
+	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
 	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td>3</td><td>5</td><td>6</td><td>5</td></tr>
 	<tr><td style="border-right: solid 1px;">B</td><td>3</td><td>0</td><td>4</td><td>7</td><td>6</td></tr>
 	<tr><td style="border-right: solid 1px;">C</td><td>5</td><td>4</td><td>0</td><td>5</td><td>4</td></tr>
 	<tr><td style="border-right: solid 1px;">D</td><td>6</td><td>7</td><td>5</td><td>0</td><td>1</td></tr>
 	<tr><td style="border-right: solid 1px;">E</td><td>5</td><td>6</td><td>4</td><td>1</td><td>0</td></tr>
 	</table>
+	</div>
+	<div style="float:right; width:40%; margin-right:12%;">
+	Characters<br>
+	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+	<tr><td style="border-right: solid 1px;">A</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+	<tr><td style="border-right: solid 1px;">B</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td style="border-right: solid 1px;">C</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td style="border-right: solid 1px;">D</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td style="border-right: solid 1px;">E</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	</table>
+	</div>
 </section>
 
 <section>
@@ -213,6 +228,9 @@ $T_{20} = 2.2 \times 10^{20}$, $T_{53} \approx$ number particles in the universe
 
 <section>
 	<h2>Phylogenetic reconstruction</h2>
+
+	<img data-src="PhylogeneticReconstruction.png" style="width:70%">
+
 </section>
 
 <section>
@@ -231,7 +249,7 @@ The clustering algorithms are usually very fast, and simple but there is no expl
 
 <section>
 	<h2> Clustering algorithms</h2>
-	<ul class="spaced" style="margin-top:5%; width:70%">
+	<ul class="spaced" style="margin-top:5%; width:80%">
 		<li>The UPGMA and neighbor-joining (NJ) methods are both
 greedy heuristics which join, at each step, the two closest*
 sub-trees that are not already joined.</li>
@@ -240,7 +258,104 @@ sub-trees that are not already joined.</li>
 neighbors, which is defined as two nodes that are connected
 via a single node:</li>
 	</ul>
+	
+	<img data-src="pair.svg" style="width:25%">
+
+	<div style="margin-top:0%; margin-left:15%;  width:70%; text-align: left;">
+	* NJ uses rate-corrected distances
+	</div>
 </section>
 
+<section>
+	<h2>UPGMA example</h2>
+	
+	<table class="noborders" style="margin-top:5%;">
+	
+	<tr>
+	
+	<td style="width:400px; text-align:center">
+	
+	Distances<br>
+	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
+	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td></td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">B</td><td>8</td><td>0</td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">C</td><td><font color="red"><b>7</b></font></td><td>9</td><td>0</td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">D</td><td>12</td><td>14</td><td>11</td><td>0</td></tr>
+	</table>
+	</div>
 
+	</td>
+	<td style="width:400px; vertical-align:middle">
+		<img data-src="upgma1.svg" style="width:200px; ">
+	</td>
+	</tr>
+	</table>
+	
+	<div style="margin-top:5%; width:100%;">
+	$$d_{B(AC)} = (d_{BA} + d_{BC} )/2 = (8 + 9)/2 = 8.5$$
+	$$d_{D(AC)} = (d_{DA} + d_{DC})/2 = (12 + 11)/2 = 11.5$$
+	</div>
+</section>
+
+<section>
+	<h2>UPGMA example</h2>
+	
+	<table class="noborders" style="margin-top:5%;">
+	
+	<tr>
+	
+	<td style="width:400px; text-align:center">
+	
+	Distances<br>
+	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>AC</td><td>B</td><td>D</td></tr>
+	<tr><td style="border-right: solid 1px;">AC</td><td>0</td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">B</td><td><font color="red"><b>8.5</b></font></td><td>0</td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">D</td><td>11.5</td><td>14</td><td>0</td></tr>
+	</table>
+	</div>
+
+	</td>
+	<td style="width:400px; vertical-align:middle">
+		<img data-src="upgma2.svg" style="width:200px; ">
+	</td>
+	</tr>
+	</table>
+	
+	<div style="margin-top:5%; width:100%;">
+	$$d_{(ABC)D} =(d_{AD} +d_{BD} +d_{CD})/3=(12+14+11)/3 \approx 12.33$$
+	</div>
+</section>
+
+<section>
+	<h2>UPGMA weaknesses</h2>
+	
+	<table class="noborders" style="margin-top:5%;">
+	
+	<tr>
+	
+	<td style="width:400px; text-align:center">
+	
+	Distances<br>
+	<table class="noborders" style="margin: 0 auto; background-color:lightblue">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;"></td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
+	<tr><td style="border-right: solid 1px;">A</td><td>0</td><td></td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">B</td><td>8</td><td>0</td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">C</td><td>7</td><td>9</td><td>0</td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">D</td><td>12</td><td>14</td><td>11</td><td>0</td></tr>
+	</table>
+	</div>
+
+	</td>
+	<td style="width:400px; vertical-align:middle">
+		<img data-src="non-upgma-tree.svg" style="width:250px; ">
+	</td>
+	</tr>
+	</table>
+	
+	<div style="margin-top:5%; margin-left:15%; width:70%; text-align:left">
+	There is a (non clock-like) tree <font color="red">with a different topology</font> that fits the distance matrix <font color="red">perfectly</font>!	
+	</div>
+</section>
 

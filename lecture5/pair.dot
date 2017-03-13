@@ -1,0 +1,11 @@
+digraph G {	
+  
+  node [shape=plaintext; fontname=Arial];
+  edge [dir=none]
+  
+  "parent";
+  
+  "parent" -> A;
+  "parent" -> B;
+  
+}
