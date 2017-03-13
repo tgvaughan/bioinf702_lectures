@@ -428,3 +428,97 @@ AB and CD are grouped instead of AC.
 </div>
 
 </section>
+
+<section>
+	<h2>Neighbour joining</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:70%">
+	<li>We use an algorithm very similar to UPGMA to select the two closest nodes, $i$ and $j$, based on the corrected distances ($d^*$).
+	<li>We join these into a cluster and make a new node $k$ to correspond to their ancestor
+	<li>the distance to the new node $k$ is computed by $$d_{ik} = \frac{1}{2}(d_{ij} +r_i − r_j)$$
+	<li>Nodes $i$ and $j$ are removed from the pool and replaced by $k$. 
+	The uncorrected distances are updated based on the $d_{ik}$ calculation and $d^*$ is then recalculated.
+	<li>See Higgs and Attwood (2005; pp166-169) for details.
+	</ul>
+</section>
+
+<section>
+	<h2>Time complexity of the clustering algorithms</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:70%">
+	<li>Both of these clustering-based algorithms take $O(n^3)$ time once we have the distance matrix.
+	<li>There are n steps and in each step we do:
+		<ol style="margin-top:5%;">
+		<li>find the smallest distance
+		<li>join these two taxa
+		<li>compute the distance from the new ancestor to all others
+		</ol>
+	<li> Step 1 takes $O(n^2)$ and the other two steps take $O(n)$
+	</ul>
+	
+<div style="margin-left:15%; margin-top:5%; width:70%; text-align:left">
+	Note: There is an alternative (and much harder to follow) formulation of the UPGMA algorithm that takes $O(n^2)$
+</div>
+
+</section>
+
+<section>
+	<h2>Least squares distance-based phylogenetics</h2>
+	
+	<table class="noborders" style="margin: 0 auto; ">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;">$d_{ij}$</td><td>Human</td><td>Chimp</td><td>Gorilla</td><td>Orangutan</td></tr>
+	<tr><td style="border-right: solid 1px;">Human</td><td>0</td><td></td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">Chimp</td><td>0.0965</td><td>0</td><td></td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">Gorilla</td><td>0.1140</td><td>0.1180</td><td>0</td><td></td></tr>
+	<tr><td style="border-right: solid 1px;">Orangutan</td><td>0.1849</td><td>0.2009</td><td>0.1947</td><td>0</td></tr>
+	</table>
+
+	<div style="float:right; width:50%">
+<br>
+$\begin{align*}
+S = &(d_{12} - \hat{d}_{12})^2 + (d_{13} - \hat{d}_{13})^2 + \\ 
+&(d_{14} - \hat{d}_{14})^2 + (d_{23} - \hat{d}_{23})^2 + \\
+&(d_{24} - \hat{d}_{24})^2 + (d_{34} - \hat{d}_{34})^2 \end{align*}$
+<br>
+<br>
+$$\hat{d}_{12} = t_1 + t_2, \quad \hat{d}_{13} = t_1 + t_0 + t_3, \dots$$
+
+ </div>	
+
+
+ <div style="float:left; width:50%">
+	<img data-src="hcgoTree.png" style="height:200px;">
+</div>
+
+<div style="margin-left:15%; margin-top:30%; width:70%; text-align:left">
+There are six data points (distances) and five free parameters (branch lengths).
+</div>
+</section>
+
+<section>
+	<h2>Least squares distance-based phylogenetics</h2>
+
+<table class="noborders" style="margin: 0 auto; ">
+	<tr style="border-bottom: solid 1px;"><td style="border-right: solid 1px;">Tree</td><td>$t_0$</td><td>$t_1$ (H)</td><td>$t_2$ (C)</td><td>$t_3$ (G)</td><td>$t_4$ (O)</td><td style="border-left: solid 1px;">S</td></tr>
+<tr><td style="border-right: solid 1px;">((H,C),G,O)</td><td>0.008840</td><td>0.043266</td><td>0.053280</td><td>0.058908</td><td>0.135795</td><td style="border-left: solid 1px;">0.000035</td></tr>
+<tr><td style="border-right: solid 1px;">((H,G),C,O)</td><td>0.0</td><td>0.46212</td><td>0.056227</td><td>0.061854</td><td>0.138742</td><td style="border-left: solid 1px;">0.000140</td></tr>
+<tr><td style="border-right: solid 1px;">((H,O),C,G)</td><td>0.0</td><td>0.46212</td><td>0.056227</td><td>0.061854</td><td>0.138742</td><td style="border-left: solid 1px;">0.000140</td></tr>
+<tr><td style="border-right: solid 1px;">(H,G,C,O)</td><td>0.0</td><td>0.46212</td><td>0.056227</td><td>0.061854</td><td>0.138742</td><td style="border-left: solid 1px;">0.000140</td></tr>
+</table>
+
+ <div>
+	<img data-src="leastSquares.png" style="width:80%;">
+</div>
+
+</section>
+
+<section>
+	<h2>Reading: Trees and Distance Methods</h2>
+	
+	<ul class="spaced" style="margin-top:5%; width:70%">
+	<li>Bioinformatics and Molecular Evolution, Higgs and Attwood (2005), sections 8.1 and 8.3
+	<li>Computational Molecular Evolution, Ziheng Yang (2006), sections 3.1-3.3
+	<li>Biological Sequence Analysis, Durbin et al (1998), sections 7.1-7.3
+	<li>An Introduction to Bioinformatics Algorithms, Jones and Pevzner (2004), Chapter 10
+	</ul>
+</section>
