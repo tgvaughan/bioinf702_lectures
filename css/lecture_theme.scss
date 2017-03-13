@@ -147,6 +147,10 @@ div.textbox.alert > .title {
     margin: 0em;
 }
 
+table.noborders tr td {
+    border: 0px;
+}
+
 // Lecture overview table
 table.overview td.current {
     font-weight: bold;
