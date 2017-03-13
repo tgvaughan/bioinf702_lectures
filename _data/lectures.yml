@@ -6,12 +6,12 @@
 
     - title: Homology and Pairwise Alignment
       lecturer: Tim Vaughan
-      slide_credit: Alexei Drummond
+      slide_credit: Based on slides by Alexei Drummond
       date: 2017-03-07
 
     - title: Multiple Sequence Alignment
       lecturer: Tim Vaughan
-      slide_credit: Alexei Drummond
+      slide_credit: Based on slides by Alexei Drummond
       date: 2017-03-08
 
 - week: 2
@@ -22,19 +22,20 @@
 
     - title: Phylogenetics
       lecturer: Alexei Drummond
+      slide_credit: 
 
     - title: Parsimony-based Phylogenetic Inference
       lecturer: Alexei Drummond
 
 - week: 3
   lectures:
-    - title: Distance-based Phylogenetic Inference
-      lecturer: Alexei Drummond
+    - title: Maximum-likelihood Phylogenetic Inference
+      lecturer: Tim Vaughan
 
     - title: Bayesian Inference
       lecturer: Tim Vaughan
 
-    - title: Models of Sequence Evolution
+    - title: Bayesian Phylogenetic Inference
 
 - week: 4-6
   lectures:
