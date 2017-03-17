@@ -39,4 +39,5 @@
 
 - week: 4-6
   lectures:
-    - title: Statistical Phylogenetics
+    - title: The Coalescent
+      lecturer: Alexei Drummond 
