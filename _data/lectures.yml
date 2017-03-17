@@ -29,13 +29,14 @@
 
 - week: 3
   lectures:
-    - title: Maximum-likelihood Phylogenetic Inference
+    - title: Maximum Likelihood Phylogenetic Inference
       lecturer: Tim Vaughan
 
     - title: Bayesian Inference
       lecturer: Tim Vaughan
 
     - title: Bayesian Phylogenetic Inference
+      lecturer: Tim Vaughan
 
 - week: 4
   lectures:
