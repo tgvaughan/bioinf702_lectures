@@ -1,0 +1,8 @@
+N <- 12; G <- 21; x <- rep(1:N, times=G); y <- rep(0:(G-1), each=N)
+p <- sample(1:N,N*(G-1),replace=T)
+plot(x,y,xlab="individuals", ylab="Generations in the past", xaxt="n")
+lx <- c(rbind(x,p,NA))
+ly <- c(rbind(y,y+1,NA))
+lines(lx[1:(3*N*(G-1))],ly[1:(3*N*(G-1))],col="black")
+points(x,y,pch=16,col="white")
+points(x,y,pch=1)
