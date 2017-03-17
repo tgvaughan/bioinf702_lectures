@@ -23,19 +23,25 @@
     - title: Phylogenetics
       lecturer: Alexei Drummond
       slide_credit: Some slides adapted from material provided by Prof Ziheng Yang, UCL
+      date: 2017-03-14
 
     - title: Parsimony-based Phylogenetic Inference
       lecturer: Alexei Drummond
+      date: 2017-03-15
 
 - week: 3
   lectures:
-    - title: Maximum-likelihood Phylogenetic Inference
+    - title: Maximum Likelihood Phylogenetic Inference
       lecturer: Tim Vaughan
+      date: 2017-03-20
 
     - title: Bayesian Inference
       lecturer: Tim Vaughan
+      date: 2017-03-21
 
     - title: Bayesian Phylogenetic Inference
+      lecturer: Tim Vaughan
+      date: 2017-03-22
 
 - week: 4
   lectures:
