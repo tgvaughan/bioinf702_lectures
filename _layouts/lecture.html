@@ -1,12 +1,16 @@
-{% assign i = 0 %}
+{% assign lectureIdx = 0 %}
 {% for week in site.data.lectures %}
+{% assign weekIdx = forloop.index %}
 {% for lecturePrime in week.lectures %}
-{% assign i = i | plus:1 %}
-{% if i == page.lecture_num %}
+{% assign lectureIdx = lectureIdx | plus:1 %}
+{% if lectureIdx == page.lecture_num %}
 {% assign lecture = lecturePrime %}
+{% assign lectureWeekNum = weekIdx %}
 {% endif %}
 {% endfor %}
 {% endfor %}
+
+{% assign finalWeekIdx = weekIdx %}
 
 <!doctype html>
 <html>
@@ -65,12 +69,29 @@
                     <h2>Overview of Lectures</h2>
 
                     <table class="overview">
+
+                        {% assign minWeek = lectureWeekNum | minus:1 %}
+                        {% assign maxWeek = minWeek | plus:2 %}
+                        {% if minWeek < 1 %}
+                        {% assign minWeek = 1 %}
+                        {% assign maxWeek = minWeek | plus:2 %}
+                        {% endif %}
+
+                        {% if maxWeek > finalWeekIdx %}
+                        {% assign maxWeek = finalWeekIdx %}
+                        {% assign minWeek = maxWeek | minus:2 %}
+                        {% endif %}
+
                         {% for week in site.data.lectures %}
                         {% assign weekNum = forloop.index %}
 
+                        {% if weekNum < minWeek or weekNum > maxWeek %}
+                        {% continue %}
+                        {% endif %}
+
                         {% for lecturePrime in week.lectures %}
                         <tr>
-                            {% if forloop.index == 1 %}
+                            {% if forloop.first %}
                             <td rowspan="{{week.lectures | size}}">Week {{week.week}}</td>
                             {% endif %}
 
