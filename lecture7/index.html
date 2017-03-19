@@ -605,13 +605,134 @@ lecture_num: 7
 
 <section>
     <h2>The Likelihood Function</h2>
+
+    <blockquote style="margin-top:5%">
+        The likelihood for a parameter $\theta$ under model $M$ and given data $D$ is defined as
+        $L(\theta|D,M)\equiv P(D|\theta,M)$.
+    </blockquote>
+
+    <div style="margin-top:1em">
+        <b>The likelihood of $\theta$ is NOT a probability distribution over $\theta$!</b>
+    </div>
+
+    <p style="margin-top:2em">Example:</p>
+    <div style="margin-top:0">
+        <div style="display:inline-block;width:50%;vertical-align:middle;margin-top:0">
+            <ul>
+                <li>Coin tossed 5 times (identical, independent): $D=(H,T,T,H,T)$.</li>
+                <li>Probability of sequence:
+                    \begin{align*}
+                    P(D|f)&amp;=f\times (1-f)\times(1-f)\times f\times(1-f)\\
+                    &amp;=f^2(1-f)^3\\
+                    &amp;=L(f|D)
+                    \end{align*}
+                </li>
+            </ul>
+        </div>
+        <div style="display:inline-block;width:45%;vertical-align:middle">
+            <div id="likelihoodOut" style="width:450px;height:300px">
+            <script>
+            var trace = { x: [], y: [], mode: "lines", name: ""};
+
+            for (var i=0; i<100; i++) {
+                var f = i/100;
+                var L = Math.pow(f,2)*Math.pow(1-f,3);
+                trace.x[i] = f;
+                trace.y[i] = L;
+            }
+
+            var layout = {
+                showlegend: false,
+                xaxis: {
+                    title: "f"
+                },
+                yaxis: {
+                    title: "L(f|D)",
+                },
+                margin: {
+                    t:10,
+                }
+            }
+
+            Plotly.newPlot('likelihoodOut', [trace], layout, {displayModeBar: false});
+
+            layout.shapes = [ {
+                type: 'line',
+                x0: 0.4,
+                y0: 0,
+                x1: 0.4,
+                y0: 1,
+                line: {
+                    dash: 'dash',
+                    width: 3
+                }
+            } ];
+
+            Plotly.newPlot('maxLikelihoodOut', [trace], layout, {displayModeBar: false});
+            </script>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section>
     <h2>Maximum likelihood inference</h2>
 
+    <blockquote>
     Sensible methods of parameter estimation from empirical data often
     correspond to values which maximize the likelihood function.
+    </blockquote>
+
+    
+    <div id="maxLikelihoodOut" style="width:800px;height:300px;margin-left:100px">
+            <script>
+            var trace = { x: [], y: [], mode: "lines", name: ""};
+
+            for (var i=0; i<100; i++) {
+                var f = i/100;
+                var L = Math.pow(f,2)*Math.pow(1-f,3);
+                trace.x[i] = f;
+                trace.y[i] = L;
+            }
+
+            var layout = {
+                showlegend: false,
+                xaxis: {
+                    title: "f"
+                },
+                yaxis: {
+                    title: "L(f|D)",
+                },
+                margin: {
+                    t:10,
+                    b:20
+                }
+            }
+
+            Plotly.newPlot('likelihoodOut', [trace], layout, {displayModeBar: false});
+
+            layout.shapes = [ {
+                type: 'line',
+                x0: 0.4,
+                y0: 0,
+                x1: 0.4,
+                y1: 0.04,
+                line: {
+                    dash: 'dash',
+                    color: 'orange',
+                    width: 2
+                }
+            } ];
+
+            Plotly.newPlot('maxLikelihoodOut', [trace], layout, {displayModeBar: false});
+            </script>
+    </div>
+
+    <p>Maximum likelihood estimate of coin fairness parameter $f$ for $n$ heads:
+    $$\log L(f|D) = n\log f + (N-n)\log(1-f)$$
+    $$\left.\frac{\partial}{\partial f}\log L(f|D)\right|_{f=f_{ML}} = \frac{n}{f_{ML}} - \frac{N-n}{1-f_{ML}} = 0$$
+    $$\implies f_{ML} = \frac{n}{N}$$
+    </p>
 </section>
 
 <section>
