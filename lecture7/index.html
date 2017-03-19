@@ -80,6 +80,81 @@ scripts:
     </section>
 
     <section>
+        <h3>Modelling genetic change</h3>
+
+        <img data-src="pdist.svg" style="width:80%;margin-top:2em">
+    </section>
+
+    <section>
+        <h3>p-distance</h3>
+
+        <div style="width:100%; margin-top:10%">
+            <img data-src="pdist2.svg" style="vertical-align:middle;width:30%">
+            <div style="width: 40%;display:inline-block">
+                $p$-distance = 3/7 $\simeq 0.43$.
+            </div>
+        </div>
+
+        <ul class="spaced" style="width:80%;margin-top:2em">
+            <li>Proportion of differences between two sequences.</li>
+            <li>Usually <b>understimates</b> the true distance: <b>genetic</b> (or <b>evolutionary</b>) <b>distance</b> $d$.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>Multiple, parallel and back-substitutions</h3>
+
+        <img data-src="pdist3.svg" style="width:80%">
+    </section>
+
+    <section>
+        <h3>Relationship between $p$-distance and genetic distance</h3>
+        <div id="pdistOutput" style="width:1000px;height:600px;margin-top:2em">
+        <script>
+
+            var trace1 = { x: [], y: [],
+                mode: 'lines',
+                name: '',
+                line: {
+                    width: 4,
+                    dash: 'solid'
+                }
+            };
+
+            var trace2 = {x: [], y: [], mode: 'lines', name: '',
+                line: { width: 2, dash: 'dash' }
+            }
+            for (var i=0; i<100; i++) {
+                var ut = 3.0*i/100;
+                trace1.x[i] = ut;
+                trace1.y[i] = 0.75*(1-Math.exp(-4/3*ut));
+
+                trace2.x[i] = ut; trace2.y[i] = ut;
+            }
+
+            var data = [trace1, trace2];
+
+            var layout = {
+                showlegend: false,
+                xaxis: {
+                    title: "Genetic distance (d)"
+                },
+                yaxis: {
+                    title: "p-distance (p)",
+                    range: [0,1]
+                },
+                margin: {
+                    t:10
+                }
+            }
+
+            Plotly.newPlot('pdistOutput', data, layout, {displayModeBar: false});
+        </script>
+        </div>
+    </section>
+
+
+    <section>
         <h3>Continuous-time Markov chains (CTMCs)</h3>
 
         <ul class="spaced" style="width:80%">
@@ -90,9 +165,13 @@ scripts:
                 where $p(x_1,t_1)\equiv P(X(t_1)=x_1)$ and $t_0&lt;t_{1/2}&lt;t_1$.
             </li>
             <li>Can be written in the following differential form:
-                $$\frac{d}{dt}p(x,t|x_0,t_0)=\sum_{x'\neq x}\left[p(x',t|x_0,t_0)M_{xx'}-p(x,t|x_0,_0)M_{x'x}\right]$$
+                \begin{align*}
+                \frac{d}{dt}p(x,t|x_0,t_0)&amp;=\sum_{x'\neq x}\left[p(x',t|x_0,t_0)Q_{xx'}-p(x,t|x_0,_0)Q_{x'x}\right]\\
+                &amp;=\sum_{x'}Q_{x'x}p(x',t|x_0,t_0)
+                \end{align*}
+                defining $Q_{xx}=-\sum_{x'\neq x}Q_{x'x}$.
             </li>
-            <li>This form is known as the Master Equation or Kolmogorov forward equation.</li>
+            <li>This form is known as the Master Equation or Kolmogorov forward equation. Linear, so solution is "simply" $\vec{p}(t)=\exp[-Qt]\vec{p}(0)$.</li>
         </ul>
     </section>
 
@@ -100,7 +179,7 @@ scripts:
         <h3>CTMC example</h3>
 
         <p>Consider a system with two states (0 and 1) and a transition rate matrix
-        $$M = \left[\begin{array}{cc}
+        $$Q = \left[\begin{array}{cc}
         - &amp; 2 \\
         1 &amp; -
         \end{array}\right]$$</p>
@@ -177,6 +256,25 @@ scripts:
 
     <section>
         <h3>Jukes-Cantor model of nucelotide substitution</h3>
+
+        <div style="width:100%">
+        <img data-src="JC.svg" style="width:30%;vertical-align:middle">
+        <div style="display:inline-block;width:50%">
+        $$
+        Q = \mu\left[\begin{array}{cccc}
+        -1 &amp; \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3}\\
+        \frac{1}{3} &amp; -1 &amp; \frac{1}{3} &amp; \frac{1}{3}\\
+        \frac{1}{3} &amp; \frac{1}{3} &amp; -1 &amp; \frac{1}{3}\\
+        \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} &amp;-1
+        \end{array}\right]
+        $$
+        </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h3>Genetic distance under Jukes-Cantor</h3>
     </section>
 
     <section>
@@ -245,11 +343,14 @@ scripts:
 </section>
 
 <section>
-    <h2> Likelihood</h2>
+    <h2> The Likelihood Function</h2>
 </section>
 
 <section>
     <h2> Maximum likelihood</h2>
+
+    Sensible methods of parameter estimation from empirical data often
+    correspond to values which maximize the likelihood function.
 </section>
 
 <section>
@@ -276,4 +377,18 @@ scripts:
 
 <section>
     <h2>Summary</h2>
+</section>
+
+<section>
+    <h2>Recommended reading</h3>
+
+    <div class="figure" style="display:inline-block;height:400px;margin-top:2em">
+        <img data-src="InferringPhylogenies.jpg">
+    </div>
+
+    <div class="figure" style="display:inline-block;height:400px;margin-left:2em;margin-top:2em">
+        <img data-src="beast_book_cover.jpeg">
+    </div>
+
+
 </section>
