@@ -389,11 +389,86 @@ scripts:
 
 
     <section>
-        <h3>Other CTMC substitution models</h3>
+        <h3>Other CTMC substitution models: Kimura 80</h3>
+
+        <div style="width:100%">
+        <img data-src="K80.svg" style="width:30%;vertical-align:middle">
+        <div style="display:inline-block;width:50%">
+        $$
+        Q = \left[\begin{array}{cccc}
+        \cdot &amp; \alpha &amp; \beta &amp; \beta \\
+        \alpha &amp; \cdot &amp; \beta &amp; \beta \\
+        \beta &amp; \beta &amp; \cdot &amp; \alpha \\
+        \beta &amp; \beta &amp; \alpha &amp;\cdot
+        \end{array}\right]
+        $$
+        </div>
+        </div>
+
+        <ul style="margin-top:2em">
+            <li>Also "Kimura two parameter" model.</li>
+            <li>Allows different rates for transitions and transversions.</li>
+            <li>Equilibrium base frequencies equal.</li>
+        </ul>
     </section>
 
     <section>
+        <h3>Other CTMC substitution models: HKY</h3>
+
+        <div style="width:100%">
+        <img data-src="HKY.svg" style="width:30%;vertical-align:middle">
+        <div style="display:inline-block;width:50%">
+        $$
+        Q = \left[\begin{array}{cccc}
+        \cdot &amp; \alpha\pi_G &amp; \beta\pi_G &amp; \beta\pi_G \\
+        \alpha\pi_A &amp; \cdot &amp; \beta\pi_A &amp; \beta\pi_A \\
+        \beta\pi_C &amp; \beta\pi_C &amp; \cdot &amp; \alpha\pi_C \\
+        \beta\pi_T &amp; \beta\pi_T &amp; \alpha\pi_T &amp;\cdot
+        \end{array}\right]
+        $$
+        </div>
+        </div>
+
+        <ul style="margin-top:2em">
+            <li>Due to Hasegawa, Kishino, Yano (1985).</li>
+            <li>Allows different transition transversion rates.</li>
+            <li>Allows equilibrium base frequencies to differ.</li>
+            <li>Most complex model for which analytical solutions are available.</li>
+        </li>
+    </section>
+
+    <section>
+        <h3>Other CTMC substitution models: GTR</h3>
+
+        <div style="width:100%">
+        <img data-src="GTR.svg" style="width:30%;vertical-align:middle">
+        <div style="display:inline-block;width:50%">
+        $$
+        Q = \left[\begin{array}{cccc}
+        \cdot &amp; \alpha\pi_G &amp; \beta\pi_G &amp; \gamma\pi_G \\
+        \alpha\pi_A &amp; \cdot &amp; \delta\pi_A &amp; \epsilon\pi_A \\
+        \beta\pi_C &amp; \delta\pi_C &amp; \cdot &amp; \eta\pi_C \\
+        \gamma\pi_T &amp; \epsilon\pi_T &amp; \eta\pi_T &amp;\cdot
+        \end{array}\right]
+        $$
+        </div>
+        </div>
+
+        <ul style="margin-top:2em">
+            <li>All models so-far have been reversible.</li>
+            <li>GTR is the most general time-reversible model.</li>
+            <li>Reversibility is a mathematical convenience: no biological reason!</li>
+            <li>No useful analytical solution available (matrix exponential doesn't count).</li>
+        </li>
+    </section>
+
+
+    <section>
         <h3>Genetic distance variation between models</h3>
+    </section>
+
+    <section>
+        <h3> </h3>
     </section>
 </section>
 
@@ -402,11 +477,11 @@ scripts:
 </section>
 
 <section>
-    <h2> The Likelihood Function</h2>
+    <h2>Doing things properly: The Likelihood Function</h2>
 </section>
 
 <section>
-    <h2> Maximum likelihood</h2>
+    <h2>Maximum likelihood inference</h2>
 
     Sensible methods of parameter estimation from empirical data often
     correspond to values which maximize the likelihood function.
