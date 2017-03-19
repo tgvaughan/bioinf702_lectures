@@ -252,7 +252,7 @@ lecture_num: 7
 
         <p>Time $\Delta t$ spent in state before transition:
         $$ P(\Delta t|x) = \lambda e^{-\lambda \Delta t}$$
-        where $\lambda = \sum_{x'\neq x}M_{x'x}$.</p>
+        where $\lambda = \sum_{x'\neq x}Q_{x'x}$.</p>
     </section>
 
     <section>
@@ -587,7 +587,7 @@ lecture_num: 7
                 <li>Define cost of tree as the (weighted) sum of the squares of the
                 difference between the genetic distance on the tree and the
                 distance estimated from the sequence alignment:
-                $$C(T) = \sum_i\sum_j w_{ij}(d_{ij}(T)-\hat{d}_{ij})$$ </li>
+                $$C(T) = \sum_i\sum_j w_{ij}(d_{ij}(T)-\hat{d}_{ij})^2$$ </li>
                 <li>Search for tree $T$ with lowest $C(T)$.</li>
             </ul>
         </div>
@@ -670,7 +670,7 @@ lecture_num: 7
     </blockquote>
 
     
-    <div id="maxLikelihoodOut" style="width:800px;height:300px;margin-left:100px">
+    <div id="maxLikelihoodOut" style="width:800px;height:250px;margin-left:100px">
             <script>
             var trace = { x: [], y: [], mode: "lines", name: ""};
 
