@@ -44,12 +44,73 @@ scripts:
     </section>
 
     <section>
+        <h3>Why use models?</h3>
+
+        <blockquote style="margin-top:10%">
+            We need a model to relate what we observe (data) to what we want to
+            know (hypotheses and parameters).
+        </blockquote>
+
+        <div style="margin-top:2em"><b>Inference is not possible without a model!</b></div>
+
+        <p style="margin-top:2em">We almost invariably choose
+        <b>probabilistic</b> models for molecular evolution, because we don't
+        know enough about mutation to construct a deterministic model.</p>
+    </section>
+
+    <section>
+        <h3>Modelling genetic change</h3>
+
+        <ul class="spaced" style="width:80%;margin-top:5%">
+            <li>Given two or more aligned nucleoide or amino acid sequences,
+                usually the firs goal is to calculate some measure of sequence
+                similarity (or conversely distance).</li>
+
+            <li>The easiest distance to compute is the <b>p-distance</b>: the number of
+                differences between two aligned sequences relative to their length.
+                <ul>
+                    <li>The p-distance is the <b>Hamming distance</b> normalized by the
+                        length of the sequence.  Therefore it is the proportion of positions
+                        at which the sites differ.</li>
+                    <li>The p-distance can also be considered the probability that the two
+                        sequences differ at a random site.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
         <h3>Continuous-time Markov chains (CTMCs)</h3>
+
+        <ul class="spaced" style="width:80%">
+            <li>CTMCs are the continuous-time generalization of Markov chains: state $X(t)$ is
+            a function of a continuous time parameter.</li>
+            <li>Obey the Chapman-Kolmogorov equation:
+                $$p(x_1,t_1|x_0,t_0)=\sum_{x_{1/2}}p(x_1,t_1|x_{1/2},t_{1/2})p(x_{1/2},t_{1/2}|x_0,t_0)$$
+                where $p(x_1,t_1)\equiv P(X(t_1)=x_1)$ and $t_0&lt;t_{1/2}&lt;t_1$.
+            </li>
+            <li>Can be written in the following differential form:
+                $$\frac{d}{dt}p(x,t|x_0,t_0)=\sum_{x'\neq x}\left[p(x',t|x_0,t_0)M_{xx'}-p(x,t|x_0,_0)M_{x'x}\right]$$
+            </li>
+            <li>This form is known as the Master Equation or Kolmogorov forward equation.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>CTMC example</h3>
+
+        <p>Consider a system with two states (0 and 1) and a transition rate matrix
+        $$M = \left[\begin{array}{cc}
+        - &amp; 2 \\
+        1 &amp; -
+        \end{array}\right]$$</p>
+
+        <p>Gives rise to the following trajectories:</p>
 
         <div class="textbox">
             <div class="title"><a href="#" style="color:white" id="ctmcRun">Run Demo</a></div>
 
-        <div id="ctmcOutput" style="width:100%;height:500px">
+        <div id="ctmcOutput" style="width:100%;height:200px">
         <script>
             $("#ctmcRun").click(function (e) {
                 e.preventDefault();
@@ -65,9 +126,9 @@ scripts:
                 var i=0;
                 while (true) {
                     if (trace.y[i]==0)
-                        a = 0.1;
+                        a = 1;
                     else
-                        a = 0.2;
+                        a = 2;
                     
                     t += -Math.log(Math.random())/a;
 
@@ -91,7 +152,9 @@ scripts:
                     },
                     yaxis: {
                         title: "State",
-                        range: [-0.1,1.1]
+                        range: [-0.1,1.1],
+                        zeroline: false,
+                        tickvals: [0,1]
                     },
                     margin: {
                         t: 20
@@ -101,16 +164,24 @@ scripts:
                 console.log(trace);
                 
                 Plotly.purge("ctmcOutput");
-                Plotly.newPlot("ctmcOutput", [trace], layout);
+                Plotly.newPlot("ctmcOutput", [trace], layout, {displayModeBar: false});
             });
         </script>
         </div>
         </div>
+
+        <p>Time $\Delta t$ spent in state before transition:
+        $$ P(\Delta t|x) = \lambda e^{-\lambda \Delta t}$$
+        where $\lambda = \sum_{x'\neq x}M_{x'x}$.</p>
+    </section>
+
+    <section>
+        <h3>Jukes-Cantor model of nucelotide substitution</h3>
     </section>
 
     <section>
         <h3>Differences per site</h3>
-        <div id="diffOutput" style="width:1000px;height:600px">
+        <div id="diffOutput" style="width:1000px;height:600px;margin-top:2em">
         <script>
 
             var trace1 = { x: [], y: [],
@@ -155,9 +226,17 @@ scripts:
                 }
             }
 
-            Plotly.newPlot('diffOutput', data, layout);
+            Plotly.newPlot('diffOutput', data, layout, {displayModeBar: false});
         </script>
         </div>
+    </section>
+
+    <section>
+        <h3>Other CTMC substitution models</h3>
+    </section>
+
+    <section>
+        <h3>Genetic distance variation between models</h3>
     </section>
 </section>
 
@@ -182,11 +261,13 @@ scripts:
 </section>
 
 <section>
-    <h2>Maximum likelihood algorithms</h2>
-</section>
-
-<section>
     <h2>Maximum likelihood for Phylogenetics</h2>
+
+    <ul>
+        <li>PhyML</li>
+        <li>RAxML</li>
+        <li>FastTree</li>
+    </ul>
 </section>
 
 <section>
