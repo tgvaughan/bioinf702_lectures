@@ -737,10 +737,35 @@ lecture_num: 7
 
 <section>
     <h2> What is the likelihood of a tree?</h2>
+    <img data-src="treeLikelihood.svg" style="width:40%">
+
+    <ul>
+        <li>$$L(T|A)\equiv P(A|T) = \sum_x\sum_w P(x)P(A|x)P(w|x)P(G|w)P(G|w)$$</li>
+        <li>For $n$ taxa there are $4^{n-1}$ possible internal node states!</li>
+        <li>Solve using Dynamic Programming!</li>
+    </li>
 </section>
 
 <section>
     <h2> Felsenstein's Pruning Algorithm</h2>
+    <div>
+        <div style="width:50%;display:inline-block;vertical-align:middle">
+            <ul>
+                <li>Recursion based on the conditional likelihood of a subtree below node $k$ having state $s$: $L_k(s)$.</li>
+                <li>For leaves, $L_k(s)=\delta_{s,l}$ where $l$ is the leaf state.</li>
+            </ul>
+        </div>
+        <div style="width:45%;display:inline-block;vertical-align:middle">
+            <img data-src="treeLikelihood.svg" style="width:75%">
+        </div>
+
+        <p> For internal nodes,
+        $$L_k(s) = \left(\sum_xP(x|s)L_{c_l}(x)\right)\left(\sum_yP(y|s)L_{c_r}(y)\right)$$</p>
+
+        <blockquote>
+            Time complexity for $m$ sites: $m(n-1)4^2$.  This is the workhorse of computational phylogenetics.
+        </blockquote>
+    </div>
 </section>
 
 <section>
