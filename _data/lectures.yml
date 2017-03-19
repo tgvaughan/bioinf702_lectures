@@ -33,6 +33,7 @@
   lectures:
     - title: Model-based Phylogenetic Inference
       lecturer: Tim Vaughan
+      slide_credit: Some slides due to Alexei Drummond
       date: 2017-03-20
 
     - title: Bayesian Inference

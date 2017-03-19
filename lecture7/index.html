@@ -462,13 +462,117 @@ scripts:
         </li>
     </section>
 
+    <section>
+        <h3>Variable rates among sites</h3>
+
+        <div style="width:100%">
+            <div style="width:50%;display:inline-block;vertical-align:middle">
+                <p>Gamma distribution rate heterogeneity allows for variation
+                in evolutionary rate among sites according to
+                $$f(r) = \frac{\alpha^{\alpha}}{\Gamma(\alpha)}r^{\alpha-1}e^{-\alpha r}$$</p>
+            </div>
+            <div style="width:400px;height:300px;display:inline-block;vertical-align:middle" id="gammaDistribs">
+            <script>
+
+            function getTrace(alpha) {
+                var trace = { x: [], y: [], mode: "lines", name: "alpha=" + alpha };
+
+                for (var i=0; i<100; i++) {
+                    var r = 3*i/100;
+                    var f = Math.pow(alpha,alpha)*Math.pow(r, alpha-1)*Math.exp(-alpha*r)/Gamma(alpha);
+                    trace.x[i] = r;
+                    trace.y[i] = f;
+                }
+
+                return trace;
+            }
+
+            var layout = {
+                showlegend: true,
+                xaxis: {
+                    title: "Rate"
+                },
+                yaxis: {
+                    title: "Site fraction",
+                },
+                margin: {
+                    t:10,
+                }
+            }
+
+            Plotly.newPlot('gammaDistribs',
+                    [getTrace(20),
+                    getTrace(5),
+                    getTrace(1),
+                    getTrace(0.5),
+                    getTrace(0.1)],
+                    layout, {displayModeBar: false, staticPlot: true});
+            </script>
+        </div>
+
+        <div style="width:100%">
+            <div style="width:50%;display:inline-block;vertical-align:middle">
+                <p>Analytical solution exists for JC distance with site rate heterogeneity:
+                $$\hat{d}=-\frac{3}{4}\alpha\left[1-\left(1-\frac{4}{3}p\right)^{-1/\alpha}\right]$$
+            </div>
+            <div style="width:400px;height:300px; display:inline-block;vertical-align:middle" id="variableSiteD">
+            <script>
+                    var trace1 = { x: [], y: [], mode: "lines", name: "alpha=1"};
+                    var traceInf = { x: [], y: [], mode: "lines", name: "alpha=Inf"};
+
+                    for (var i=0; i<100; i++) {
+                        var p = 0.5*i/100;
+                        var d1 = 0.75*(Math.pow((1-4/3*p), -1)-1);
+                        var dInf = -0.75*Math.log(1-4/3*p);
+                        trace1.x[i] = p;
+                        traceInf.x[i] = p;
+                        trace1.y[i] = d1;
+                        traceInf.y[i] = dInf;
+                    }
+
+            var layout = {
+                showlegend: true,
+                xaxis: {
+                    title: "p-distance"
+                },
+                yaxis: {
+                    title: "Genetic distance",
+                },
+                margin: {
+                    t:10,
+                }
+            }
+
+            Plotly.newPlot('variableSiteD',
+                    [trace1, traceInf],
+                    layout, {displayModeBar: false, staticPlot: false});
+
+            </script>
+            </div>
+        </div>
+    </section>
+
 
     <section>
         <h3>Genetic distance variation between models</h3>
-    </section>
 
-    <section>
-        <h3> </h3>
+        <ul class="spaced" style="margin-top:2em">
+            <li>HIV-1B vs HIV-O/SIVcpz/HIV-1C: <i>env</i> gene:
+                <table>
+                    <tr> <td></td> <th>$p$-distance</th> <th>JC69</th> <th>K80</th> <th>Tajima-Nei</th></tr>
+                    <tr> <th>HIV-O</th> <td>0.391</td> <td>0.552</td> <td>0.560</td> <td>0.572</td></tr>
+                    <tr> <th>SIVcpz</th> <td>0.266</td> <td>0.337</td> <td>0.340</td> <td>0.427</td></tr>
+                    <tr> <th>HIV-1C</th> <td>0.163</td> <td>0.184</td> <td>0.187</td> <td>0.189</td></tr>
+                </table>
+            </li>
+
+            <li>HIV-1B vs HIV-O/HIV-1C: <i>pol</i> gene:
+                <table>
+                    <tr> <td></td> <th>$p$-distance</th> <th>JC69</th> <th>K80</th> <th>Tajima-Nei</th></tr>
+                    <tr> <th>HIV-O</th> <td>0.257</td> <td>0.315</td> <td>0.318</td> <td>0.324</td></tr>
+                    <tr> <th>HIV-1C</th> <td>0.103</td> <td>0.111</td> <td>0.113</td> <td>0.114</td></tr>
+                </table>
+            </li>
     </section>
 </section>
 
