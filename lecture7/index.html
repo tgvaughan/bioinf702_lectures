@@ -655,20 +655,6 @@ lecture_num: 7
             }
 
             Plotly.newPlot('likelihoodOut', [trace], layout, {displayModeBar: false});
-
-            layout.shapes = [ {
-                type: 'line',
-                x0: 0.4,
-                y0: 0,
-                x1: 0.4,
-                y0: 1,
-                line: {
-                    dash: 'dash',
-                    width: 3
-                }
-            } ];
-
-            Plotly.newPlot('maxLikelihoodOut', [trace], layout, {displayModeBar: false});
             </script>
             </div>
         </div>
@@ -708,8 +694,6 @@ lecture_num: 7
                     b:20
                 }
             }
-
-            Plotly.newPlot('likelihoodOut', [trace], layout, {displayModeBar: false});
 
             layout.shapes = [ {
                 type: 'line',
@@ -751,6 +735,7 @@ lecture_num: 7
     <div>
         <div style="width:50%;display:inline-block;vertical-align:middle">
             <ul>
+                <li>Introduced by Joseph Felsenstein, 1973.</li>
                 <li>Recursion based on the conditional likelihood of a subtree below node $k$ having state $s$: $L_k(s)$.</li>
                 <li>For leaves, $L_k(s)=\delta_{s,l}$ where $l$ is the leaf state.</li>
             </ul>
@@ -771,19 +756,66 @@ lecture_num: 7
 <section>
     <h2>Maximum likelihood for Phylogenetics</h2>
 
-    <ul>
-        <li>PhyML</li>
-        <li>RAxML</li>
-        <li>FastTree</li>
+    <ul class="spaced" style="margin-top:10%">
+        <li>PhyML (Guindon and Gascuel, 2003)
+            <ul>
+                <li>Hill-climbing algorithm which attempts to find ML trees.</li>
+            </ul>
+        </li>
+        <li>RAxML (e.g. Stamatakis, 2005)
+            <ul>
+                <li>Another hill-climbing algorithm, optimized for large trees.</li>
+            </ul>
+        </li>
+        <li>FastTree (Price, Dehal, Arkin, 2009)
+            <ul>
+                <li>Uses efficient Neighbour-Joining algorithm to find starting tree.</li>
+                <li>Updates tree using heuristics based on tree length.</li>
+                <li>Inference from alignments of $&gt;10^5$ sequences feasible.</li>
+            </ul>
+        </li>
     </ul>
 </section>
 
 <section>
     <h2>Problems with ML</h2>
+
+    <ul class="spaced" style="margin-top:10%">
+        <li>Only ever gives point estimates: no indication of uncertainty.
+            <ul>
+                <li>Addressed using more <i>ad hoc</i>ery: bootstrap algorithms.</li>
+            </ul>
+        </li>
+
+        <li>Lacks rigorous theoretical basis: $L(\theta|D)$ is not a probability!</li>
+
+        <li>No clear way of incorporating additional (prior?) information into the analysis.</li>
+    </ul>
+
+    <blockquote style="margin-top:2em">
+        Need a better approach!
+    </blockquote>
+
 </section>
 
 <section>
     <h2>Summary</h2>
+    
+    <ul class="spaced" style="width:80%">
+        <li>The genetic distance between sequence pairs can be estimated using
+            a CTMC model for neutral molecular evolution.</li>
+        <li>Addresses some of the problems with the parsimony approach.</li>
+        <li>Have focused on 4 state DNA models, but it is possible to consider
+            models for proteins (20 amino acid states) and models that take
+            into account <b>codons</b> and the <b>genetic code</b> (64 states).</li>
+        <li>Substitution model approaches to estimating genetic distance do not
+            deal with insertions and deletions of genetic material: they presuppose
+            a sequence alignment.</li>
+        <li>Can be used within the context of a least-squares framework to find
+            best-fitting phylogenies.</li>
+        <li>Better used as the basis for a tree likelihood.</li>
+        <li>Likelihood can be used on its own for phylogenetic inference.</li>
+    </ul>
 </section>
 
 <section>
