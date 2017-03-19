@@ -43,6 +43,9 @@
         {% for file in site.static_files %}{% if file.path contains page.dir and file.extname == ".js"%}
             <script src="{{site.baseurl}}{{file.path}}"></script>
         {% endif %} {% endfor %}
+        {% for url in page.scripts %}
+            <script src="{{url}}"></script>
+        {% endfor %}
 	</head>
 
 	<body>
@@ -71,10 +74,10 @@
                     <table class="overview">
 
                         {% assign minWeek = lectureWeekNum | minus:1 %}
-                        {% assign maxWeek = minWeek | plus:2 %}
+                        {% assign maxWeek = minWeek | plus:3 %}
                         {% if minWeek < 1 %}
                         {% assign minWeek = 1 %}
-                        {% assign maxWeek = minWeek | plus:2 %}
+                        {% assign maxWeek = minWeek | plus:3 %}
                         {% endif %}
 
                         {% if maxWeek > finalWeekIdx %}

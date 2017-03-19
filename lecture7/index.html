@@ -1,5 +1,7 @@
 ---
 lecture_num: 7
+scripts:
+    - https://cdn.plot.ly/plotly-latest.min.js
 ---
 
 <section>
@@ -23,14 +25,144 @@ lecture_num: 7
     <h2> Problems with parsimony </h2>
 
     <ul>
-        <li> Computationally expensive</li>
-        <li> LBA</li>
+        <li> "Large parsimony problem" is computationally expensive
+            <ul>
+                <li>Address using heuristic search algorithms.</li>
+            </ul>
+        </li>
+
+        <li> Gives point estimates: no acknowledgment of uncertainty.</li>
+
+        <li>Questionable biological basis
         <li> Other hidden problems</li>
     </ul>
 </section>
 
 <section>
-    <h2> Modelling neutral sequence evolution</h2>
+    <section class="center">
+        <h2> Modelling neutral sequence evolution</h2>
+    </section>
+
+    <section>
+        <h3>Continuous-time Markov chains (CTMCs)</h3>
+
+        <div class="textbox">
+            <div class="title"><a href="#" style="color:white" id="ctmcRun">Run Demo</a></div>
+
+        <div id="ctmcOutput" style="width:100%;height:500px">
+        <script>
+            $("#ctmcRun").click(function (e) {
+                e.preventDefault();
+
+                console.log("Hello, world!");
+
+                var trace = {
+                    x: [0], y: [0],
+                    mode: 'lines',
+                    line: {shape: 'hv'}};
+
+                var t=0;
+                var i=0;
+                while (true) {
+                    if (trace.y[i]==0)
+                        a = 0.1;
+                    else
+                        a = 0.2;
+                    
+                    t += -Math.log(Math.random())/a;
+
+                    if (t>20)
+                        break;
+
+                    trace.x[i+1] = t;
+                    trace.y[i+1] = 1 - trace.y[i];
+
+                    i += 1;
+                }
+
+                trace.x[i+1] = 20;
+                trace.y[i+1] = trace.y[i];
+
+                var layout = {
+                    showlegend: false,
+
+                    xaxis: {
+                        title: "Time"
+                    },
+                    yaxis: {
+                        title: "State",
+                        range: [-0.1,1.1]
+                    },
+                    margin: {
+                        t: 20
+                    }
+                }
+
+                console.log(trace);
+                
+                Plotly.purge("ctmcOutput");
+                Plotly.newPlot("ctmcOutput", [trace], layout);
+            });
+        </script>
+        </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Differences per site</h3>
+        <div id="diffOutput" style="width:1000px;height:600px">
+        <script>
+
+            var trace1 = { x: [], y: [],
+                mode: 'lines',
+                name: '',
+                line: {
+                    width: 4,
+                    dash: 'solid'
+                }
+            };
+
+            var trace2 = {x: [], y: [], mode: 'lines', name: '',
+                line: { width: 2, dash: 'dash' }
+            }
+
+            var trace3 = {x: [], y: [], mode: 'lines', name: '',
+                line: { width: 2, dash: 'dash' }
+            }
+
+            for (var i=0; i<100; i++) {
+                var ut = 2.0*i/100;
+                trace1.x[i] = ut;
+                trace1.y[i] = 0.75*(1-Math.exp(-4/3*ut));
+
+                trace2.x[i] = ut; trace2.y[i] = ut;
+                trace3.x[i] = ut; trace3.y[i] = 0.75;
+            }
+
+            var data = [trace1, trace2, trace3];
+
+            var layout = {
+                showlegend: false,
+                xaxis: {
+                    title: "Expected number of mutations"
+                },
+                yaxis: {
+                    title: "Expected number of differences",
+                    range: [0,1]
+                },
+                margin: {
+                    t:10
+                }
+            }
+
+            Plotly.newPlot('diffOutput', data, layout);
+        </script>
+        </div>
+    </section>
+</section>
+
+<section>
+    <h2>Least-squares 
 </section>
 
 <section>
