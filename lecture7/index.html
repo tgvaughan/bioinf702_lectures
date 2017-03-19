@@ -271,10 +271,15 @@ scripts:
         </div>
         </div>
 
-    </section>
-
-    <section>
-        <h3>Genetic distance under Jukes-Cantor</h3>
+        <div style="margin-top:2em">
+            \begin{align*}
+            P(X(t)=x|X(0)=x_0) &amp;= \left[\exp(-Qt)\right]_{xx_0}\\
+            &amp;=\left\{\begin{array}{ll}
+            \frac{1}{4}+\frac{3}{4}e^{-\frac{4}{3}\mu t} &amp; \text{for } x=x_0\\
+            \frac{1}{4}-\frac{1}{4}e^{-\frac{4}{3}\mu t} &amp; \text{for } x\neq x_0
+            \end{array}\right.
+            \end{align*}
+        </div>
     </section>
 
     <section>
@@ -330,6 +335,60 @@ scripts:
     </section>
 
     <section>
+        <h3>Genetic distance under Jukes-Cantor</h3>
+
+        <p>The probabilty that a site is distinct after time $t$ is
+        \begin{align*}
+        p_{\text{diff}}&amp;=\sum_{x'\neq x} P(X(t)=x'|X(0)=x)\\
+        &amp;=\frac{3}{4} - \frac{3}{4}e^{-\frac{4}{3}\mu t}
+        \end{align*}
+        </p>
+
+        <p style="margin-top:2em">Equating $p_{\text{diff}}$ with the
+        $p$-distance and solving for $\mu t$ yields
+        $$\hat{d} = \widehat{\mu t} = -\frac{3}{4}\log(1-\frac{4}{3}p).$$
+        </p>
+
+        <div style="width:100%">
+            <div style="display:inline-block;width:50%;vertical-align:middle">
+                <ul>
+                    <li>Accounts for multiple, parallel, back-substitutions.</li>
+                    <li>Only correct if $p$ is exact: infinite sequences.</li>
+                    <li>Diverges if $p&geq;3/4$.</li>
+                </ul>
+            </div>
+            <div style="display:inline-block;width:450px;height:300px;vertical-align:middle" id="distancePlot">
+                <script>
+            var trace = { x: [], y: [], mode: "lines"};
+
+            for (var i=0; i<100; i++) {
+                var p = 0.7*i/100;
+                var d = -0.75*Math.log(1-4/3*p);
+                trace.x[i] = p;
+                trace.y[i] = d;
+            }
+
+            var layout = {
+                showlegend: false,
+                xaxis: {
+                    title: "p-distance"
+                },
+                yaxis: {
+                    title: "Genetic distance (Jukes-Cantor)",
+                },
+                margin: {
+                    t:10
+                }
+            }
+
+            Plotly.newPlot('distancePlot', [trace], layout, {displayModeBar: false});
+            </script>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
         <h3>Other CTMC substitution models</h3>
     </section>
 
@@ -339,7 +398,7 @@ scripts:
 </section>
 
 <section>
-    <h2>Least-squares 
+    <h2>Least-squares Phylogenetic Inference</h2>
 </section>
 
 <section>
