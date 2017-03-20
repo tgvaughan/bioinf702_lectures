@@ -59,8 +59,8 @@
                     <div class="course">{{site.course}}</div>
 
                     <div class="title">Lecture {{page.lecture_num}}: {{lecture.title}}</div>
-                    <div class="print-button">
-                        <a href="{{site.baseurl}}{{page.url}}?print-pdf">Generate layout for printing</a>
+                    <div id="print-button">
+                        <a href="{{site.baseurl}}{{page.url}}?print-pdf" target="_new">Generate layout for printing</a>
                     </div>
 
                     <div class="lecturer">Lecturer: {{lecture.lecturer}}
@@ -151,6 +151,12 @@
                     { src: '{{site.baseurl}}/js/reveal.js/plugin/math/math.js', async: true }
 				]
 			});
+
+            // Hide print button if these are already the print-friendly slides
+            if (window.location.search.match( /print-pdf/gi ) ) {
+                document.getElementById("print-button").style.display = "none";
+                console.log("hey!");
+            }
 		</script>
 	</body>
 </html>

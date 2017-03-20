@@ -61,12 +61,12 @@ section.titlepage .title {
     font-size: 1.5em;
 }
 
-section.titlepage .print-button {
+#print-button {
     text-align: right;
     margin: 0;
 }
 
-section.titlepage .print-button > a {
+#print-button > a {
     color:black;
     border:1px solid black;
     font-size:0.5em;
