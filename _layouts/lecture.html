@@ -59,6 +59,9 @@
                     <div class="course">{{site.course}}</div>
 
                     <div class="title">Lecture {{page.lecture_num}}: {{lecture.title}}</div>
+                    <div class="print-button">
+                        <a href="{{site.baseurl}}{{page.url}}?print-pdf">Generate layout for printing</a>
+                    </div>
 
                     <div class="lecturer">Lecturer: {{lecture.lecturer}}
                     </div>
@@ -67,8 +70,8 @@
                     <div class="slide_credit">{{lecture.slide_credit}}</div>
                     {% endif %}
 
-
                     <div class="date">{{lecture.date | date: "%-d %B %Y"}}</div>
+
                 </section>
 
                 <section>
