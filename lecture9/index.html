@@ -173,7 +173,7 @@ lecture_num: 9
     <ul class="spaced">
         <li>By tuning the acceptance probability, <b>any</b> probability distribution can be targeted.</li>
         <li>Only the ratio $\pi(x')/\pi(x)$ appears: normalization need not be known.</li>
-        <li>The only requirement for $q(x'|x)$ is that it produce random walks that explore the entire state space for which $\pi(x)$ has support (<b>irreducibility</b>).</li>
+        <li>The only requirement for $q(x'|x)$ is that it produce random walks that explore the entire state space for which $\pi(x)$ has support (cf. <b>irreducibility</b>).</li>
         <li>For high-dimensional state spaces, $W(x'|x)$ is usually decomposed
         into several distinct transitions: $W(x'|x)=\sum_j W_j(x'|x)$ that each
         modify some small part of the state and individually satisfy detailed
@@ -185,51 +185,152 @@ lecture_num: 9
 </section>
 
 <section>
-    <h3>Proposal distribtuions/operators for Trees</h3>
+    <h3>Proposal distributions/operators for Trees</h3>
 
     <blockquote>
         Need to identify a set of proposals $q_j(x'|x)$ when $x$ is a point in
-        rooted tree space.  (The $w_j$ are <b>weights</b>: probabilities that
-        define how frequently a particular proposal operator is used by the
-        algorithm.)
+        the space of rooted time trees.
     </blockquote>
+
+    <img data-src="TreeOperators.svg" style="width:60%">
 </section>
 
 <section>
     <h3>Stopping criteria</h3>
 
-    * What we use in practice
+    <blockquote>
+        <ol>
+            <li>How can we tell when a phylogenetic MCMC calculation has reached equilibrium?</li>
+            <li>How do we know when we've collected enough samples?</li>
+        </ol>
+    </blockquote>
+
+    <ul>
+        <li>One approach is to compute ESS (using empirical estimates of autocorrelation time) for each
+        parameter and a number of tree summary statistics (e.g. tree height and tree "length").
+        <ul>
+            <li>Assume that once all of these scores are sufficiently high
+            (e.g. &gt; 200) we have adequately sampled the posterior.</li>
+        </ul>
+        </li>
+        <li>Examine output of several independent (and independently
+            initialized chains. A necessary (not sufficient) condition for
+            convergence is that sample distributions converge as the chains
+            converge to equilibrium.
+            <ul>
+                <li><b>Always</b> do this!</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h3>Are we there yet?</h3>
+
+    <p>The AWTY application applies a number of different statistics to assess
+    the convergence of the tree state.  <b>It relies heavily on comparing
+        the result of multiple runs.</b></p>
+
+    <img data-src="rwty.jpeg" style="width:100%">
+    <div style="text-align:right;font-size:0.8em"><a class="cite"href="https://doi.org/10.1093/bioinformatics/btm388">Nylander, et al., Bioinformatics, 2008</a></div>
 </section>
 
 
 <section class="center">
     <h2>Post-processing</h2>
+</section>
 
-    * Summary algorithms
+<section>
+    <h3>Parameter samples</h3>
+    <p>Logs of individual parameters can be considered samples from the marginal posteriors of those parameters.</p>
+
+    <img data-src="tracer.png" style="width:80%;margin-top:0">
+</section>
+
+<section>
+    <h3>Tree samples</h3>
+
+    <ul>
+        <li>Summary statistics (e.g. age of the MRCA of a pair of taxa) can be
+            computed and their marginal distributions assessed.</li>
+        <li>A number of different approaches can be used to produce a "summary" tree meant
+            to represent the best guess at the true tree.  (None of these algorithms are perfect!!)</il>
+    </ul>
+
+    <dl>
+        <dt>Strict consensus</dt>
+        <dd>Include only clades that appear in ALL sampled trees.</dd>
+        <dt>Majority rule consensus</dt>
+        <dd>Include clades that appear in &gt;50% of the sampled trees.</dd>
+        <dt>Maximum clade credibility tree</dt>
+        <dd>The sampled topology for which the product of the posterior clade probabilities is maximized.</dd>
+    </dl>
+
+    <blockquote>
+        In BEAST, summary trees are produced using the MCC tree method via the  program <b>TreeAnnotator</b>.
+    </blockquote>
+
 </section>
 
 
 <section>
     <h2>Bayesian Phylogenetic Inference Software</h2>
 
-    <ul>
-        <li>BEAST/BEAST2</li>
-        <li>MrBayes</li>
-        <li>RevBayes</li>
-        <li>PHYLIP</li>
+    <p>Popular Bayesian  phyogenetic inference software:</p>
+    <dl>
+        <dt>MrBayes (Huelsenbeck and Ronquist, Bioinformatics, 2001)</dt>
+            <dd>Early CLI program for phylogenetic inference.</dd>
+        <dt>RevBayes (H&ouml;hna et al., Syst. Biol., 2016)</dt>
+        <dd>R-like syntax for specifying phylogenetic models.</dd>
+        <dt>BEAST/BEAST2 (Drummond and Rambaut, 2007; Bouckaert et al., 2014) </dt>
+        <dd>XML specification of phylogenetic models.  Extensible.</dd>
+    </dl>
 
-        <li>MIGRATE</li>
-        <li>ClonalFrame/ClonalOrigin</li>
-    </ul>
+    <p>Some software implementing special models:</p>
+    <dl>
+        <dt>MIGRATE</dt>
+        <dd>Performs inference under the Structured Coalescent. (I.e. subpopulation sizes, migration rates, ancestral locations.)</dd>
+
+        <dt>ClonalFrame/ClonalOrigin</dt>
+        <dd>Infer bacterial Ancestral Recombination Graphs (generalizations of trees when recombination is present).</dd>
+    </dl>
+
+    <p><i>... there are many others!</i></p>
 </section>
 
 <section>
     <h2>Summary</h2>
+
+    <ul>
+        <li>Bayesian phylogenetic inference is generally done by adding a tree
+            prior to the tree likelihood. This implicitly assumes neutral
+            evolution.</li>
+        <li>Tree priors link the shape of the tree to parameters such as
+            speciation rates, extinction rates, sampling rates, population
+            sizes and migration rates.</li>
+        <li>Development of these priors is a particularly rich area of current
+            research.</li>
+        <li>Due to the immense size of the state spaces involved and the use of
+            distributions which are analytically intractable, almost all
+            Bayesian phylogenetic inference uses MCMC.</li>
+        <li>Deciding on stopping criteria is difficult.  Many necessary
+            requirements for convergence, but no sufficient requirements!</li>
+        <li>Methods for summarizing sampled tree distributions exist, but may
+            be misleading. At the moment, sticking to summary statistics for
+            particular characteristics of interest is the only safe
+            option.</li>
+    </ul>
 </section>
 
 <section>
-    <h2>Reading</h2>
+    <h2>Recommended Reading</h2>
 
-    * BEAST 2 book
-    * Inferring Phylogenies
+
+    <div class="figure" style="display:inline-block;height:400px;margin-top:2em">
+        <img data-src="InferringPhylogenies.jpg">
+    </div>
+
+    <div class="figure" style="display:inline-block;height:400px;margin-left:2em;margin-top:2em">
+        <img data-src="beast_book_cover.jpeg">
+    </div>
 </section>
