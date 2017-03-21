@@ -173,7 +173,7 @@ lecture_num: 9
     <ul class="spaced">
         <li>By tuning the acceptance probability, <b>any</b> probability distribution can be targeted.</li>
         <li>Only the ratio $\pi(x')/\pi(x)$ appears: normalization need not be known.</li>
-        <li>The only requirement for $q(x'|x)$ is that it produce random walks that explore the entire state space for which $\pi(x)$ has support.</li>
+        <li>The only requirement for $q(x'|x)$ is that it produce random walks that explore the entire state space for which $\pi(x)$ has support (<b>irreducibility</b>).</li>
         <li>For high-dimensional state spaces, $W(x'|x)$ is usually decomposed
         into several distinct transitions: $W(x'|x)=\sum_j W_j(x'|x)$ that each
         modify some small part of the state and individually satisfy detailed
@@ -188,10 +188,10 @@ lecture_num: 9
     <h3>Proposal distribtuions/operators for Trees</h3>
 
     <blockquote>
-        Need to identify a set of proposals forming $q(x'|x)=\sum_j w_j
-        q_j(x'|x)$ when $x$ is a point in tree space.  (The $w_j$ are
-        <b>weights</b>: probabilities that define how frequently a particular
-        proposal operator is used by the algorithm.)
+        Need to identify a set of proposals $q_j(x'|x)$ when $x$ is a point in
+        rooted tree space.  (The $w_j$ are <b>weights</b>: probabilities that
+        define how frequently a particular proposal operator is used by the
+        algorithm.)
     </blockquote>
 </section>
 
