@@ -62,33 +62,83 @@ lecture_num: 9
 <section>
     <h2>Tree Priors</h2>
 
-    <ul>
-        <li></li>
-    </ul>
-</section>
-
-<section>
-    <h3>Uniform tree prior</h3>
+    <div style="width:100%">
+        <div style="display:inline-block;vertical-align:middle;width:69%">
+            <ul>
+                <li>Tree priors allow us to specify a generative model for the genealogy.</li>
+                <li>While this model may not involve genetic evolution, it may depend on
+                    speciation rates, population sizes, migration rates, etc. etc.</li>
+                <li>A huge fraction of phylogenetics inference research is focused on
+                    developing and efficiently implementing tree priors!</li>
+            </ul>
+        </div>
+        <div style="display:inline-block;vertical-align:middle;width:30%">
+            <img data-src="SIRTree.svg" style="width:100%">
+        </div>
+    </div>
 </section>
 
 <section>
     <h3>The Yule model for speciation</h3>
+
+    <ul>
+        <li>Simple model for speciation due to Yule (1924).</li>
+        <li>Constant rate branching process where
+            branching occurs uniformly across extant lineages
+            at a rate of $\lambda$ per lineage per unit time.</li>
+        <li>Number of lineages $k$ evolves under the following master equation:
+            $$\dot{p}(k,t) = \lambda (k-1)p(k-1,t) - \lambda k p(k,t)$$</li>
+        <li>Write this in chemical kinetics formalism:
+            $X \overset{\lambda}{\longrightarrow} 2X$</li>
+    </ul>
+
+    <img data-src="YuleTree.svg" style="width:100%">
 </section>
 
 <section>
-    <h3>Birth-death priors</h3>
-</section>
+    <h3>Birth-death(-sampling) priors</h3>
 
-<section>
-    <h3>Birth-death-sampling priors</h3>
+    <ul>
+        <li>Most of the recent groundwork on this is due to Tanja Stadler (ETH, Z&uuml;rich).</li>
+        <li>Generalization of Yule process to account for extinction and sampling.</li>
+        <li>Linear speciation, extinction and sampling rates.</li>
+        <li>Prior is over <i>sampled</i> trees: assumes unobserved full tree.</li>
+    </ul>
+
+    <img data-src="StadlerSTT.svg" style="width:80%">
+    <div style="text-align:right;font-size:0.8em">
+        <a class="cite" href="http://www.sciencedirect.com/science/article/pii/S0022519310004765">
+            Tanja Stadler, J. Theor. Biol., 2010</a></div>
 </section>
 
 <section>
     <h3>Coalescent priors</h3>
+
+    <ul>
+        <li>Original theory due to Kingman (1980).</li>
+        <li>Model the shape of <b>gene trees</b> within a species.</li>
+        <li>Can be obtained as the limit of a number of population genetic models,
+            including the Wright-Fisher model and the Moran model.</li>
+        <li>Provide an important link between tree shape and population size!</li>
+    </ul>
+
+    <img data-src="MEPs.svg" style="width:85%">
+    <div style="text-align:right;font-size:0.8em">
+        <a class="cite" href="http://dx.doi.org/10.1016/S0169-5347(03)00216-7">Drummond et al., TIEE, 2003</a>
 </section>
 
 <section>
     <h3>Multi-species coalescent priors</h3>
+    <ul>
+        <li>Hierarchical models that embed gene trees within species trees.</li>
+        <li>Species tree described using a birth-death prior.</li>
+        <li>Gene trees described by coalescent priors for populations which
+            subdivide at speciation events.</li>
+    </ul>
+
+    <img data-src="MSC.jpg" style="width:100%">
+    <div style="text-align:right;font-size:0.8em">
+        <a class="cite" href="https://frederikleliaert.wordpress.com/green-algae/dna-based-species-delimitation-in-algae/">Leliaert et al., Euro. J. Phycology, 2014</a>
 </section>
 
 <section class="center">
@@ -96,17 +146,42 @@ lecture_num: 9
 </section>
 
 <section>
-    <h3>Real MCMC algorithm</h3>
+    <h3>Basic MCMC Theory</h3>
 
-    <p>MCMC works by simulating a stochastic trajectory according to:</p>
+    <p>MCMC works by simulating a stochastic trajectory according to:
     $$p_{i+1}(x)=\int p_i(x')W(x|x')\mathrm{d}x'$$
-    <p>where</p>
-    $$W(x'|x) = q(x'|x)\alpha(x'|x) + \left(1-\int q(x''|x)\alpha(x''|x)\mathrm{d}x''\right)\delta(x'-x)$$
+    where
+    $$W(x'|x) = q(x'|x)\alpha(x'|x) + \left(1-\int q(x''|x)\alpha(x''|x)\mathrm{d}x''\right)\delta(x'-x)$$</p>
 
     <p>A sufficient (but unnecessary!) condition for $\pi(x)$ to be the equilibrium distribution is detailed ballance, which implies:</p>
     $$\pi(x')q(x|x')\alpha(x|x')=\pi(x)q(x'|x)\alpha(x'|x)$$
     <p>which is satisfied by the following acceptance probability:</p>
+
+    <blockquote>
     $$\alpha(x'|x)=\min\left[1, \frac{\pi(x')}{\pi(x)}\times\frac{q(x|x')}{q(x'|x)}\right]$$
+    </blockquote>
+
+</section>
+
+<section>
+    <h3>Basic MCMC Theory (continued)</h3>
+
+    <blockquote>
+    $$\alpha(x'|x)=\min\left[1, \frac{\pi(x')}{\pi(x)}\times\frac{q(x|x')}{q(x'|x)}\right]$$
+    </blockquote>
+
+    <ul class="spaced">
+        <li>By tuning the acceptance probability, <b>any</b> probability distribution can be targeted.</li>
+        <li>Only the ratio $\pi(x')/\pi(x)$ appears: normalization need not be known.</li>
+        <li>The only requirement for $q(x'|x)$ is that it produce random walks that explore the entire state space for which $\pi(x)$ has support.</li>
+        <li>For high-dimensional state spaces, $W(x'|x)$ is usually decomposed
+        into several distinct transitions: $W(x'|x)=\sum_j W_j(x'|x)$ that each
+        modify some small part of the state and individually satisfy detailed
+        balance  in the steady state.</li>
+        <li>The ratio $q(x|x')/q(x'|x)$ is called the Hastings Ratio and accounts for any asymmetry in the proposal rates between $x$ and $x'$.</li>
+    </ul>
+
+
 </section>
 
 <section>
@@ -122,11 +197,15 @@ lecture_num: 9
 
 <section>
     <h3>Stopping criteria</h3>
+
+    * What we use in practice
 </section>
 
 
 <section class="center">
     <h2>Post-processing</h2>
+
+    * Summary algorithms
 </section>
 
 
@@ -150,4 +229,7 @@ lecture_num: 9
 
 <section>
     <h2>Reading</h2>
+
+    * BEAST 2 book
+    * Inferring Phylogenies
 </section>
