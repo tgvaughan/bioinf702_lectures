@@ -24,7 +24,7 @@ lecture_num: 9
 <section>
     <h2>The Phylogenetic Posterior</h2>
 
-    <blockquote style="margin-top:10%;font-size:1.3em">
+    <blockquote style="margin-top:10%;font-size:1em">
         $$P(T,Q|A) = \frac{1}{P(A)}P(A|T,\mu)P(T|\theta)P(\mu,\theta)$$
     </blockquote>
 
@@ -47,11 +47,24 @@ lecture_num: 9
 
     <p>Because of the way we've factorized the joint probability for the data and model parameters, we
     are implicitly assuming that our alignment could have been produced in the following fashion:</p>
+
+    <div style="width:100%; height:350px; position:relative">
+        <img class="fragment" data-src="neutrality1.svg" style="position:absolute;top:0;left:0;width:1000px">
+        <img class="fragment" data-src="neutrality2.svg" style="position:absolute;top:0;left:0;width:1000px;background-color:white">
+        <img class="fragment" data-src="neutrality3.svg" style="position:absolute;top:0;left:0;width:1000px;background-color:white">
+    </div>
+
+    <p class="fragment">Separating the process of tree generation from that of
+    sequence evolution implies neutrality.</p>
 </section>
 
 
-<section class="center">
+<section>
     <h2>Tree Priors</h2>
+
+    <ul>
+        <li></li>
+    </ul>
 </section>
 
 <section>
@@ -78,28 +91,33 @@ lecture_num: 9
     <h3>Multi-species coalescent priors</h3>
 </section>
 
-
-<section>
-    <h2>Charcterizing Phylogenetic Posteriors</h2>
-
-    <ul>
-        <li>MCMC</li>
-        <li>ABC</li>
-        <li>Particle filtering</li>
-        <li>Other methods? (Variational Bayes?)</li>
-    </ul>
-</section>
-
 <section class="center">
     <h2>MCMC in Tree Space</h2>
 </section>
 
 <section>
     <h3>Real MCMC algorithm</h3>
+
+    <p>MCMC works by simulating a stochastic trajectory according to:</p>
+    $$p_{i+1}(x)=\int p_i(x')W(x|x')\mathrm{d}x'$$
+    <p>where</p>
+    $$W(x'|x) = q(x'|x)\alpha(x'|x) + \left(1-\int q(x''|x)\alpha(x''|x)\mathrm{d}x''\right)\delta(x'-x)$$
+
+    <p>A sufficient (but unnecessary!) condition for $\pi(x)$ to be the equilibrium distribution is detailed ballance, which implies:</p>
+    $$\pi(x')q(x|x')\alpha(x|x')=\pi(x)q(x'|x)\alpha(x'|x)$$
+    <p>which is satisfied by the following acceptance probability:</p>
+    $$\alpha(x'|x)=\min\left[1, \frac{\pi(x')}{\pi(x)}\times\frac{q(x|x')}{q(x'|x)}\right]$$
 </section>
 
 <section>
     <h3>Proposal distribtuions/operators for Trees</h3>
+
+    <blockquote>
+        Need to identify a set of proposals forming $q(x'|x)=\sum_j w_j
+        q_j(x'|x)$ when $x$ is a point in tree space.  (The $w_j$ are
+        <b>weights</b>: probabilities that define how frequently a particular
+        proposal operator is used by the algorithm.)
+    </blockquote>
 </section>
 
 <section>
