@@ -5,33 +5,48 @@ lecture_num: 9
 <section>
     <h2>The Phylogenetic Likelihood</h2>
 
-    <blockquote style="font-size:2em;margin-top:20%">
-        $$P(A|T, Q)$$
+    <blockquote style="font-size:2em;margin-top:10%">
+        $$P(A|T, \mu)$$
     </blockquote>
 
     <ul style="width:80%;margin-top:2em">
         <li>$A$ is a multiple sequence alignment of $n$ sequences,</li>
         <li>$T$ is a phylogenetic tree with $n$ leaves, and</li>
-        <li>$Q$ is an instantaneous transition rate matrix parameterizing the CTMC-based model of sequence evolution.</li>
+        <li>$\mu$ are the parameters of the chosen CTMC-based model of sequence evolution.</li>
+        <li>Just a product of site pattern propabilities: note the obvious
+        generalizations to multiple alignments that share a tree, or to phylogenetic networks that allow
+        different sites to evolve under distinct "local" trees.</li>
     </ul>
 
-    <p><i>Need a probability distribution for $T$!</i></p>
+    <p><i>We're Bayesians: we need a probability distribution for $T$!</i></p>
 </section>
 
 <section>
     <h2>The Phylogenetic Posterior</h2>
 
-    <blockquote style="margin-top:20%">
-        $$P(T,Q|A) = \frac{1}{P(A)}P(A|T,Q)P(T)P(Q)$$
+    <blockquote style="margin-top:10%;font-size:1.3em">
+        $$P(T,Q|A) = \frac{1}{P(A)}P(A|T,\mu)P(T|\theta)P(\mu,\theta)$$
     </blockquote>
 
-    <blockquote style="margin-top:1em">
-        $$P(T,Q|A,M) = \frac{1}{P(A|M)}P(A|T,Q,M)P(T|M)P(Q|M)$$
-    </blockquote>
+    <ul style="width:80%; margin-top:1em">
+        <li>$P(T|\theta)$ is the "tree prior" parameterized by $\theta$.</li>
+        <li>$P(\mu,\theta)$ are the parameter priors.</li>
+    </ul>
+
+    <div class="textbox" style="margin-top:2em;width:80%;text-align:center;margin-left:10%">
+        <div class="title">Questions</div>
+        <ul>
+            <li>What is $P(A)$?</li>
+            <li>Is the tree prior really a prior? (I.e. does it depend on the data?)</li>
+        </ul>
+    </div>
 </section>
 
 <section>
     <h2>The Neutrality Assumption</h2>
+
+    <p>Because of the way we've factorized the joint probability for the data and model parameters, we
+    are implicitly assuming that our alignment could have been produced in the following fashion:</p>
 </section>
 
 
@@ -96,6 +111,20 @@ lecture_num: 9
     <h2>Post-processing</h2>
 </section>
 
+
+<section>
+    <h2>Bayesian Phylogenetic Inference Software</h2>
+
+    <ul>
+        <li>BEAST/BEAST2</li>
+        <li>MrBayes</li>
+        <li>RevBayes</li>
+        <li>PHYLIP</li>
+
+        <li>MIGRATE</li>
+        <li>ClonalFrame/ClonalOrigin</li>
+    </ul>
+</section>
 
 <section>
     <h2>Summary</h2>
