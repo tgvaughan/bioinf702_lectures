@@ -1,5 +1,6 @@
-function setup() {
-  createCanvas(windowWidth, windowHeight); 
+void setup() {
+  //createCanvas(windowWidth, windowHeight); 
+  size(1000,600);
   background(255);  
   
   N = 32;
@@ -10,7 +11,7 @@ function setup() {
   sortPopulation(pop);
 } 
 
-function draw() {
+void draw() {
   
   stroke(127,127,127);
   strokeWeight(0.5);
@@ -21,13 +22,13 @@ function draw() {
   traceCoalescence([1,2,3,4,5,6],pop[0]);
 }
 
-function mouseClicked() {
+void mouseClicked() {
   background(255);  
   pop = initialPopulation(G, N);
   sortPopulation(pop);	
 }
 
-function plotWrightFisher() {
+void plotWrightFisher() {
 
   scale = min(width/(N+2),height/(G+2));
   
@@ -57,7 +58,7 @@ function plotWrightFisher() {
   }
 }
 
-function plotParentLine(node) {
+void plotParentLine(node) {
   x = (node.num+1)*scale+xMargin;
   y = height - yMargin - (node.gen+1)*scale;
 
@@ -70,7 +71,7 @@ function plotParentLine(node) {
   }
 }
 
-function plotCoalescentLine(node) {
+void plotCoalescentLine(node) {
   x1 = scale+xMargin;
   x2 = scale*N+xMargin;
   y = height - yMargin - (node.gen+1)*scale;
@@ -78,7 +79,7 @@ function plotCoalescentLine(node) {
   line(x1,y,x2,y);
 }
 
-function initialPopulation(G, N){
+void initialPopulation(G, N){
 
   var arr = [];
 
@@ -109,7 +110,7 @@ function initialPopulation(G, N){
   return arr;
 }
 
-function traceCoalescence(labels, gen) {
+void traceCoalescence(labels, gen) {
 
   nodes = [];
   
@@ -121,7 +122,7 @@ function traceCoalescence(labels, gen) {
   traceNodes(nodes);
 }
   
-function traceNodes(nodes) {
+void traceNodes(nodes) {
   
   parents = [];
 
@@ -143,7 +144,7 @@ function traceNodes(nodes) {
   if (parents.length > 0) { traceNodes(parents); }
 }
 
-function sortPopulation(pop) {
+void sortPopulation(pop) {
 
   for (i = (G-2); i >= 0; i--) {
     gen = pop[i];
