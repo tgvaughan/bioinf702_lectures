@@ -4,32 +4,108 @@
 	
 	<body>
 		<div id="canvas-container" style="width: 100%;text-align:center;">
-			<canvas id="canvas"  width="500" height="1000">
+			<canvas id="canvas"  width="300" height="600">
 				<script>      
          
 				window.onload = function() {
+					
+					N = 32;
+					G = 64;
+					
 					canvas = document.getElementById("canvas"); // grabs the canvas element
 					ctx = canvas.getContext("2d"); // returns the 2d context object
 					canvas.addEventListener('click', function(evt) {
+						generateWrightFisher();
 						drawWrightFisher();
 					}, false);
+					
+					window.addEventListener('keypress', function(evt) {
+												
+						if (evt.key === '+') {
+							N += 1;
+							generateWrightFisher();
+						}
+						
+						if (evt.key === '-') {
+							N -= 1;
+							generateWrightFisher();
+						}
+						
+						if (evt.key === 'n') {
+							addGeneration();
+						}
+						
+						drawWrightFisher();
+					}, false);
+					
+					generateWrightFisher();
 					drawWrightFisher();
+				}
+				
+				function generateWrightFisher() {
+					pop = initialPopulation(G, N);
+					sortPopulation(pop);
 				}
 
 				function drawWrightFisher() {
 					ctx.fillStyle = "#FFFFFF"; // sets color
 					ctx.fillRect(0, 0, width(), height()); // sets top left location points x,y and then width and height
-					N = 32;
-					G = 64;
-					pop = initialPopulation(G, N);
-					sortPopulation(pop);
 					ctx.strokeStyle = "#808080";
 					ctx.lineWidth = 0.5;
 					plotWrightFisher(ctx);
 					ctx.strokeStyle = "#FF0000";
 					ctx.lineWidth = 1.5;
-					traceCoalescence([1, 2, 3, 4, 5, 6], pop[0], ctx);
+					
+					var trace = [];
+
+					for (var i = 1; i <= N; i++) {
+   						trace.push(i);
+					}
+					
+					traceCoalescence(trace, pop[0], ctx);
 					ctx.stroke();
+				}
+				
+				// adds a generation to the population and removes the oldest generation
+				function addGeneration() {
+					
+					var ngen = pop.length;
+					
+					tmp = pop[ngen-1];
+					
+					// shift current generations up one
+					for (var i = ngen-1; i > 0; i--) {
+						pop[i] = pop[i-1];	
+					    
+					    // update gen numbers
+					    for (var j = 0; j < N; j++) {
+					    	pop[i][j].gen = i;
+					    }
+					}
+					
+					// reuse oldest generation
+					pop[0] = tmp;
+					
+					// insert new generation in zero'th row
+					for (var j = 0; j < N; j++) {
+						
+						// clear old parent links from new oldest generation
+						pop[ngen-1][j].parent = null;
+						
+						// rewrite data in new generation
+						pop[0][j].label = j+1;
+						pop[0][j].gen = 0;
+						pop[0][j].parent = pop[1][Math.floor((Math.random() * N))];
+					}	
+					
+					// sort this generation by parent numbers
+					pop[0].sort(function(a, b) {
+						return a.parent.num - b.parent.num
+					});
+					// number this generation after sorting
+					for (var j = 0; j < N; j++) {
+						pop[0][j].num = j;
+					}
 				}
 
 				function width() {
@@ -50,7 +126,7 @@
 					scale = Math.min(width() / (N + 2), height() / (G + 2));
 					xMargin = (width() - scale * (N + 2.0)) / 2.0
 					yMargin = (height() - scale * (G + 2)) / 2.0
-					radius = 3.5;
+					radius = scale * 0.23;
 					context.beginPath();
 					for (i = 1; i <= N; i++) {
 						for (j = 1; j <= G; j++) {
