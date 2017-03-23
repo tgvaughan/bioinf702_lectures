@@ -83,7 +83,7 @@ function drawWrightFisher() {
     svg.setAttribute("version","1.1");
     svg.setAttribute('width', window.innerWidth);
     svg.setAttribute('height', window.innerHeight - 10);
-    svg.style.strokeWidth = "1px";
+    svg.style.strokeWidth = "1.5px";
 
     plotWrightFisher(svg);
 
@@ -212,6 +212,8 @@ function plotParentLine(node, col, svg) {
     x = (node.num+1)*scale+xMargin;
     y = height() - yMargin - (node.gen+1)*scale;
 
+    if (vertex) addCircle(x, y, radius, col, col, svg);
+
     if (node.parent) {
         p = node.parent;
         px = (p.num+1)*scale+xMargin;
@@ -227,6 +229,7 @@ function plotCoalescentLine(node, svg) {
     y = height() - yMargin - (node.gen+1)*scale;
 
     addLine(x1, y, x2, y, "blue", svg);
+
 }
 
 function initialPopulation(G, N){

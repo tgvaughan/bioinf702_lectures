@@ -4,9 +4,18 @@
 	
 	<body>
 		<div id="canvas-container" style="width: 100%;text-align:center;">
-			<canvas id="canvas"  width="300" height="600">
-				<script>      
-         
+			<canvas id="canvas"  width="600" height="600">
+				<script>    
+				
+				var vertex = true;
+
+				var Key = {
+				  LEFT:   37,
+				  UP:     38,
+				  RIGHT:  39,
+				  DOWN:   40
+				};
+   
 				window.onload = function() {
 					
 					N = 32;
@@ -19,24 +28,42 @@
 						drawWrightFisher();
 					}, false);
 					
-					window.addEventListener('keypress', function(evt) {
+					window.addEventListener('keydown', function(evt) {
 												
-						if (evt.key === '+') {
-							N += 1;
-							generateWrightFisher();
+						switch (evt.keyCode) {
+							case Key.UP:
+								G += 1;
+								generateWrightFisher();
+								break;
+							case Key.DOWN:
+								if (G > 2) {
+								  G -= 1;
+								  generateWrightFisher();
+								}
+								break;
+							case Key.LEFT:
+								if (N > 2) {
+								  N -= 1;
+								  generateWrightFisher();
+								}
+								break;
+							case Key.RIGHT:
+								N += 1;
+								generateWrightFisher();
+								break;
+							default: ;
 						}
-						
-						if (evt.key === '-') {
-							N -= 1;
-							generateWrightFisher();
-						}
-						
+
 						if (evt.key === 'n') {
 							addGeneration();
 						}
-						
+		
+						if (evt.key === 'v') {
+							vertex = !vertex;
+						}
 						drawWrightFisher();
-					}, false);
+
+					});
 					
 					generateWrightFisher();
 					drawWrightFisher();
