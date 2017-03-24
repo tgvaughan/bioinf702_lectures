@@ -2,20 +2,21 @@
 	<head>
 	</head>
 	
-	<body>
-		<div id="canvas-container" style="width: 100%;text-align:center;">
+	<body style="margin:0">
+		<div id="canvas-container" style="width: 100%; height:80%;text-align:center;">
 			<canvas id="canvas"  width="600" height="600">
     			<script src="wrightFisher.js"></script>
 			</canvas>
 		</div>
 			
-		<div id="input-container" style="width: 100%;text-align:center;">
+		<div id="input-container" style="width: 100%; height:20%; text-align:center;">
 			<button onclick="regenerate()">regenerate</button>
 			<button onclick="nextGeneration()">next generation</button>
 			<button onclick="run()">run</button>
 			<button onclick="stop()">stop</button>
 			<br>
 			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices?</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>plot coalescence?</label>
 			<br>
 			<label><input type='range' min="2" max="100" step="1" oninput="setN(this.value)" onchange="setN(this.value)">population size (N)</label>
 			<br>

@@ -1,4 +1,5 @@
 var plotVertices = true;
+var plotCoalescence = true;
 var trace = [];
 var N = 32;
 var bottleneck = 0.25;
@@ -15,10 +16,16 @@ var Key = {
 };
 
 window.onload = function() {
-	
+
 	for (var i = 1; i <= N; i++) {
 		trace.push(i);
 	}
+
+    // Computes the canvas size based on the dimension of the parent div
+    var container = document.getElementById("canvas-container");
+    var bbox = container.getBoundingClientRect();
+    canvas.setAttribute("width", bbox.width);
+    canvas.setAttribute("height", bbox.height);
 
 	canvas = document.getElementById("canvas"); // grabs the canvas element
 	ctx = canvas.getContext("2d"); // returns the 2d context object
@@ -42,7 +49,7 @@ window.onload = function() {
 			case Key.RIGHT:
 				  setN(N + 1);
 				break;
-			default: ;
+			default:
 		}
 	});
 	
@@ -58,7 +65,7 @@ window.onload = function() {
 
 	});
 	regenerate();
-}
+};
 
 var intervalId = null;
  
@@ -111,6 +118,11 @@ function setPlotVertices(checkbox) {
 	drawWrightFisher();		
 }
 
+function setPlotCoalescence(checkbox) {
+    plotCoalescence = checkbox.checked;
+    drawWrightFisher();
+}
+
 function generateWrightFisher() {
 	pop = initialPopulation(G, N);
 	sortPopulation(pop);
@@ -122,10 +134,13 @@ function drawWrightFisher() {
 	ctx.strokeStyle = "#808080";
 	ctx.lineWidth = 0.5;
 	plotWrightFisher(ctx);
-	ctx.strokeStyle = "#FF0000";
-	ctx.lineWidth = 1.5;
-		
-	traceCoalescence(trace, pop[0], ctx);
+
+    if (plotCoalescence) {
+        ctx.strokeStyle = "#FF0000";
+        ctx.lineWidth = 1.5;
+        traceCoalescence(trace, pop[0], ctx);
+    }
+
 	ctx.stroke();
 }
 
