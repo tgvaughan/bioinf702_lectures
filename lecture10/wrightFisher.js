@@ -1,5 +1,11 @@
 var plotVertices = true;
 var trace = [];
+var N = 32;
+var bottleneck = 0.5;
+var wavelength = 32;
+var theta = 0;
+
+var G = 64;
 
 var Key = {
   LEFT:   37,
@@ -10,8 +16,6 @@ var Key = {
 
 window.onload = function() {
 	
-	N = 32;
-	G = 64;
 	for (var i = 1; i <= N; i++) {
 		trace.push(i);
 	}
@@ -88,7 +92,11 @@ function setN(n) {
 
 // calculate the next generation and re-draw the whole wright-fisher population
 function nextGeneration() {
-	addGeneration();
+	
+	theta = theta + Math.PI / wavelength;
+	var n = Math.round(N * bottleneck + (N/2 * (1.0-bottleneck)) * Math.sin(theta));
+		
+	addGeneration(n);
 	drawWrightFisher();	
 }
 
@@ -121,7 +129,7 @@ function drawWrightFisher() {
 }
 
 // adds a generation to the population and removes the oldest generation
-function addGeneration() {
+function addGeneration(n) {
 	
 	var ngen = pop.length;
 	
@@ -132,24 +140,39 @@ function addGeneration() {
 		pop[i] = pop[i-1];	
 		
 		// update gen numbers
-		for (var j = 0; j < N; j++) {
+		for (var j = 0; j < pop[i].length; j++) {
 			pop[i][j].gen = i;
 		}
 	}
 	
-	// reuse oldest generation
+	// resize spare array if necessary
+	m  = tmp.length;
+	if (m < n) {
+	    // add extra elements
+	    for (var j = m; j < n; j++) {
+	    	tmp.push({label: j + 1});
+	    }
+	} else if (m > n) {
+		// remove last element until it is the right size
+		for (var j = n; j < m; j++) {
+			tmp[tmp.length-1].parent = null;
+			tmp.pop();	
+		}
+	} 
 	pop[0] = tmp;
-	
-	// insert new generation in zero'th row
-	for (var j = 0; j < N; j++) {
-		
-		// clear old parent links from new oldest generation
+
+	// clear old parent links from new oldest generation
+	for (var j = 0; j < pop[ngen-1].length; j++) {
 		pop[ngen-1][j].parent = null;
+	}
+
+	// insert new generation in zero'th row
+	for (var j = 0; j < pop[0].length; j++) {
 		
 		// rewrite data in new generation
 		pop[0][j].label = j+1;
 		pop[0][j].gen = 0;
-		pop[0][j].parent = pop[1][Math.floor((Math.random() * N))];
+		pop[0][j].parent = pop[1][Math.floor((Math.random() * pop[1].length))];
 	}	
 	
 	// sort this generation by parent numbers
@@ -157,7 +180,7 @@ function addGeneration() {
 		return a.parent.num - b.parent.num
 	});
 	// number this generation after sorting
-	for (var j = 0; j < N; j++) {
+	for (var j = 0; j < pop[0].length; j++) {
 		pop[0][j].num = j;
 	}
 }
@@ -173,29 +196,40 @@ function height() {
 function plotWrightFisher(context) {
 	scale = Math.min(width() / (N + 2), height() / (G + 2));
 	
-	
-	
 	xMargin = (width() - scale * (N + 2.0)) / 2.0
 	yMargin = (height() - scale * (G + 2)) / 2.0
 	radius = scale * 0.23;
 	context.beginPath();
-	for (i = 1; i <= N; i++) {
-		for (j = 1; j <= G; j++) {
-			x = i * scale + xMargin
-			y = height() - yMargin - j * scale
-			plotParentLine(pop[j - 1][i - 1], context)
+	
+	var xm = 0;
+	var pxm = 0;
+	for (i = G-1; i >= 0; i--) {
+		// calculate generation specific xm
+		
+		xm = (width() - scale * (pop[i].length + 2.0)) / 2.0
+		for (j = 0; j < pop[i].length; j++) {
+			pop[i][j].x = j * scale + xm
+			pop[i][j].y = height() - yMargin - i * scale
+
+			if (i < G-1) {
+				plotParentLine(pop[i][j], context)
+			}
 		}
+		pxm = xm;
 	}
 	context.stroke();
 	
 	if (plotVertices) {
-		for (i = 1; i <= N; i++) {
-			for (j = 1; j <= G; j++) {
-				x = i * scale + xMargin
-				y = height() - yMargin - j * scale
-					//text(pop[j-1][i-1].label,i*scale+xMargin, height - yMargin - j*scale)
+		for (i = 0; i <= G-1; i++) {
+			// calculate generation specific xm
+			xm = (width() - scale * (pop[i].length + 2.0)) / 2.0
+			for (j = 0; j < pop[i].length; j++) {
+				//text(pop[j-1][i-1].label,i*scale+xMargin, height - yMargin - j*scale)
+				
+				node = pop[i][j];
+				
 				context.beginPath();
-				context.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI)
+				context.ellipse(node.x, node.y, radius, radius, 0, 0, 2 * Math.PI)
 				context.fill();
 				context.stroke();
 			}
@@ -204,23 +238,18 @@ function plotWrightFisher(context) {
 }
 
 function plotParentLine(node, context) {
-	x = (node.num + 1) * scale + xMargin;
-	y = height() - yMargin - (node.gen + 1) * scale;
 	if (node["parent"]) {
 		p = node.parent;
-		px = (p.num + 1) * scale + xMargin;
-		py = height() - yMargin - (p.gen + 1) * scale;
-		context.moveTo(x, y);
-		context.lineTo(px, py);
+		context.moveTo(node.x, node.y);
+		context.lineTo(p.x, p.y);
 	}
 }
 
 function plotCoalescentLine(node, context) {
 	x1 = scale + xMargin;
 	x2 = scale * N + xMargin;
-	y = height() - yMargin - (node.gen + 1) * scale;
-	context.moveTo(x1, y);
-	context.lineTo(x2, y);
+	context.moveTo(x1, node.y);
+	context.lineTo(x2, node.y);
 }
 
 function initialPopulation(G, N) {
@@ -251,7 +280,7 @@ function initialPopulation(G, N) {
 
 function traceCoalescence(labels, gen, context) {
 	nodes = [];
-	for (var j = 0; j < N; j++) {
+	for (var j = 0; j < gen.length; j++) {
 		if (labels.indexOf(gen[j].label) > -1) {
 			nodes.push(gen[j]);
 		}
@@ -262,6 +291,7 @@ function traceCoalescence(labels, gen, context) {
 function traceNodes(nodes, context) {
 	parents = [];
 	context.beginPath();
+	xm = (width() - scale * (pop[nodes[0].gen].length + 2.0)) / 2.0
 	for (var j = 0; j < nodes.length; j++) {
 		plotParentLine(nodes[j], context);
 		if (nodes[j]["parent"]) {
@@ -286,12 +316,13 @@ function traceNodes(nodes, context) {
 function sortPopulation(pop) {
 	for (i = (G - 2); i >= 0; i--) {
 		gen = pop[i];
+				
 		// sort this generation by parent numbers
 		gen.sort(function(a, b) {
 			return a.parent.num - b.parent.num
 		});
 		// renumber this generation after sorting
-		for (var j = 0; j < N; j++) {
+		for (var j = 0; j < gen.length; j++) {
 			gen[j].num = j;
 		}
 	}
