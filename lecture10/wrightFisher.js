@@ -1,7 +1,7 @@
 var plotVertices = true;
 var trace = [];
 var N = 32;
-var bottleneck = 0.5;
+var bottleneck = 0.25;
 var wavelength = 32;
 var theta = 0;
 
@@ -94,7 +94,8 @@ function setN(n) {
 function nextGeneration() {
 	
 	theta = theta + Math.PI / wavelength;
-	var n = Math.round(N * bottleneck + (N/2 * (1.0-bottleneck)) * Math.sin(theta));
+	var n = Math.round(N * (bottleneck + (1.0-bottleneck)/2) + N/2 * (1.0-bottleneck) * Math.sin(theta));
+	if (n < 1) n = 1;
 		
 	addGeneration(n);
 	drawWrightFisher();	
