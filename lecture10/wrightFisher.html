@@ -11,14 +11,19 @@
 			
 		<div id="input-container" style="width: 100%; height:20%; text-align:center;">
 			<button onclick="regenerate()">regenerate</button>
+			<button onclick="advance(1)">advance</button>
+			<button onclick="advance(100)">advance 100</button>
 			<button onclick="nextGeneration()">next generation</button>
+			<button onclick="clearCoalescentDensity();drawWrightFisher();">clear density</button>
 			<button onclick="run()">run</button>
 			<button onclick="stop()">stop</button>
 			<br>
 			<label><input type='range' min="1" max="25" step="1" oninput="setAnimationSpeed(this.value)" onchange="setAnimationSpeed(this.value)">Animation speed (fps)</label>
 			<br>
-			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices?</label>
-			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>plot coalescence?</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>plot coalescence</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotCoalescentDensity(this);'>plot density</label>
+			<label><input type='checkbox' checked="false" onclick='setSample(this.checked);drawWrightFisher();'>use sample</label>
 			<br>
 			<label><input type='range' min="2" max="100" step="1" oninput="setN(this.value)" onchange="setN(this.value)">population size (N)</label>
 			<br>
