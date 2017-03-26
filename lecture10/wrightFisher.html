@@ -81,6 +81,13 @@
 						<label for="N_bottleneck">Bottleneck population size (N_bottleneck) = </label>
 						<input name="N_bottleneck" id="N_bottleneck" type="number" min="1" max="99" value="8"/>
 					</div>
+
+                    Population fluctuation:<br>
+                    <input type="radio" name="popfunc" value="sinusoid" checked>Sinusoidal<br>
+                    <input type="radio" name="popfunc" value="squarewave">Square wave<br>
+                    <input type="radio" name="popfunc" value="sawtooth">Saw tooth<br>
+                    <input type="radio" name="popfunc" value="custom">Custom:<br>
+                    <input id="customPopFunc" type="text" value="N-amp + Math.random()*amp" style="width:20em" disabled> <br>
 				</div>
 			</div>
 			<div id="canvas-container" style="margin:0 auto; overflow:hidden; height:100%; text-align:center;">

@@ -148,6 +148,16 @@ window.onload = function() {
 		}
 
 	});
+
+    var popFuncInputEl = document.getElementById("customPopFunc");
+    var radioButtons = document.querySelectorAll("input[name='popfunc']");
+    function handler(e) {
+        popFuncInputEl.disabled = !(e.target.value == "custom");
+    }
+
+    for (i=0; i<radioButtons.length; i++)
+        radioButtons[i].addEventListener("change", handler);
+
 	pop = initialPopulation(1, N);
 	advance(1);
 };
@@ -215,6 +225,28 @@ function setAnimationSpeed(speed) {
 	}
 }
 
+function getPopSize(N, amp, theta) {
+
+    theta = theta % (2*Math.PI);
+
+    switch(document.querySelector("input[name='popfunc']:checked").value) {
+        case "sinusoid":
+            return (N - amp/2) + amp * Math.cos(theta)/2;
+
+        case "squarewave":
+            return theta<Math.PI ? N : N - amp;
+
+        case "sawtooth":
+            return (N - amp) + amp*(Math.abs(theta/Math.PI - 1));
+
+        case "custom":
+            var str = document.getElementById("customPopFunc").value;
+            return eval(str);
+
+        default:
+    }
+}
+
 // calculate the next generation and re-draw the whole wright-fisher population
 function nextGeneration() {
 	calculateNextGeneration();
@@ -224,9 +256,9 @@ function nextGeneration() {
 function calculateNextGeneration() {
 	theta = theta + 2 * Math.PI / wavelength;
 	
-	amplitude =  (N - bottleneck) / 2.0;
+	amplitude =  N - bottleneck;
 	
-	var Ntheta = Math.round((N - amplitude) + amplitude * Math.cos(theta));
+	var Ntheta = Math.round(getPopSize(N, amplitude, theta));
 	if (Ntheta < 1) Ntheta = 1;
 		
 	addGeneration(Ntheta);	
