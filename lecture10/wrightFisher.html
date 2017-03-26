@@ -15,12 +15,18 @@
 			<button onclick="run()">run</button>
 			<button onclick="stop()">stop</button>
 			<br>
+			<label><input type='range' min="1" max="25" step="1" oninput="setAnimationSpeed(this.value)" onchange="setAnimationSpeed(this.value)">Animation speed (fps)</label>
+			<br>
 			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices?</label>
 			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>plot coalescence?</label>
 			<br>
 			<label><input type='range' min="2" max="100" step="1" oninput="setN(this.value)" onchange="setN(this.value)">population size (N)</label>
 			<br>
 			<label><input type='range' min="2" max="100" step="1" oninput="setG(this.value)" onchange="setG(this.value)">number of generations (G)</label>
+			<br>
+			<label><input type='range' min="2" max="100" step="1" oninput="setWaveLength(this.value)" onchange="setWavelength(this.value)">time between bottlenecks (wavelength)</label>
+			<br>
+			<label><input type='range' min="0.01" max="1.0" step="0.01" oninput="setBottleneckFraction(this.value)" onchange="setBottleneckFraction">Bottleneck (As fraction of N)</label>
 		</div>
 	</body>
 </html>

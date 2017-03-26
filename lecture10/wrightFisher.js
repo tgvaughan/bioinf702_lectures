@@ -5,6 +5,7 @@ var N = 32;
 var bottleneck = 0.25;
 var wavelength = 16;
 var theta = 0;
+var delayInMillis = 100;
 
 var G = 64;
 
@@ -70,21 +71,27 @@ window.onload = function() {
 var intervalId = null;
  
 function run() {
-	intervalId = setInterval(nextGeneration, 67);
+	intervalId = setInterval(nextGeneration, delayInMillis);
 }
   
 function stop() {
-	if (intervalId !== null) {
+	if (isRunning()) {
 		clearInterval(intervalId);
 		intervalId = null;
 	}
 }
 
+function isRunning() {
+	return (intervalId !== null);
+}
+
+// set the number of generations to plot
 function setG(g) {
 	G = parseInt(g);
 	regenerate();
 }
 
+// set the maximum population size
 function setN(n) {
 	N = parseInt(n);
 	
@@ -96,12 +103,33 @@ function setN(n) {
 	regenerate();
 }
 
+function setWavelength(w) {
+	wavelength = w;
+	drawWrightFisher();	
+}
+
+function setBottleneckFraction(b) {
+	bottleneck = b;			
+	regenerate();
+}
+
+function setAnimationSpeed(speed) {
+	delayInMillis = 1000/speed;	
+	if (isRunning()) {
+		stop();
+		run();
+	}
+}
+
 
 // calculate the next generation and re-draw the whole wright-fisher population
 function nextGeneration() {
 	
-	theta = theta + Math.PI / wavelength;
-	var n = Math.round(N * (bottleneck + (1.0-bottleneck)/2) + N/2 * (1.0-bottleneck) * Math.cos(theta));
+	theta = theta + 2 * Math.PI / wavelength;
+	
+	amplitude =  N * (1.0-bottleneck) / 2.0;
+	
+	var n = Math.round((N - amplitude) + amplitude * Math.cos(theta));
 	if (n < 1) n = 1;
 		
 	addGeneration(n);
@@ -135,11 +163,9 @@ function drawWrightFisher() {
 	ctx.lineWidth = 0.5;
 	plotWrightFisher(ctx);
 
-    if (plotCoalescence) {
-        ctx.strokeStyle = "#FF0000";
-        ctx.lineWidth = 1.5;
-        traceCoalescence(trace, pop[0], ctx);
-    }
+    ctx.strokeStyle = "#FF0000";
+    ctx.lineWidth = 1.5;
+    traceCoalescence(trace, pop[0], ctx);
 
 	ctx.stroke();
 }
@@ -224,8 +250,8 @@ function plotWrightFisher(context) {
 		
 		xm = (width() - scale * (pop[i].length + 2.0)) / 2.0
 		for (j = 0; j < pop[i].length; j++) {
-			pop[i][j].x = j * scale + xm
-			pop[i][j].y = height() - yMargin - i * scale
+			pop[i][j].x = (j+1) * scale + xm
+			pop[i][j].y = height() - yMargin - (i+1) * scale
 
 			if (i < G-1) {
 				plotParentLine(pop[i][j], context)
@@ -318,10 +344,13 @@ function traceNodes(nodes, context) {
 	}
 	context.stroke();
 	if (parents.length < nodes.length && parents.length > 0) {
-		context.strokeStyle = "#0000FF";
-		context.beginPath();
-		plotCoalescentLine(parents[0], context);
-		context.stroke();
+		
+		if (plotCoalescence) {
+			context.strokeStyle = "#0000FF";
+			context.beginPath();
+			plotCoalescentLine(parents[0], context);
+			context.stroke();
+		}
 		context.strokeStyle = "#FF0000";
 	}
 	if (parents.length > 0) {
