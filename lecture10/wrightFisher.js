@@ -3,7 +3,7 @@ var plotCoalescence = true;
 var trace = [];
 var N = 32;
 var bottleneck = 0.25;
-var wavelength = 32;
+var wavelength = 16;
 var theta = 0;
 
 var G = 64;
@@ -101,7 +101,7 @@ function setN(n) {
 function nextGeneration() {
 	
 	theta = theta + Math.PI / wavelength;
-	var n = Math.round(N * (bottleneck + (1.0-bottleneck)/2) + N/2 * (1.0-bottleneck) * Math.sin(theta));
+	var n = Math.round(N * (bottleneck + (1.0-bottleneck)/2) + N/2 * (1.0-bottleneck) * Math.cos(theta));
 	if (n < 1) n = 1;
 		
 	addGeneration(n);
