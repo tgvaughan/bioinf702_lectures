@@ -1,12 +1,11 @@
 var plotVertices = true;
 var plotCoalescence = true;
-var plotCoalescentCounts = true;
+var plotCoalescenceCounts = true;
 
 var useSample = true;
+var sampleSize = 5;
 
 var trace = [];
-var bottleneck = 0.25;
-var wavelength = 16;
 var theta = 0;
 var delayInMillis = 100;
 
@@ -25,6 +24,12 @@ var G = 64;
 // the population size
 var N = 32;
 
+// the population size at bottleneck
+var bottleneck = 8;
+
+// the time in generations betweens successive bottlenecks
+var wavelength = 16;
+
 var Key = {
   LEFT:   37,
   UP:     38,
@@ -32,20 +37,70 @@ var Key = {
   DOWN:   40
 };
 
+var canvas;
+
 var coalescentCounts = [];
 
 window.onload = function() {
+
+	// bind all controls
 	
+	// bind sample size input control
+	var sampleSizeInput = document.getElementById('sampleSize');
+	sampleSizeInput.oninput = function () {
+    	setSampleSize(sampleSizeInput.value);
+    	clearCoalescentDensity();
+		drawWrightFisher();
+	};
+	setSampleSize(sampleSizeInput.value);
+
+	// bind N input control
+	var NInput = document.getElementById('N');
+	NInput.oninput = function () {
+    	setN(NInput.value);
+	};
+	N = parseInt(NInput.value);
+	
+	// bind G input control
+	var GInput = document.getElementById('G');
+	GInput.oninput = function () {
+    	setG(GInput.value);
+	};
+	G = parseInt(GInput.value);
+
+	// bind wavelength input control
+	var wavelengthInput = document.getElementById('wavelength');
+	wavelengthInput.oninput = function () {
+    	setWavelength(wavelengthInput.value);
+	};
+	wavelength = parseInt(wavelengthInput.value);
+
+	// bind bottleneck input control
+	var bottleneckInput = document.getElementById('N_bottleneck');
+	bottleneckInput.oninput = function () {
+    	setBottleneck(bottleneckInput.value);
+	};
+	bottleneck = parseInt(bottleneckInput.value);
+
+	// bind use sample checkbox control
+	var useSampleCheckbox = document.getElementById('useSample');
+	useSampleCheckbox.checked = useSample;
+	useSampleCheckbox.onclick = function () {
+		setUseSample(useSampleCheckbox.checked);
+		drawWrightFisher();
+	};
+	setUseSample(useSample);
+
 	clearCoalescentDensity();
-	setSample(true);
 
     // Computes the canvas size based on the dimension of the parent div
     var container = document.getElementById("canvas-container");
     var bbox = container.getBoundingClientRect();
+
+	canvas = document.getElementById("canvas"); // grabs the canvas element
     canvas.setAttribute("width", bbox.width);
     canvas.setAttribute("height", bbox.height);
 
-	canvas = document.getElementById("canvas"); // grabs the canvas element
 	ctx = canvas.getContext("2d"); // returns the 2d context object
 		
 	window.addEventListener('keydown', function(evt) {
@@ -82,7 +137,8 @@ window.onload = function() {
 		}
 
 	});
-	regenerate();
+	pop = initialPopulation(1, N);
+	advance(1);
 };
 
 var intervalId = null;
@@ -106,14 +162,14 @@ function isRunning() {
 function setG(g) {
 	G = parseInt(g);
 	clearCoalescentDensity();
-	regenerate();
+	advance(1);
 }
 
 // set the maximum population size
 function setN(n) {
 	N = parseInt(n);
-		
-	regenerate();
+	clearCoalescentDensity();
+	advance(1);
 }
 
 function setWavelength(w) {
@@ -122,9 +178,9 @@ function setWavelength(w) {
 	drawWrightFisher();	
 }
 
-function setBottleneckFraction(b) {
+function setBottleneck(b) {
 	bottleneck = b;			
-	regenerate();
+	advance(1);
 }
 
 function setAnimationSpeed(speed) {
@@ -144,12 +200,12 @@ function nextGeneration() {
 function calculateNextGeneration() {
 	theta = theta + 2 * Math.PI / wavelength;
 	
-	amplitude =  N * (1.0-bottleneck) / 2.0;
+	amplitude =  (N - bottleneck) / 2.0;
 	
-	var n = Math.round((N - amplitude) + amplitude * Math.cos(theta));
-	if (n < 1) n = 1;
+	var Ntheta = Math.round((N - amplitude) + amplitude * Math.cos(theta));
+	if (Ntheta < 1) Ntheta = 1;
 		
-	addGeneration(n);	
+	addGeneration(Ntheta);	
 }
 
 // advances G generations n times
@@ -158,14 +214,16 @@ function advance(n) {
 		for (var i = 1; i <= G; i++) {
 			calculateNextGeneration();
 		}
-		drawWrightFisher();	
+		// accumulate coalescent counts without plotting 
+		traceCoalescence(trace, pop[0], null);	
 	}
+	drawWrightFisher();	
 }
 
-function regenerate() {
-	generateWrightFisher();
-	drawWrightFisher();		
-}
+//function regenerate() {
+//	generateWrightFisher();
+//	drawWrightFisher();		
+//}
 
 function setPlotVertices(checkbox) {
 	plotVertices = checkbox.checked;	
@@ -177,12 +235,16 @@ function setPlotCoalescence(checkbox) {
     drawWrightFisher();
 }
 
-function setSample(s) {
-    useSample = s;
+function setUseSample(useS) {
+	useSample = useS;
+	setSampleSize(sampleSize); 
+}
+
+function setSampleSize(s) {
+    sampleSize = s;
     
-    sample = N;
 	if (useSample) {
-		sample = Math.min(5,N);
+		sample = Math.min(sampleSize,N);
 	}
 	
 	trace = [];
@@ -200,10 +262,10 @@ function clearCoalescentDensity() {
 	coalescentCounts = Array.apply(null, Array(G)).map(Number.prototype.valueOf,0);
 }
 
-function generateWrightFisher() {
-	pop = initialPopulation(G, N);
-	sortPopulation(pop);
-}
+//function generateWrightFisher(ngen) {
+//	pop = initialPopulation(ngen, N);
+//	sortPopulation(pop);
+//}
 
 function drawWrightFisher() {
 	ctx.fillStyle = "#FFFFFF"; // sets color
@@ -215,17 +277,46 @@ function drawWrightFisher() {
     traceCoalescence(trace, pop[0], ctx);
 
 	ctx.stroke();
+	
+	x1 = scale * N + xMargin + radius + 1;
+	remain = width() - x1;
+	cScale = remain / Math.max.apply(null, coalescentCounts)
+	
+	if (plotCoalescenceCounts) {
+		ctx.beginPath();
+		ctx.lineWidth = scale*0.9;
+		ctx.strokeStyle = "#6666FF";
+		for (i = 0; i <= G-1; i++) {
+			node = pop[i][0];
+			
+			x2 = x1 + cScale * coalescentCounts[i]
+			ctx.moveTo(x1, node.y);
+			ctx.lineTo(x2, node.y);
+			
+		}
+		ctx.stroke();
+		ctx.lineWidth = ancestryLineWidth;
+		ctx.strokeStyle = "#000000";
+	}
+
 }
 
-// adds a generation to the population and removes the oldest generation
+// adds a generation to the population and removes the oldest generation if necessary
 function addGeneration(n) {
 	
+	// the number of generations already simulated
 	var ngen = pop.length;
 	
-	tmp = pop[ngen-1];
+	if (ngen == G) {
+		tmp = pop[ngen-1];
+	} else {
+		tmp = [];
+	}
 	
-	// shift current generations up one
-	for (var i = ngen-1; i > 0; i--) {
+	lastg = Math.min(G-1,ngen);
+	
+	// shift current generations up one, but don't go beyond G-1
+	for (var i = lastg; i > 0; i--) {
 		pop[i] = pop[i-1];	
 		
 		// update gen numbers
@@ -250,11 +341,11 @@ function addGeneration(n) {
 	} 
 	pop[0] = tmp;
 
-	// clear old parent links from new oldest generation
-	for (var j = 0; j < pop[ngen-1].length; j++) {
-		pop[ngen-1][j].parent = null;
+	// clear old parent links from oldest generation
+	for (var j = 0; j < pop[lastg].length; j++) {
+		pop[lastg][j].parent = null;
 	}
-
+		
 	// insert new generation in zero'th row
 	for (var j = 0; j < pop[0].length; j++) {
 		
@@ -289,27 +380,6 @@ function plotWrightFisher(context) {
 	yMargin = (height() - scale * (G + 2)) / 2.0
 	radius = scale * 0.23;
 	
-	x1 = scale * N + xMargin + radius 
-	remain = width() - x1;
-	cScale = remain / Math.max.apply(null, coalescentCounts)
-	
-	if (plotCoalescentCounts) {
-		context.beginPath();
-		context.lineWidth = scale;
-		context.strokeStyle = "#FF00FF";
-		for (i = 0; i <= G-1; i++) {
-			node = pop[i][0];
-			
-			x2 = x1 + cScale * coalescentCounts[i]
-			context.moveTo(x1, node.y);
-			context.lineTo(x2, node.y);
-			
-		}
-		context.stroke();
-		context.lineWidth = ancestryLineWidth;
-		context.strokeStyle = "#000000";
-	}
-
 	var xm = 0;
 	var pxm = 0;
 	context.beginPath();
@@ -403,20 +473,22 @@ function traceCoalescence(labels, gen, context) {
 
 function traceNodes(nodes, context) {
 	parents = [];
-	context.beginPath();
-	xm = (width() - scale * (pop[nodes[0].gen].length + 2.0)) / 2.0
+	if (context !== null) {
+		context.beginPath();
+		xm = (width() - scale * (pop[nodes[0].gen].length + 2.0)) / 2.0
+	}
 	for (var j = 0; j < nodes.length; j++) {
-		plotParentLine(nodes[j], context);
+		if (context !== null) { plotParentLine(nodes[j], context); }
 		if (nodes[j]["parent"]) {
 			if (parents.indexOf(nodes[j].parent) === -1) {
 				parents.push(nodes[j].parent);
 			}
 		}
 	}
-	context.stroke();
+	if (context !== null) context.stroke();
 	if (parents.length < nodes.length && parents.length > 0) {
 		
-		if (plotCoalescence) {
+		if (plotCoalescence && context !== null) {
 			context.strokeStyle = "#0000FF";
 			context.lineWidth = coalescentEventLineWidth;
 			context.beginPath();

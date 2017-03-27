@@ -1,10 +1,12 @@
 <html>
 	<head>
+		<title>Coalescence in the Wright-Fisher population model</title>
+		<link rel="stylesheet" type="text/css" href="wrightFisher.css">
 	</head>
 	
 	<body style="margin:0">
 		<div id="canvas-container" style="width: 100%; height:80%;text-align:center;">
-			<canvas id="canvas"  width="600" height="600">
+			<canvas id="canvas" width="600" height="600">
     			<script src="wrightFisher.js"></script>
 			</canvas>
 		</div>
@@ -12,7 +14,7 @@
 		<div id="input-container" style="width: 100%; height:20%; text-align:center;">
 			<button onclick="regenerate()">regenerate</button>
 			<button onclick="advance(1)">advance</button>
-			<button onclick="advance(100)">advance 100</button>
+			<button onclick="advance(1000)">advance 1000</button>
 			<button onclick="nextGeneration()">next generation</button>
 			<button onclick="clearCoalescentDensity();drawWrightFisher();">clear density</button>
 			<button onclick="run()">run</button>
@@ -21,17 +23,35 @@
 			<label><input type='range' min="1" max="25" step="1" oninput="setAnimationSpeed(this.value)" onchange="setAnimationSpeed(this.value)">Animation speed (fps)</label>
 			<br>
 			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices</label>
-			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>plot coalescence</label>
-			<label><input type='checkbox' checked="true" onclick='setPlotCoalescentDensity(this);'>plot density</label>
-			<label><input type='checkbox' checked="false" onclick='setSample(this.checked);drawWrightFisher();'>use sample</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>mark coalescent events</label>
+			<label><input type='checkbox' checked="true" onclick='setPlotCoalescenceDensity(this);'>plot coalescent density</label>
+			<label><input id="useSample" type='checkbox'>use sample</label>
 			<br>
-			<label><input type='range' min="2" max="100" step="1" oninput="setN(this.value)" onchange="setN(this.value)">population size (N)</label>
-			<br>
-			<label><input type='range' min="2" max="100" step="1" oninput="setG(this.value)" onchange="setG(this.value)">number of generations (G)</label>
-			<br>
-			<label><input type='range' min="2" max="100" step="1" oninput="setWaveLength(this.value)" onchange="setWavelength(this.value)">time between bottlenecks (wavelength)</label>
-			<br>
-			<label><input type='range' min="0.01" max="1.0" step="0.01" oninput="setBottleneckFraction(this.value)" onchange="setBottleneckFraction">Bottleneck (As fraction of N)</label>
+			
+			<div class="form-element">
+				<label for="sampleSize">sample size (n) = </label>
+				<input name="sampleSize" id="sampleSize" type="number" min="2" max="10" value="2"/>
+			</div>
+			
+			<div class="form-element">
+				<label for="N">population size (N) = </label>
+				<input name="N" id="N" type="number" min="2" max="99" value="32"/>
+			</div>
+			
+			<div class="form-element">
+				<label for="G">number of generations (G) = </label>
+				<input name="G" id="G" type="number" min="2" max="99" value="64"/>
+			</div>
+			
+			<div class="form-element">
+				<label for="wavelength">Time between bottlenecks (wavelength) = </label>
+				<input name="wavelength" id="wavelength" type="number" min="2" max="99" value="16"/>
+			</div>
+
+			<div class="form-element">
+				<label for="N_bottleneck">Bottleneck population size (N_bottleneck) = </label>
+				<input name="N_bottleneck" id="N_bottleneck" type="number" min="1" max="99" value="8"/>
+			</div>
 		</div>
 	</body>
 </html>
