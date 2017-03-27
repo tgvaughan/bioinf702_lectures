@@ -2,9 +2,6 @@ var plotVertices = true;
 var plotCoalescence = true;
 var plotCoalescenceCounts = true;
 
-var useSample = true;
-var sampleSize = 5;
-
 var trace = [];
 var theta = 0;
 var delayInMillis = 100;
@@ -18,6 +15,8 @@ var coalescentTraceLineWidth = 1.5;
 // line width of the lines marking each coalescent event
 var coalescentEventLineWidth = 1.0;
 
+// POPULATION AND SAMPLE PARAMETERS
+
 // the number of generations
 var G = 64;
 
@@ -29,6 +28,10 @@ var bottleneck = 8;
 
 // the time in generations betweens successive bottlenecks
 var wavelength = 16;
+
+// sample size
+var sampleSize = 5;
+
 
 var Key = {
   LEFT:   37,
@@ -44,6 +47,14 @@ var coalescentCounts = [];
 window.onload = function() {
 
 	// bind all controls
+
+	// bind animation speed input control
+	var animationSpeedInput = document.getElementById('animationFPS');
+	animationSpeedInput.oninput = function () {
+    	setAnimationSpeed(animationSpeedInput.value);
+	};
+	setAnimationSpeed(animationSpeedInput.value);
+
 	
 	// bind sample size input control
 	var sampleSizeInput = document.getElementById('sampleSize');
@@ -81,15 +92,6 @@ window.onload = function() {
     	setBottleneck(bottleneckInput.value);
 	};
 	bottleneck = parseInt(bottleneckInput.value);
-
-	// bind use sample checkbox control
-	var useSampleCheckbox = document.getElementById('useSample');
-	useSampleCheckbox.checked = useSample;
-	useSampleCheckbox.onclick = function () {
-		setUseSample(useSampleCheckbox.checked);
-		drawWrightFisher();
-	};
-	setUseSample(useSample);
 
 	clearCoalescentDensity();
 
@@ -235,17 +237,10 @@ function setPlotCoalescence(checkbox) {
     drawWrightFisher();
 }
 
-function setUseSample(useS) {
-	useSample = useS;
-	setSampleSize(sampleSize); 
-}
-
 function setSampleSize(s) {
     sampleSize = s;
     
-	if (useSample) {
-		sample = Math.min(sampleSize,N);
-	}
+	sample = Math.min(sampleSize,N);
 	
 	trace = [];
 	for (var i = 1; i <= sample; i++) {
@@ -279,7 +274,7 @@ function drawWrightFisher() {
 	ctx.stroke();
 	
 	x1 = scale * N + xMargin + radius + 1;
-	remain = width() - x1;
+	remain = Math.max(1,width() - x1 - 1);
 	cScale = remain / Math.max.apply(null, coalescentCounts)
 	
 	if (plotCoalescenceCounts) {

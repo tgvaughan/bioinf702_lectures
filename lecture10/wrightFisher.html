@@ -4,54 +4,82 @@
 		<link rel="stylesheet" type="text/css" href="wrightFisher.css">
 	</head>
 	
-	<body style="margin:0">
-		<div id="canvas-container" style="width: 100%; height:80%;text-align:center;">
-			<canvas id="canvas" width="600" height="600">
-    			<script src="wrightFisher.js"></script>
-			</canvas>
-		</div>
-			
-		<div id="input-container" style="width: 100%; height:20%; text-align:center;">
-			<button onclick="regenerate()">regenerate</button>
-			<button onclick="advance(1)">advance</button>
-			<button onclick="advance(1000)">advance 1000</button>
-			<button onclick="nextGeneration()">next generation</button>
-			<button onclick="clearCoalescentDensity();drawWrightFisher();">clear density</button>
-			<button onclick="run()">run</button>
-			<button onclick="stop()">stop</button>
-			<br>
-			<label><input type='range' min="1" max="25" step="1" oninput="setAnimationSpeed(this.value)" onchange="setAnimationSpeed(this.value)">Animation speed (fps)</label>
-			<br>
-			<label><input type='checkbox' checked="true" onclick='setPlotVertices(this);'>plot vertices</label>
-			<label><input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>mark coalescent events</label>
-			<label><input type='checkbox' checked="true" onclick='setPlotCoalescenceDensity(this);'>plot coalescent density</label>
-			<label><input id="useSample" type='checkbox'>use sample</label>
-			<br>
-			
-			<div class="form-element">
-				<label for="sampleSize">sample size (n) = </label>
-				<input name="sampleSize" id="sampleSize" type="number" min="2" max="10" value="2"/>
-			</div>
-			
-			<div class="form-element">
-				<label for="N">population size (N) = </label>
-				<input name="N" id="N" type="number" min="2" max="99" value="32"/>
-			</div>
-			
-			<div class="form-element">
-				<label for="G">number of generations (G) = </label>
-				<input name="G" id="G" type="number" min="2" max="99" value="64"/>
-			</div>
-			
-			<div class="form-element">
-				<label for="wavelength">Time between bottlenecks (wavelength) = </label>
-				<input name="wavelength" id="wavelength" type="number" min="2" max="99" value="16"/>
-			</div>
+	<body style="margin:0">	
+		<div id="container">		
+			<div id="input-container" style="width:400px; text-align:center; margin: 12pt 12pt 12pt 12pt; float:left;">
+				
+				<div style="background-color: black; text-align:center; margin-top:12pt; ">	
+				<b style="color:white;">Controls</b>
+				</div>
+				<div style="background-color: #ccccff;  text-align:center;">	
 
-			<div class="form-element">
-				<label for="N_bottleneck">Bottleneck population size (N_bottleneck) = </label>
-				<input name="N_bottleneck" id="N_bottleneck" type="number" min="1" max="99" value="8"/>
+					<button onclick="advance(1)">advance</button>
+					<button onclick="advance(1000)">advance 1000</button>
+					<button onclick="nextGeneration()">next generation</button>
+					<button onclick="run()">run</button>
+					<button onclick="stop()">stop</button>
+					<button onclick="clearCoalescentDensity();drawWrightFisher();">clear density</button>
+				</div>
+
+
+				<div style="background-color: black; text-align:center; margin-top:12pt;">	
+				<b style="color:white;">Visualisation</b>
+				</div>
+				<div style="background-color: #ccccff;  text-align:center;">	
+
+					<div class="form-element">
+						<label for="animationFPS">Animation speed (fps)</label>
+						<input name="animationFPS" id="animationFPS" type="number" min="1" max="50" value="15"/>
+					</div>
+					<div class="form-element">
+						<label>mark individuals</label>
+						<input type='checkbox' checked="true" onclick='setPlotVertices(this);'>
+					</div>
+					<div class="form-element">
+						<label>mark coalescent events</label>
+						<input type='checkbox' checked="true" onclick='setPlotCoalescence(this);'>
+					</div>
+					<div class="form-element">
+						<label>show coalescent density</label>
+						<input type='checkbox' checked="true" onclick='setPlotCoalescenceDensity(this);'>
+					</div>
+				</div>
+			
+				<div style="background-color: black; text-align:center; margin-top:12pt;">	
+				<b style="color:white;">Population and sample parameters</b>
+				</div>
+				<div style="background-color: #ccccff;  text-align:center;">	
+					<div class="form-element">
+						<label for="sampleSize">sample size (n) = </label>
+						<input name="sampleSize" id="sampleSize" type="number" min="2" max="10" value="2"/>
+					</div>
+			
+					<div class="form-element">
+						<label for="N">population size (N) = </label>
+						<input name="N" id="N" type="number" min="2" max="99" value="32"/>
+					</div>
+			
+					<div class="form-element">
+						<label for="G">number of generations (G) = </label>
+						<input name="G" id="G" type="number" min="2" max="99" value="64"/>
+					</div>
+			
+					<div class="form-element">
+						<label for="wavelength">Time between bottlenecks (wavelength) = </label>
+						<input name="wavelength" id="wavelength" type="number" min="2" max="99" value="16"/>
+					</div>
+
+					<div class="form-element">
+						<label for="N_bottleneck">Bottleneck population size (N_bottleneck) = </label>
+						<input name="N_bottleneck" id="N_bottleneck" type="number" min="1" max="99" value="8"/>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div id="canvas-container" style="margin:0 auto; overflow:hidden; height:100%; text-align:center;">
+				<canvas id="canvas" width="600" height="600">
+					<script src="wrightFisher.js"></script>
+				</canvas>
+			</div>
+		<div style="clear:both;"></div>
 	</body>
 </html>
