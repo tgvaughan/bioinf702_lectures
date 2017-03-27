@@ -15,10 +15,17 @@ var coalescentTraceLineWidth = 1.5;
 // line width of the lines marking each coalescent event
 var coalescentEventLineWidth = 1.0;
 
-// POPULATION AND SAMPLE PARAMETERS
+
+// SIMULATION PARAMETERS
 
 // the number of generations
 var G = 64;
+
+// sample size
+var sampleSize = 5;
+
+
+// POPULATION SIZE FUNCTION PARAMETERS
 
 // the population size
 var N = 32;
@@ -29,9 +36,6 @@ var bottleneck = 8;
 // the time in generations betweens successive bottlenecks
 var wavelength = 16;
 
-// sample size
-var sampleSize = 5;
-
 
 var Key = {
   LEFT:   37,
@@ -40,16 +44,31 @@ var Key = {
   DOWN:   40
 };
 
+// the canvas
 var canvas;
 
+// the canvas context
+var ctx;
+
+// counts of coalescent events
 var coalescentCounts = [];
 
+// signifies that new generation added and coalescent events not yet counted
+var readyForCoalescentCounts = false;
+
+window.onresize = function(event) {
+	initCanvasAndContext();
+	drawWrightFisher();
+};
+
 window.onload = function() {
+
+	initCanvasAndContext();
 
 	// bind all controls
 
 	// bind animation speed input control
-	var animationSpeedInput = document.getElementById('animationFPS');
+	var animationSpeedInput = document.getElementById('animationSpeed');
 	animationSpeedInput.oninput = function () {
     	setAnimationSpeed(animationSpeedInput.value);
 	};
@@ -82,7 +101,7 @@ window.onload = function() {
 	// bind wavelength input control
 	var wavelengthInput = document.getElementById('wavelength');
 	wavelengthInput.oninput = function () {
-    	setWavelength(wavelengthInput.value);
+    	setWavelength(parseInt(wavelengthInput.value));
 	};
 	wavelength = parseInt(wavelengthInput.value);
 
@@ -94,16 +113,6 @@ window.onload = function() {
 	bottleneck = parseInt(bottleneckInput.value);
 
 	clearCoalescentDensity();
-
-    // Computes the canvas size based on the dimension of the parent div
-    var container = document.getElementById("canvas-container");
-    var bbox = container.getBoundingClientRect();
-
-	canvas = document.getElementById("canvas"); // grabs the canvas element
-    canvas.setAttribute("width", bbox.width);
-    canvas.setAttribute("height", bbox.height);
-
-	ctx = canvas.getContext("2d"); // returns the 2d context object
 		
 	window.addEventListener('keydown', function(evt) {
 								
@@ -148,6 +157,18 @@ var intervalId = null;
 function run() {
 	intervalId = setInterval(nextGeneration, delayInMillis);
 }
+
+function initCanvasAndContext() {
+    // Computes the canvas size based on the dimension of the parent div
+    var container = document.getElementById("canvas-container");
+    var bbox = container.getBoundingClientRect();
+
+	canvas = document.getElementById("canvas"); // grabs the canvas element
+    canvas.setAttribute("width", bbox.width);
+    canvas.setAttribute("height", bbox.height);
+
+	ctx = canvas.getContext("2d"); // returns the 2d context object
+}
   
 function stop() {
 	if (isRunning()) {
@@ -185,6 +206,7 @@ function setBottleneck(b) {
 	advance(1);
 }
 
+// Set the animation speed (speed is measured in generations per second)
 function setAnimationSpeed(speed) {
 	delayInMillis = 1000/speed;	
 	if (isRunning()) {
@@ -257,11 +279,7 @@ function clearCoalescentDensity() {
 	coalescentCounts = Array.apply(null, Array(G)).map(Number.prototype.valueOf,0);
 }
 
-//function generateWrightFisher(ngen) {
-//	pop = initialPopulation(ngen, N);
-//	sortPopulation(pop);
-//}
-
+// main function to draw the wright-fisher population
 function drawWrightFisher() {
 	ctx.fillStyle = "#FFFFFF"; // sets color
 	ctx.fillRect(0, 0, width(), height()); // sets top left location points x,y and then width and height
@@ -298,6 +316,8 @@ function drawWrightFisher() {
 
 // adds a generation to the population and removes the oldest generation if necessary
 function addGeneration(n) {
+	
+	readyForCoalescentCounts = true;
 	
 	// the number of generations already simulated
 	var ngen = pop.length;
@@ -369,10 +389,10 @@ function height() {
 }
 
 function plotWrightFisher(context) {
-	scale = Math.min(width() / (N + 2), height() / (G + 2));
+	scale = Math.min(width() / (N + 1.0), height() / (G + 1.0));
 	
-	xMargin = (width() - scale * (N + 2.0)) / 2.0
-	yMargin = (height() - scale * (G + 2)) / 2.0
+	xMargin = (width() - scale * (N + 1.0)) / 2.0
+	yMargin = (height() - scale * (G + 1.0)) / 2.0
 	radius = scale * 0.23;
 	
 	var xm = 0;
@@ -464,6 +484,7 @@ function traceCoalescence(labels, gen, context) {
 		}
 	}
 	traceNodes(nodes, context);
+	readyForCoalescentCounts = false;
 }
 
 function traceNodes(nodes, context) {
@@ -492,7 +513,7 @@ function traceNodes(nodes, context) {
 			context.strokeStyle = "#FF0000";
 			context.lineWidth = coalescentTraceLineWidth;
 		}
-		coalescentCounts[parents[0].gen] += 1;
+		if (readyForCoalescentCounts) { coalescentCounts[parents[0].gen] += 1; }
 	}
 	if (parents.length > 0) {
 		traceNodes(parents, context);

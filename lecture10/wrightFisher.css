@@ -1,5 +1,6 @@
 .form-element label {
-  display: inline-block;
-  width: 300px;
+  float: left; width: 18em; margin-right: 0.5em;
   text-align: right;
+  /* display: inline-block;
+  margin: 1pt 1pt 1pt 1pt; */
 }​
