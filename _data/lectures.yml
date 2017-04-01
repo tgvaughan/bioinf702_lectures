@@ -54,6 +54,22 @@
 
     - title: The multi-species coalescent
 
-- week: 5-6
+- week: 5
   lectures:
-    - title: Advanced topics in Bayesian phylogenetics
+    - title: The Structured Coalescent
+      lecturer: Tim Vaughan
+      date: 2017-04-03
+
+    - title: The Coalescent with Recombination
+      lecturer: Tim Vaughan
+      date: 2017-04-04
+
+    - title: Birth-death tree priors
+      lecturer: Tim Vaughan
+      date: 2017-04-05
+
+
+- week: 6
+  lectures:
+      - title: Sampled Ancestors, FBD
+        lecturer: Alxei Drummond
