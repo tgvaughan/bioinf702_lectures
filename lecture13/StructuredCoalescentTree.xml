@@ -1,0 +1,41 @@
+<!-- Generate a structured coalescent tree from a given number of taxa. -->
+
+<beast version='2.0' namespace='master:master.model:master.conditions:master.outputs'>
+    <run spec='InheritanceTrajectory'
+         verbosity='2'>
+        
+        <model spec='Model'>
+            <populationType spec='PopulationType' typeName='L' id='L' dim="3"/>
+
+            <reactionGroup spec='ReactionGroup' reactionGroupName='Coalescence'>
+	      <reaction spec='Reaction' rate="1.0">
+                2L[i]:1 -> L[i]:1
+	      </reaction>
+            </reactionGroup>
+
+            <reactionGroup spec='ReactionGroup' reactionGroupName='Migration'>
+	      <reaction spec='Reaction' rate="0.1">
+                L[i] -> L[j]
+                <predicate spec="Predicate">i!=j</predicate>
+	      </reaction>
+            </reactionGroup>
+
+        </model>
+
+        <initialState spec='InitState'>
+	  <lineageSeedMultiple spec='MultipleIndividuals' copies="20" time="0.0">
+	    <population spec='Population' type='@L' location="1"/>
+	  </lineageSeedMultiple>
+	  <lineageSeedMultiple spec='MultipleIndividuals' copies="20" time="0.0">
+	    <population spec='Population' type='@L' location="0"/>
+	  </lineageSeedMultiple>
+	  <lineageSeedMultiple spec='MultipleIndividuals' copies="20" time="0.0">
+	    <population spec='Population' type='@L' location="2"/>
+	  </lineageSeedMultiple>
+        </initialState>
+        
+        <lineageEndCondition spec='LineageEndCondition' nLineages="1"/>
+                
+        <output spec='NexusOutput' fileName='StructuredCoalescentTree_output.nexus' reverseTime="true"/>
+    </run>
+</beast>
