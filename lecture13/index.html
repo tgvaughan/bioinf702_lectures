@@ -279,7 +279,7 @@ $(document).ready(function() {
     <ul class="spaced" style="width:80%">
         <li>Introduced by <a class="cite" href="http://dx.doi.org/10.1007/BF00173909">Notohara, 1990</a> (and probably others)</li>
         <li>Applies the original Wright-Fisher model to structured populations.</li>
-        <li>Assumes a single population of size $N$ is divided into subpopulations (demes) of size $N_i$ for $i\in {1\ldots D}$.</li>
+        <li>Assumes a single population is divided into subpopulations (demes) of size $N_i$ for $i\in {1\ldots D}$.</li>
         <li>Allows for weak migration between demes at rate $q_{ij}$.</li>
         <li>Sub-population sizes are unaffected by migration in the long term:
             imagine islands in an archipelago which have each equilibrated to their own carrying capacities.</li>
@@ -301,11 +301,25 @@ $(document).ready(function() {
 <section>
     <h2>The structured coalescent</h2>
 
-    <ul>
-        <li>Backward in time genealogical process corresponding to </li>
-    </ul>
+    <div style="display:inline-block;width:49%;vertical-align:middle">
+        <img data-src="structWF_genealogy.svg" style="width:100%">
+    </div><div style="display:inline-block;width:49%;vertical-align:middle;text-align:left">
+        <ul>
+            <li>Backward in time genealogical process corresponding to taking
+                the coalescent limit of the structured WF process.</li>
+            <li>There are multiple routes to derivation! (It <b>can</b> be considered a
+                structured WF process limit, but doesn't have to be.)</li>
+        </ul>
 
-    ** Diagram including coalescent and backward migration rates **
+        <dl style="margin-top:0.5em">
+            <dt>Coalescence rate in deme $i$:</dt>
+            <dd>$$T_{c}^{(i)}(\vec{k})=\binom{k_i}{2}\frac{1}{N_ig}$$</dd>
+            <dt>Migration rate $i\rightarrow j$ (backward time):</dt>
+            <dd>$$T_{m}^{(ij)}(\vec{k})=k_i m_{ij}$$</dd>
+        </dl>
+
+        <p>Note that $m_{ij} = g^{-1} q_{ji}\frac{N_j}{N_i}$.</p>
+    </div>
 </section>
 
 <section>
@@ -326,6 +340,8 @@ $(document).ready(function() {
 
 <section>
     <h2>Expected time to coalesce</h2>
+
+    <p>For a symmetric 2 deme model ($N_1=N_2=N$ and $m_{12}=m_{21}=m$) we can derive the expected time to coalescence.</p>
 </section>
 
 <section>
