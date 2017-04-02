@@ -336,35 +336,121 @@ $(document).ready(function() {
         Failure to account for structure can bias phylogenetic analyses.
     </blockquote>
 
+    <div class="fragment"> (Trees simulated using <a href="StructuredCoalescentTree.xml">this MASTER script</a>.)</div>
+
 </section>
 
 <section>
     <h2>Expected time to coalesce</h2>
 
-    <p>For a symmetric 2 deme model ($N_1=N_2=N$ and $m_{12}=m_{21}=m$) we can derive the expected time to coalescence.</p>
+    <p>For a symmetric 2 deme model ($N_1=N_2=N$ and $m_{12}=m_{21}=m$) we can derive the expected time to coalescence of two lineages:</p>
+
+    <ul>
+        <li>Define $\tau_d$ and $\tau_s$ as coal. time when lineages are in different/same demes respectively.</li>
+        <li>Lineages in distinct demes cannot coalesce: $$\langle\tau_d\rangle = \frac{1}{2m} + \tau_s$$</li>
+        <li>Lineages in the same deme have probability $2m/(2m + 1/Ng)$ of migrating to distinct demes following the $1/(2m+1/Ng)$ waiting period:
+            $$\langle\tau_s\rangle = \frac{1}{2m+1/Ng} + \frac{2m}{2m+1/Ng}\langle\tau_d\rangle$$<br></li>
+        <li>Solving this recursion relation yields: $\langle\tau_s\rangle = 2Ng$ and $\langle\tau_d\langle = \frac{1}{2m} + 2Ng$</li>
+    </ul>
+
+    <blockquote>
+        Expected time to coalesce from same deme is independent of $m$!  However, the variance is a (decreasing) function of $m$.
+    </blockquote>
 </section>
 
 <section>
-    <h2>Inference under the Structured Coalescent</h2>
+    <h2>Recap: Bayesian Phylogenetic Inference</h2>
+
+    <p style="margin-top:10%">The usual phylogenetic posterior is:</p>
+    <blockquote>
+        $$P(T,\mu,\theta|A) = \frac{1}{P(A)}P(A|T,\mu)P(T|\theta)P(\mu)P(\theta)$$
+    </blockquote>
+
+    <p>where</p>
+    <ul>
+        <li>$A$ is the multiple sequence alignment,</li>
+        <li>$T$ is the tree,</li>
+        <li>$\mu$ are the substitution model parameters,</li>
+        <li>$\theta$ are the tree prior parameters.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>SC inference: Modified tree prior</h2>
+
+    <p>The standard phylogenetic posterior is modified:</p>
+    <blockquote>
+        \begin{align*}
+        P(T,C,\mu,\vec{N},m|A,L) = &amp;\frac{1}{P(A)}P(A|T,\mu)\\
+        &amp;\times P(T,C|\vec{N},m,L)P(\mu)P(\theta)
+        \end{align*}
+    </blockquote>
+    <ul>
+        <li>$C$ are the tree colours (lineage locations),</li>
+        <li>$L$ are the sample locations.</li>
+    </ul>
+    <p>The probability of a structured coalescent tree is:
+    <div style="font-size:0.8em">
+    \begin{align*}
+    P(T,C|\vec{N},m,L)=&amp;\exp\left[-\int_0^{t_r}\left(\sum_i\binom{k_i}{2}\frac{1}{N_ig}+\sum_{ij}k_im_{ij}\right)\right]\\
+    &amp;\times\left(\prod_{i}(N_ig)^{\nu_i}\right)\left(\prod_{ij}(m_{ij})^{\kappa_{ij}}\right)
+    \end{align*}
+    </div>
+    ($\nu_i$ are the number of coalescences in $i$ and $\kappa_{ij}$ are
+    the number of $i$ to $j$ migrations.)
+    </p>
+
 </section>
 
 <section>
     <h2>Comparisson to mugration model</h2>
+
+    <ul>
+        <li>Alternative framework for phylogeographic inference.</li>
+        <li>Introduced by <a class="cite" href="http://dx.doi.org/10.1371/journal.pcbi.1000520">Phillipe Lemey et al., 2009</a>.</li>
+        <li>Treats location as "just another character" (migration $\leftrightarrow$ mutation)</li>
+    </ul>
+
+    <blockquote style="width:80%">
+        \begin{align}
+        P(T,\mu,\theta|A,L) =&amp; \frac{1}{P(A)P(L)} P(A|T,\mu)P(L|T,M)\\
+        &amp;\times P(T|\theta)P(\mu)P(\theta)
+        \end{align}
+    </blockquote>
+    <ul>
+        <li>$L$ are the sampled locations, and</li>
+        <li>$M$ is a matrix specifying the random walk.</li>
+    </ul>
+
+    <blockquote class="alert">
+        Samples are assumed to be collected in a manner that is blind to their location.
+    </blockquote>
+
+    <ul>
+        <li>Mugration models use sample location as data.</li>
+        <li>Just as for genetic data, non-random sampling procedures will bias results.</li>
+    </ul>
+
 </section>
 
 
 <section>
-    <h2>Software implementations of Bayesian SC inference</h2>
-</section>
+    <h2>Implementations of SC inference</h2>
 
-<section>
-    <h2>Summary</h2>
+    <ul class="spaced" style="margin-top:15%">
+        <li>MIGRATE-n <a class="cite" href="http://www.genetics.org/cgi/content/abstract/185/1/313">(Beerli and Palczewski, 2010)</a></li>
+        <li>Ewing sampler <a class="cite" href="http://www.genetics.org/content/168/4/2407.full-text.pdf%2Bhtml">(Ewing et al., 2004)</a></li>
+        <li>MultiTypeTree (BEAST 2, <a class="cite" href="https://academic.oup.com/bioinformatics/article/doi/10.1093/bioinformatics/btu201/2748160/Efficient-Bayesian-inference-under-the-structured">Vaughan et al., 2014)</a></li>
+        <li>BASTA (approximate, BEAST 2, <a class="cite" href="http://dx.doi.org/10.1371/journal.pgen.1005421">De Maio et al., 2015</a>)</li>
+    </ul>
 </section>
 
 <section>
     <h2>Recommended reading</h2>
 
-    <ul>
-        <li>Gene genealogies and the coalescent (Hein et al.)</li>
+    <ul class="spaced" style="margin-top:15%">
+        <li>Handbook of Stochastic Methods (Gardiner)</li>
+        <li>Gene Genealogies, Variration and Evolution (Hein, Schierup, Wiuf)</li>
         <li>Inferring phylogenies (Felsenstein)</li>
+    </ul>
 </section>
