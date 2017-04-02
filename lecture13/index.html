@@ -98,14 +98,11 @@ lecture_num: 13
 <section>
     <h2>Example: SIR model</h2>
 
-    <div id="SIR_demo">
+    <div id="SIR_demo" style="height:500px">
     <script>
 $(document).ready(function() {
 
-
-    $("#run_SIR").click(function(e) {
-        e.preventDefault();
-
+    function runSIRDemo() {
         traj = SIR.getStochastic(50);
         trajDet = SIR.getDeterministic(50, 200);
 
@@ -183,6 +180,32 @@ $(document).ready(function() {
             }
         };
 
+        var traceR0 = {
+            x: traj.t,
+            y: SIR.getR0(traj),
+            yaxis: "y2",
+            mode: "lines",
+            name: "R0",
+            line: {
+                color: "black",
+                width: 2,
+                shape: "hv"
+            }
+        };
+
+        var traceR0det = {
+            x: trajDet.t,
+            y: SIR.getR0(trajDet),
+            yaxis: "y2",
+            mode: "lines",
+            name: "<R0> (approx) ",
+            line: {
+                color: "black",
+                width: 2,
+                dash: "dash"
+            }
+        };
+
         var layout =  {
             width: 900,
             height: 500,
@@ -190,14 +213,37 @@ $(document).ready(function() {
                 t:0
             },
             xaxis: {
+                title: "Time",
                 range: [0, 50]
-            }
+            },
+            yaxis: {
+                title: "Population size",
+                range: [0, 101]
+            },
+            yaxis2: {
+                title: "Effective reproductive number",
+                overlaying: "y",
+                side: "right",
+                range: [0, 15]
+            },
+            legend: { x: 0.75, y: 0.75 }
         };
 
-        var data = [traceS, traceSdet, traceI, traceIdet, traceR, traceRdet];
+        var data = [traceS, traceSdet,
+        traceI, traceIdet,
+        traceR, traceRdet,
+        traceR0, traceR0det];
 
         Plotly.newPlot("SIR_demo", data, layout, {displayModeBar: false});
+    };
+
+    $("#run_SIR").click(function(e) {
+        e.preventDefault();
+
+        runSIRDemo();
     });
+
+    runSIRDemo();
 
 });
     </script>
@@ -207,14 +253,49 @@ $(document).ready(function() {
 
 <section>
     <h2>What is population structure?</h2>
+
+    <blockquote style="margin-top:2em">
+        A populaion is structured if its members posess one or more traits that affect who they
+        interact with. (Which reactions they are involved in.)
+    </blockquote>
+
+    <p style="margin-top:2em">Examples of characteristics that induce population structure:
+    <ul class="spaced" style="width:80%">
+        <li>Geographical location/position (phylogeography)</li>
+        <li>Species membership (gene characteristic)</li>
+        <li>Membership in epidemiological compartments
+            <ul>
+                <li>exposed vs infectious</li>
+                <li>age category</li>
+                <li>...</li>
+            </ul></li>
+    </ul>
+    </p>
 </section>
 
 <section>
-    <h2>Modelling population structure</h2>
+    <h2>Structured Wright-Fisher model</h2>
+
+    <ul class="spaced" style="width:80%">
+        <li>Introduced by <a class="cite" href="http://dx.doi.org/10.1007/BF00173909">Notohara, 1990</a> (and probably others)</li>
+        <li>Applies the original Wright-Fisher model to structured populations.</li>
+        <li>Assumes a single population of size $N$ is divided into subpopulations (demes) of size $N_i$ for $i\in {1\ldots D}$.</li>
+        <li>Allows for weak migration between demes at rate $q_{ij}$.</li>
+        <li>Sub-population sizes are unaffected by migration in the long term:
+            imagine islands in an archipelago which have each equilibrated to their own carrying capacities.</li>
+    </ul>
 </section>
 
 <section>
-    <h2>The effect of structure on tree shape</h2>
+    <h2>Structured Wright-Fisher model</h2>
+
+    <p>A $D=2$ structured WF generation proceeds as follows:</p>
+
+    <img data-src="structWF.svg" style="width:70%">
+
+    <ul>
+        <li>$P(n'_{ba}|N_b)=\binom{n_b}{n'_{ba}}q_{ba}^{n'_{ba}}(1-q_{ba})^{n_b-n'_{ba}}$</li>
+    </ul>
 </section>
 
 <section>
@@ -222,7 +303,23 @@ $(document).ready(function() {
 </section>
 
 <section>
+    <h2>The effect of structure on tree shape</h2>
+</section>
+
+<section>
+    <h2>Expected time to coalesce</h2>
+</section>
+
+<section>
+    <h2>Comparisson to mugration model</h2>
+</section>
+
+<section>
     <h2>Inference under the Structured Coalescent</h2>
+</section>
+
+<section>
+    <h2>Software implementations of Bayesian SC inference</h2>
 </section>
 
 <section>

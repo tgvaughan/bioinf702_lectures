@@ -67,6 +67,8 @@ var SIR = (function() {
 
         for (var i=1; i<nSteps; i++) {
 
+            // Semi-implicit algorithm (uses numerical estimate of dx/dt at t+0.5dt)
+
             var Sp = S[i-1], Ip = I[i-1], Rp = R[i-1]; 
 
             for (var iter=0; iter<3; iter++) {
@@ -89,6 +91,15 @@ var SIR = (function() {
             R: R,
             t: t
         };
+    }
+
+    pub.getR0 = function(traj) {
+        R0 = [];
+        for (var j=0; j<t.length; j++) {
+            R0.push(Tinf(traj.S[j],traj.I[j],traj.R[j])/Trem(traj.S[j],traj.I[j],traj.R[j]))
+        }
+
+        return R0;
     }
 
     return pub;
