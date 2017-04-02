@@ -3,11 +3,210 @@ lecture_num: 13
 ---
 
 <section>
-    <h2>What is population structure?</h2>
+    <h2>Master equations</h2>
+
+    <ul>
+        <li>Describe probability distribution of continuous-time "jump" processes.</li>
+        <li>Form can be derived directly from the Chapman-Kolmogorov equation:
+            $$p(x_3,t_3|x_1,t_1) = \sum_{x_2}p(x_3,t_3|x_2,t_2)p(x_2,t_2|x_1,t_1)$$
+            for any $t_3&gt;t_2&gt;t_1$, where $p(x_1,t_1)\equiv P(X(t_1)=x_1)$.
+        </li>
+    </ul>
+
+    <p>Derivation:</p>
+    <ol>
+        <li>$\partial_t p(x,t|x_0) = \lim_{\Delta\rightarrow 0}\frac{1}{\Delta}\left(p(x,t+\Delta|x_0)-p(x,t|x_0)\right)$ <b>(Definition)</b></li>
+        <li>$p(x,t+\Delta|x_0)=\sum_{x'}p(x,t+\Delta|x',t)p(x',t|x_0)$ <b>(CKE)</b></li>
+        <li>$p(x,t+\Delta|x',t) \rightarrow \delta_{x,x'} + \Delta W(x|x')$ for small $\Delta$ <b>(Assumption)</b></li>
+        <li>Then $p(x,t+\Delta|x_0) = p(x,t|x_0) + \Delta\sum_{x'}W(x|x')p(x',t|x_0)$</li>
+        <li>and $\partial_t p(x,t|x_0) = \sum_{x'}W(x|x')p(x',t|x_0)$.</li>
+    </ol>
+    <blockquote style="font-size=0.8em;width:100%">
+        $\partial_t p(x,t|x_0) = \sum_{x'\neq x}W(x|x')p(x',t|x_0) - \sum_{x'\neq x}W(x'|x)p(x,t|x_0)$
+    </blockquote>
+
+    For $x'\neq x$, the quantity $\Delta W(x'|x)$ is the probability of the system transitioning from state $x$ to state $x'$ in the time interval $\Delta$. (The <b>transition rate</b>.)
 </section>
 
 <section>
-    <h2>The effect of structure on tree shape</h2>
+    <h2>Birth-death master equations</h2>
+
+    <p>Suppose $\vec{X}(t)$ describes the state of a system composed of distinct sub-populations $i$ each containing $X_i(t)$ individuals evolving under a continuous-time Markov process. Call this a birth-death process if these counts can only increase or decrease by finite amounts in a given event.</p>
+
+    <p>
+    $$W(\vec{x}'|\vec{x})=
+    \delta_{\vec{x}',\vec{x}+\vec{v}_1}T_1(\vec{x})
+    + \delta_{\vec{x}',\vec{x}+\vec{v}_2}T_2(\vec{x})
+    + \ldots$$
+    where
+    <ul>
+        <li>$T_k(\vec{x})$ is the probability per unit time of event $k$ occuring given $\vec{X}(t)=\vec{x}$
+            and</li>
+        <li> $\vec{v}_k$ is the increment applied to the system state by event $k$.</li>
+    </ul></p>
+
+    <p>Then,
+    $$\partial_t p(\vec{x},t|\vec{x}_0)=\sum_k\left[T_k(\vec{x}-\vec{v}_k)p(\vec{x}-\vec{v}_k|\vec{x}_0)
+    - T_k(\vec{x})p(\vec{x},t|\vec{x}_0)\right]$$
+    and the mean dynamics are
+    $$\partial_t\langle \vec{X}(t)\rangle = \sum_k \vec{v}_k\langle T_k(\vec{X}(t))\rangle
+    \simeq \sum_k\vec{v}_k T_k(\langle\vec{X}(t)\rangle)$$
+</section>
+
+<section>
+    <h2>Chemical master equations</h2>
+
+    <p>Consider the chemical reaction
+    $$r_1 A_1 + r_2 A_2 + \ldots \overset{\lambda}{\longrightarrow} p_1 A_1 + p_2 A_2 + \ldots$$
+    where $r_i$ and $p_i$ specify the (integer) number of $A_i$ particles involved on the reactant and product sides, respectively.</p>
+
+    <p>Assuming the reaction is occuring in a well-mixed volume and that any interaction of the reactants has a fixed probability of resulting in a reaction, might use $X_i$ to describe the number of $A_i$ and have it evolve under a birth-death process with
+    $$T(\vec{x})=\lambda\prod_i \frac{x_i!}{(x_i-r_i)!}$$</p>
+
+    <blockquote>
+        We call master equations describing these processes "chemical master equations".
+    </blockquote>
+
+    <p>Note that since the reaction notation uniquely specifies the transition
+    rate $T(\vec{x})$, and the transition rate uniquely specifies the master
+    equation, reaction notation can be used to precisely specify these kinds of
+    birth-death processes.</p>
+</section>
+
+<section>
+    <h2>Example: SIR model</h2>
+    <p>In epidemiology, the stochastic SIR model (a <b>compartmental</b> model)
+    can be described using the following pair of reactions:</p>
+    \begin{align*}
+    S + I &amp;\overset{\beta}{\longrightarrow} 2I\\
+    I &amp;\overset{\mu}{\longrightarrow} R\\
+    \end{align*}
+
+    <p>The transition rates are $T_{inf}(n_S,n_I,n_R) = \beta n_S n_I$ with $\vec{v}_{inf}=(-1,1,0)$
+    and $T_{rem}(n_S,n_I,n_R) = \mu n_R$ with $\vec{v}_{rem}=(0,-1,1)$.</p>
+    <p>Master equation:
+    $$\partial_t p(n_S,n_I,n_R)=\beta\left[(n_S+1)(n_I-1)p(n_S+1,n_I-1,n_R) - n_Sn_Ip(n_S,n_I,n_R)\right]\\
+    + \mu\left[(n_I+1)p(n_S,n_I+1,n_R-1)-n_Ip(n_S,n_I,n_R)\right]$$</p>
+
+    <p>Approximate mean dynamics:
+    $$\partial_t \bar{n}_S = -\beta \bar{n}_S\bar{n}_I\\
+    \partial_t \bar{n}_I = \beta \bar{n}_I\bar{n}_I - \mu\bar{n}_I\\
+    \partial_t \bar{n}_R = \mu \bar{n}_I$$
+    </p>
+</section>
+
+<section>
+    <h2>Example: SIR model</h2>
+
+    <div id="SIR_demo">
+    <script>
+$(document).ready(function() {
+
+
+    $("#run_SIR").click(function(e) {
+        e.preventDefault();
+
+        traj = SIR.getStochastic(50);
+        trajDet = SIR.getDeterministic(50, 200);
+
+        var traceS = {
+            x: traj.t,
+            y: traj.S,
+            mode: "lines",
+            name: "n_S",
+            line: {
+                color: "green",
+                width: 2,
+                shape: "hv"
+            }
+        };
+
+
+        var traceSdet = {
+            x: trajDet.t,
+            y: trajDet.S,
+            mode: "lines",
+            name: "<n_S> (approx)",
+            line: {
+                color: "green",
+                width: 2,
+                dash: "dash"
+            }
+        };
+
+        var traceI = {
+            x: traj.t,
+            y: traj.I,
+            mode: "lines",
+            name: "n_I",
+            line: {
+                color: "red",
+                width: 2,
+                shape: "hv"
+            }
+        };
+
+        var traceIdet = {
+            x: trajDet.t,
+            y: trajDet.I,
+            mode: "lines",
+            name: "<n_I> (approx)",
+            line: {
+                color: "red",
+                width: 2,
+                dash: "dash"
+            }
+        };
+
+
+        var traceR = {
+            x: traj.t,
+            y: traj.R,
+            mode: "lines",
+            name: "n_R",
+            line: {
+                color: "blue",
+                width: 2,
+                shape: "hv"
+            }
+        };
+
+        var traceRdet = {
+            x: trajDet.t,
+            y: trajDet.R,
+            mode: "lines",
+            name: "<n_R> (approx)",
+            line: {
+                color: "blue",
+                width: 2,
+                dash: "dash"
+            }
+        };
+
+        var layout =  {
+            width: 900,
+            height: 500,
+            margin: {
+                t:0
+            },
+            xaxis: {
+                range: [0, 50]
+            }
+        };
+
+        var data = [traceS, traceSdet, traceI, traceIdet, traceR, traceRdet];
+
+        Plotly.newPlot("SIR_demo", data, layout, {displayModeBar: false});
+    });
+
+});
+    </script>
+    </div>
+    <a id="run_SIR" href="#">Simulate!</a> (Code <a href="SIR_demo.js">here</a>)
+</section>
+
+<section>
+    <h2>What is population structure?</h2>
 </section>
 
 <section>
@@ -15,5 +214,21 @@ lecture_num: 13
 </section>
 
 <section>
+    <h2>The effect of structure on tree shape</h2>
+</section>
+
+<section>
     <h2>The structured coalescent</h2>
+</section>
+
+<section>
+    <h2>Inference under the Structured Coalescent</h2>
+</section>
+
+<section>
+    <h2>Summary</h2>
+</section>
+
+<section>
+    <h2>Recommended reading</h2>
 </section>
