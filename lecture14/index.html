@@ -143,6 +143,14 @@ Plotly.newPlot("potential", [trace], layout, {displayModeBar: false});
 </section>
 
 <section>
+    <h2>CwR example ARG</h2>
+
+    <img data-src="simulated_arg.png" style="width:100%">
+
+    (Simulated using <a href="CoalescentTreeWithRecombination.xml">this MASTER script</a>.)
+</section>
+
+<section>
     <h2>Coalescent with gene conversion</h2>
     <div style="width:55%;display:inline-block;vertical-align:middle">
         <p>A gene conversion event refers to the replacement of a single
@@ -164,7 +172,28 @@ Plotly.newPlot("potential", [trace], layout, {displayModeBar: false});
 </section>
 
 <section>
-    <h2>Sequential Markovian Coalescent (SMC)</h2>
+    <h2>Sequentially Markov Coalescent (SMC)</h2>
+    <ul>
+        <li><a class="cite" href="https://doi.org/10.1006/tpbi.1998.1403">Wiuf
+                and Hein (1999)</a> reformulated the CwR as a "spatial" process
+                            along sequences.</li>
+        <li><a class="cite"
+        href="http://dx.doi.org/10.1098/rstb.2005.1673">McVean and Cardin
+        (2005)</a> modified this to produce a process for local trees which is
+    Markovian along sequences.</li>
+    </ul>
+
+    <div class="figure">
+        <img data-src="smc_figure.svg" style="width:100%;padding:1em;">
+        <div class="cite" style="font-size:0.8em;text-align:right">
+            <a class="cite" href="http://dx.doi.org/10.1098/rstb.2005.1673">McVean and Cardin (2005)</a>
+        </div>
+    </div>
+
+    <ul>
+        <li>Sites between breakpoints exponentially distributed with rate $\rho T$ where $T$ is the total length of the current local tree.</li>
+        <li>Neglects some possible recombinations, e.g. those that do not affect the data.</li>
+    </ul>
 </section>
 
 <section>
