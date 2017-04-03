@@ -83,14 +83,14 @@ lecture_num: 13
     \end{align*}
 
     <p>The transition rates are $T_{inf}(n_S,n_I,n_R) = \beta n_S n_I$ with $\vec{v}_{inf}=(-1,1,0)$
-    and $T_{rem}(n_S,n_I,n_R) = \mu n_R$ with $\vec{v}_{rem}=(0,-1,1)$.</p>
+    and $T_{rem}(n_S,n_I,n_R) = \mu n_I$ with $\vec{v}_{rem}=(0,-1,1)$.</p>
     <p>Master equation:
     $$\partial_t p(n_S,n_I,n_R)=\beta\left[(n_S+1)(n_I-1)p(n_S+1,n_I-1,n_R) - n_Sn_Ip(n_S,n_I,n_R)\right]\\
     + \mu\left[(n_I+1)p(n_S,n_I+1,n_R-1)-n_Ip(n_S,n_I,n_R)\right]$$</p>
 
     <p>Approximate mean dynamics:
     $$\partial_t \bar{n}_S = -\beta \bar{n}_S\bar{n}_I\\
-    \partial_t \bar{n}_I = \beta \bar{n}_I\bar{n}_I - \mu\bar{n}_I\\
+    \partial_t \bar{n}_I = \beta \bar{n}_S\bar{n}_I - \mu\bar{n}_I\\
     \partial_t \bar{n}_R = \mu \bar{n}_I$$
     </p>
 </section>
@@ -255,7 +255,7 @@ $(document).ready(function() {
     <h2>What is population structure?</h2>
 
     <blockquote style="margin-top:2em">
-        A populaion is structured if its members posess one or more traits that affect who they
+        A population is structured if its members possess one or more traits that affect who they
         interact with. (Which reactions they are involved in.)
     </blockquote>
 
