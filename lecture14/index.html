@@ -214,6 +214,28 @@ Plotly.newPlot("potential", [trace], layout, {displayModeBar: false});
 
 <section>
     <h2>Bayesian inference of ARGs</h2>
+
+    <p>Can easily write down an expression for the posterior distribution for the  ARG given an alignment:</p>
+    <blockquote>
+        $$P(G,\rho,N,\mu|A) = \frac{1}{P(A)}P(A|G,\mu)P(G|\rho,N)P(\rho,N,\mu)$$
+    </blockquote>
+    <ul>
+        <li>$G$ is the recombination graph,</li>
+        <li>$\rho$ is the recombination rate.</li>
+    </ul>
+
+    <p>In practice, this is non-trivial since:</p>
+    <ol>
+        <li>the likelihood for $G$, $P(A|G,\mu)$, is invariant under many features of $G$,</li>
+        <li>the likelihood surface often contains many distinct peaks, and</li>
+        <li>the state space of ARGs is <b>huge</b>: much larger than for trees.</li>
+    </ol>
+
+    <p style="margin-top:1em">Despite this, many approximate algorithms exist.</p>
+</section>
+
+<section>
+    <h2>Algorithms for Bayesian ARG inference</h2>
 </section>
 
 <section>
