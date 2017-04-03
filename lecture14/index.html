@@ -199,7 +199,17 @@ Plotly.newPlot("potential", [trace], layout, {displayModeBar: false});
 <section>
     <h2>Population inference using SMC</h2>
 
-    * Application of Baum-Welch algorithm
+    <ul>
+        <li><a class="cite" href="http://dx.doi.org/10.1038/nature10231">Li &ampl; Durbin (2011)</a> developed an SMC-based HMM on pairs of alignments.</li>
+        <li>Baum-Welch used to estimate parameters and hidden states (local TMRCAs).</li>
+        <li>TMRCA distribution used to produce estimates of population size dynamics.</li>
+    </ul>
+
+    <div class="figure">
+        <img data-src="li_durbin.jpg" style="height:400px;padding:1em;vertical-align:middle">
+        <img data-src="li_durbin2.jpg" style="height:400px;padding:1em;vertical-align:bottom;margin-left:2em">
+        <div class="cite" style="text-align:right;margin-top:1em"><a class="cite" href="http://dx.doi.org/10.1038/nature10231">Li and Durbin (2011)</a></div>
+    </div>
 </section>
 
 <section>
