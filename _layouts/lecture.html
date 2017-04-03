@@ -42,9 +42,6 @@
         <!-- Plotly -->
         <script src="{{site.baseurl}}/js/plotly-latest.min.js"></script>
 
-        <!-- Processing.js -->
-        <script src="{{site.baseurl}}/js/processing.min.js"></script>
-
         <!-- Include lecture-specific JS -->
         {% for file in site.static_files %}{% if file.path contains page.dir and file.extname == ".js"%}
             <script src="{{site.baseurl}}{{file.path}}"></script>

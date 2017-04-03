@@ -350,7 +350,7 @@ $(document).ready(function() {
         <li>Lineages in distinct demes cannot coalesce: $$\langle\tau_d\rangle = \frac{1}{2m} + \tau_s$$</li>
         <li>Lineages in the same deme have probability $2m/(2m + 1/Ng)$ of migrating to distinct demes following the $1/(2m+1/Ng)$ waiting period:
             $$\langle\tau_s\rangle = \frac{1}{2m+1/Ng} + \frac{2m}{2m+1/Ng}\langle\tau_d\rangle$$<br></li>
-        <li>Solving this recursion relation yields: $\langle\tau_s\rangle = 2Ng$ and $\langle\tau_d\langle = \frac{1}{2m} + 2Ng$</li>
+        <li>Solving this recursion relation yields: $\langle\tau_s\rangle = 2Ng$ and $\langle\tau_d\rangle = \frac{1}{2m} + 2Ng$</li>
     </ul>
 
     <blockquote>
@@ -392,7 +392,7 @@ $(document).ready(function() {
     <p>The probability of a structured coalescent tree is:
     <div style="font-size:0.8em">
     \begin{align*}
-    P(T,C|\vec{N},m,L)=&amp;\exp\left[-\int_0^{t_r}\left(\sum_i\binom{k_i}{2}\frac{1}{N_ig}+\sum_{ij}k_im_{ij}\right)\right]\\
+    P(T,C|\vec{N},m,L)\propto&amp;\exp\left[-\int_0^{t_r}\left(\sum_i\binom{k_i(t)}{2}\frac{1}{N_ig}+\sum_{ij}k_i(t)m_{ij}\right)\right]\\
     &amp;\times\left(\prod_{i}(N_ig)^{\nu_i}\right)\left(\prod_{ij}(m_{ij})^{\kappa_{ij}}\right)
     \end{align*}
     </div>
