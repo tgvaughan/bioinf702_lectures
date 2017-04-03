@@ -15,7 +15,8 @@ lecture_num: 14
                 <li>conjugation.</li>
             </ul>
         </li>
-        <li>Viral recombination occurs when multiple strains infect a single cell. (Example: reassortment in influenza.)</li>
+        <li>Viral recombination occurs when multiple strains infect a single
+            cell. (Example: reassortment in influenza.)</li>
     </ul>
 
     <blockquote>
@@ -35,23 +36,131 @@ lecture_num: 14
 
     <ul>
         <li>Each child selects 1 male and 1 female parent uniformly at random.</li>
-        <li>With probability $r$ (which depends on the segment size) the two chromosome pairs of a parent are recombined before
-            being passed on.</li>
+        <li>With probability $r$ (which depends on the segment size) the two
+            chromosome pairs of a parent are recombined before being passed
+            on.</li>
     </ul>
 </section>
 
 <section>
     <h2>Wright-Fisher model with recombination</h2>
 
-    <img data-src="WFrec_chromosome.svg" style="width:100%">
+    <ul>
+        <li>Since the specific pairing of chromosomes only matters over a
+            single generation, in the long term the haploid approximation is
+            very good:</li>
+    </ul>
+
+    <img data-src="WFrec_chromosome.svg" style="width:100%;margin-top:2em">
+
+    <ul style="margin-top:1em">
+        <li>Each child in $i+1$ selects a parent uniformly at random from
+            generation $i$.</li>
+        <li>With probability $r$ an additional parent is selected.</li>
+        <li>In this case, a breakpoint chosen uniformly on the chromosome, and
+            everything to either the left or right replaced by the homologous
+            section of the second parent's chromosome.</li>
+        <li>(Equivalent to selecting 2 parents for each child and letting the
+            resulting sequences recombine with some probability.)
+    </ul>
 </section>
 
 <section>
     <h2>Coalescent with recombination</h2>
+
+    <div style="width:55%;display:inline-block;vertical-align:middle">
+        <p>For fixed recombination rate $\rho=r/g$ in the limit $r\ll 1$, $g\ll 1$
+        and $N\gg 1$, the genealogical process is the coalescent with
+        recombination (<a class="cite" href="https://doi.org/10.1016/0040-5809(83)90013-8">Hudson, 1983</a>):</p>
+
+        <ul>
+            <li>Coalescence rate: $T_c(k)=\binom{k}{2}\frac{1}{Ng}$</li>
+            <li>Recombination rate: $T_r(k)=\rho k$.</li>
+            <li>Recombination break points chosen uniformly along sequence: everything
+            to the left descends from one parent, everything else to the other.</li>
+            <li>Each site possess a <b>local tree</b>.</li>
+            <li>Local trees may find MRCAs (grey sites) before <b>grand (G)MRCA</b> of the process.</li>
+        </ul>
+    </div>
+    <img data-src="CWR.svg" style="width:40%;display:inline-block;vertical-align:middle">
+
+</section>
+
+<section>
+    <h2>CwR as a birth-death process</h2>
+
+    <div style="width:70%;display:inline-block;vertical-align:middle">
+    <p>The number of surviving ancestral lineages $k$ evolves under the
+    birth-death process corresponding to the following pair of reactions:</p>
+    \begin{align*}
+    2L &amp;\overset{\chi}{\longrightarrow} L\\
+    L &amp;\overset{\rho}{\longrightarrow} 2L
+    \end{align*}
+    <p>where $\chi=1/Ng$. The deterministic approximation for the evolution of $\langle k\rangle=\langle k\rangle$ is
+    \begin{align*}
+    \partial_t \langle k\rangle &amp;\simeq -\frac{1}{2N}\langle k\rangle(\langle k\rangle-1) + \rho\langle k\rangle\\
+    &amp;\propto \langle k\rangle(1-\langle k\rangle/k_c)
+    \end{align*}
+    where $k_c=1+2N\rho$.</p>
+
+    <p>$\langle k\rangle$ stabilizes at $k_c$, but noise <i>eventually</i> drives $k$ to 1 (GMRCA).</p>
+    </div>
+
+    <div id="potential" style="width:250px;display:inline-block;vertical-align:middle">
+    <script>
+var N = 1, rho=30;
+
+var kvec=[];
+var U = [];
+for (var k=0; k<=100; k++) {
+    kvec.push(k);
+    U.push(k*k*k/(6*N) - 0.5*(rho+1/(2*N))*k*k);
+} 
+
+var trace = {
+    x: kvec,
+    y: U,
+    mode: "lines",
+    name: "U",
+    line: {
+        color: "grey",
+        width: 2,
+    }
+};
+
+var layout =  {
+    xaxis: { title: "k" },
+    yaxis: { title: "U(k)" },
+    title: "Effective potential",
+    margin: {t:30, l:30, r:30, b:30}
+};
+
+
+Plotly.newPlot("potential", [trace], layout, {displayModeBar: false});
+
+    </script>
+    </div>
 </section>
 
 <section>
     <h2>Coalescent with gene conversion</h2>
+    <div style="width:55%;display:inline-block;vertical-align:middle">
+        <p>A gene conversion event refers to the replacement of a single
+        contiguous stretch of sequence with a homologous stretch from a
+        different parent. Incorporated into a modified CwR process by
+        <a class="cite" href="http://www.genetics.org/content/155/1/451.short"> Wiuf&nbsp;and&nbsp;Hein (2000)</a>.</p>
+        <ul>
+            <li>Allows similar patterns of site ancestry but with fewer events.</li>
+            <li>Model applicable to prokaryotic recombination.</li>
+            <li>Coalescence and recombination rates as for CwR.</li>
+            <li>Conversions initiate at randomly chosen starting sites and
+            extend for $d$ sites where
+            $P(d)=(1-\delta^{-1})^{d-1}\delta^{-1}$ (geometric distribution).</li>
+        </ul>
+
+    </div>
+    <img data-src="CWGC.svg" style="width:40%;display:inline-block;vertical-align:middle">
+
 </section>
 
 <section>
@@ -60,8 +169,18 @@ lecture_num: 14
 
 <section>
     <h2>Population inference using SMC</h2>
+
+    * Application of Baum-Welch algorithm
 </section>
 
 <section>
     <h2>Bayesian inference of ARGs</h2>
+</section>
+
+<section>
+    <h2>Summary</h2>
+</section>
+
+<section>
+    <h2>Recommended Reading</h2>
 </section>
