@@ -118,7 +118,35 @@ lecture_num: 15
 <section>
     <h2>Non-linear birth-death tree priors</h2>
 
-    * E.g. SIR trees, inference using particle filtering
+    <ul>
+        <li>If complete population trajectory (sequence of birth/death events) is known, probability of tree is easy:</li>
+    </ul>
+
+    <div style="width:100%;height:400px;position:relative">
+        <img data-src="likelihoodFree12.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree11.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree10.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree9.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree8.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree7.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree6.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree5.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree4.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree3.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree2.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+        <img class="fragment" data-src="likelihoodFree.svg" style="position:absolute;top:0;left:0;width:100%;background-color:white">
+    </div>
+    <div class="fragment" style="margin-top:0.5em">Here $p_c=1/\binom{N}{2}$ and $p_{nc}=1-\binom{k}{2}/\binom{N}{2}$.</div>
+    <ul class="fragment">
+        <li>Use particle filtering to simulate conditioned trajectories, estimate tree probability.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Non-linear birth-death tree priors</h2>
+    <p>Using this in MCMC lets us jointly infer the tree and the nonlinear birth-death trajectory:</p>
+
+    <img data-src="SIR_psiSamp_Inference.png" style="width:70%">
 </section>
 
 <section>
