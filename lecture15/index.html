@@ -61,6 +61,41 @@ lecture_num: 15
 
 <section>
     <h2>Flavour of derivation</h2>
+    <div style="width:100%;border:solid 1px black;padding-top:0;margin-bottom:0.5em;text-align:center">
+        <div style="display:inline-block;width:59%;vertical-align:middle">
+            <p>Let $p_0(t)$ be the probability that an individual alive at time $t$ has <b>no sampled descendents</b>. Then:
+            \begin{align*}
+            p_0(t+\Delta t) \simeq &amp; p_0(t)(1-\Delta (\lambda + \mu + \psi))\\
+            &amp; + \Delta \mu + \Delta\lambda p_0(t)^2
+            \end{align*}
+            and so
+            $$\dot{p}_0(t) = -(\lambda + \psi + \mu)p_0(t) + \mu - \lambda p_0(t)^2$$
+            </p>
+        </div>
+        <div style="display:inline-block;width:18%;vertical-align:middle">
+            <img data-src="noSampledDescendants.svg" style="width:100%;margin:0">
+        </div>
+    </div>
+
+    <div style="width:100%;border:solid 1px black;padding-top:0;text-align:center">
+        <div style="display:inline-block;width:59%;vertical-align:middle">
+            <p>Let $g_e(t)$ be the probability that the sampled tree below time $t$ on edge $e$ <b>evolved as observed</b>. Then:
+            $$\dot{g}_e(t) = -(\lambda + \psi + \mu)g_e(t) + 2\lambda p_0(t)g_e(t)$$
+            where
+            <div style="font-size:0.8em;margin-top:-0.5em">
+            $$g_e(s)=\left\{\begin{array}{ll}
+            \lambda g_{e_1}(s_1)g_{e_2}(s_2) &amp; \text{ if $e$ has two sampled desc.}\\
+            \psi g_{e_1}(s_1) &amp; \text{ if $e$ has one sampled desc.}\\
+            \psi p_0(s_1) &amp; \text{ if $e$ has no sampled desc.}
+            \end{array}\right.$$
+            </div>
+            </p>
+        </div>
+        <div style="display:inline-block;width:20%;vertical-align:middle">
+            <img data-src="probSampledTree.svg" style="width:100%;margin:0">
+        </div>
+    </div>
+
 </section>
 
 <section>
