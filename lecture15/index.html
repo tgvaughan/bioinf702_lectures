@@ -4,21 +4,63 @@ lecture_num: 15
 
 <section>
     <h2>The Coalescent Approximation Revisited</h2>
+    <img data-src="WFrecap.svg" style="width:40%;padding:0;margin:0">
 
-    * Domain of applicability
+    <ul>
+        <li class="fragment">Probability of distinct parents among $k$ sampled lineages in previous generation is:
+            <div style="font-size:0.8em">
+            \begin{align*}
+            1-p_{c}(k) &amp;= \left(1-\frac{1}{N}\right)\left(1-\frac{2}{N}\right)\ldots\left(1-\frac{k-1}{N}\right)\\
+            &amp; = 1 - \frac{1}{N}\sum_{j=1}^{k-1}j + O(N^{-2})
+            \end{align*}</div></li>
+        <li class="fragment"><b>Assumption</b>: $k\ll N$ so that $p_c(k)\simeq \binom{k}{2}/N$. (No multifurcation.)</li>
+        <li class="fragment">Probability of coalescence after $m$ generations:
+            <div style="font-size:0.8em">
+                $$P(m)=(1-p_c(k))^m p_c(k)$$
+            </div>
+        </li>
+        <li class="fragment">Since $N\gg k$, $p_c(k)\ll 1$ and thus $P(m)\simeq e^{-mp_c(k)}p_c(k)$, and
+            <div style="font-size:0.8">
+            $$P(t)=e^{-(t/g)p_c(k)}p_c{(k)}\frac{dm}{dt}=e^{-t\binom{k}{2}/Ng}\binom{k}{2}\frac{1}{Ng}$$
+            </div></li>
+    </ul>
 
 </section>
 
 <section>
     <h2>The linear birth-death-sampling process</h2>
+    <ul>
+        <li>Generalization of Yule model for speciation to include extinction and sampling by <a class="cite" href="http://dx.doi.org/10.1016/j.jtbi.2009.07.018">Tanja&nbsp;Stadler (2009)</a>.</li>
+        <li>Also applied to populations, in particular measurably evolving pathogens.</li>
+    </ul>
 
-    * Introduction to process (omit rho sampling?)
+    <p>Equivalent to a population evoving under the following (forward-time) reactions:
+    \begin{align*}
+    X &amp; \overset{\lambda}{\longrightarrow} 2X\\
+    X &amp; \overset{\mu}{\longrightarrow} 0
+    \end{align*}
+    In addition, a linear sampling process $\psi$ probabilistically generates samples, but does not otherwise affect the population. (No implicit removal on sampling!)</p>
+
+    <img data-src="bds_tree.png" style="width:100%">
+
 </section>
 
 <section>
-    <h2>The conditioned process</h2>
+    <h2>The reconstructed birth-death-sampling tree</h2>
 
-    * Derivation
+    <div class="figure">
+    <img data-src="reconstructed_bds_tree.svg" style="width:80%;padding:1em">
+    <div style="text-align:right"><a class="cite" href="http://dx.doi.org/10.1016/j.jtbi.2010.09.010">Stadler (2010)</a></div>
+    </div>
+
+    <ul style="margin-top:1em">
+        <li>Left-hand tree is full tree, right-hand tree is equivalent "reconstructed" tree.</li>
+        <li>How can we compute the probability of such a tree under the BDS process?</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Flavour of derivation</h2>
 </section>
 
 <section>
