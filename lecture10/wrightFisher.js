@@ -165,7 +165,9 @@ window.onload = function() {
 var intervalId = null;
  
 function run() {
-	intervalId = setInterval(nextGeneration, delayInMillis);
+	if (intervalId === null) {
+		intervalId = setInterval(nextGeneration, delayInMillis);
+	}
 }
 
 function initCanvasAndContext() {
