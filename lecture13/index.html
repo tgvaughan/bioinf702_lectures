@@ -347,7 +347,7 @@ $(document).ready(function() {
 
     <ul>
         <li>Define $\tau_d$ and $\tau_s$ as coal. time when lineages are in different/same demes respectively.</li>
-        <li>Lineages in distinct demes cannot coalesce: $$\langle\tau_d\rangle = \frac{1}{2m} + \tau_s$$</li>
+        <li>Lineages in distinct demes cannot coalesce: $$\langle\tau_d\rangle = \frac{1}{2m} + \langle\tau_s\rangle$$</li>
         <li>Lineages in the same deme have probability $2m/(2m + 1/Ng)$ of migrating to distinct demes following the $1/(2m+1/Ng)$ waiting period:
             $$\langle\tau_s\rangle = \frac{1}{2m+1/Ng} + \frac{2m}{2m+1/Ng}\langle\tau_d\rangle$$<br></li>
         <li>Solving this recursion relation yields: $\langle\tau_s\rangle = 2Ng$ and $\langle\tau_d\rangle = \frac{1}{2m} + 2Ng$</li>
