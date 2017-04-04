@@ -98,6 +98,10 @@ div.figure div.cite {
     font-size: 0.5em;
 }
 
+div.figure div.cite > a {
+    color: $citeColor;
+}
+
 div.figure div.caption {
 }
 

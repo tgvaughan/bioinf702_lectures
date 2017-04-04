@@ -61,7 +61,7 @@ lecture_num: 15
 
 <section>
     <h2>Flavour of derivation</h2>
-    <div style="width:100%;border:solid 1px black;padding-top:0;margin-bottom:0.5em;text-align:center">
+    <div style="width:100%;border:solid 1px black;padding-top:0.2em;margin-bottom:0.5em;text-align:center">
         <div style="display:inline-block;width:59%;vertical-align:middle">
             <p>Let $p_0(t)$ be the probability that an individual alive at time $t$ has <b>no sampled descendents</b>. Then:
             \begin{align*}
@@ -101,7 +101,18 @@ lecture_num: 15
 <section>
     <h2>Comparison with the coalescent</h2>
 
-    * Treatment of exponential process
+    <div class="figure">
+        <img data-src="bdVersusCoal.svg" style="height:300px;padding:0.5em;vertical-align:middle">
+        <img data-src="bdVersusCoal2.svg" style="height:300px;padding:0.5em;margin-left:1em;vertical-align:middle">
+
+        <div class="cite" style="text-align:right;margin-top:1em"><a href="http://dx.doi.org/10.1098/rspb.2015.0420">Stadler et al. (2015)</a></div>
+    </div>
+
+    <ul>
+        <li>Birth-death trees comparable to coalescent trees under exponential growth.</li>
+        <li>Coalescent approximation breaks down when population sizes are small compared to ancestral lineage count.</li>
+        <li>Figure on right shows CDFs for coalescent times under different models including coalescent (blue) and birth-death model (black).</li>
+    </ul>
 </section>
 
 <section>
