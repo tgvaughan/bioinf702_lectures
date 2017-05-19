@@ -1,0 +1,69 @@
+---
+layout: null
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+        <title>Talks</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+
+                    <h1>BIOINF 702 Lectures</h1>
+
+                    <p>This page contains links to a subset of the lectures delivered by Alexei Drummond and myself
+                    for the BIOINF 702 paper in Semester 1, 2017.</p>
+
+                    <ol>
+                        {% assign lectureIdx = 0 %}
+                        {% for week in site.data.lectures %}
+                        {% assign weekNum = forloop.index %}
+                        {% for lecture in week.lectures %}
+                        {% assign lectureIdx = lectureIdx | plus:1 %}
+
+                        {% assign lectureURL = "/lecture" | append: lectureIdx | append: "/" %}
+
+                        {% assign found = false %}
+                        {% for page in site.pages %}
+                        {% if page.url == lectureURL %}
+                        {% assign found = true %}
+                        {% endif %}
+                        {% endfor %}
+
+                        <li><b>
+                        {% if found %}
+                        <a href="{{site.baseURL}}lecture{{lectureIdx}}">{{lecture.title}}</a>
+                        {% else %}
+                        {{lecture.title}}
+                        {% endif %}
+                        </b>
+
+                        ({{lecture.lecturer}}, {{lecture.date | date: "%-d %B %Y"}})
+                        </li>
+
+                        {% endfor %}
+                        {% endfor %}
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -48,11 +48,15 @@
   lectures:
     - title: The Coalescent
       lecturer: Alexei Drummond 
+      date: 2017-03-27
 
     - title: Phylodynamics and the coalescent
       lecturer: Alexei Drummond
+      date: 2017-03-28
 
     - title: The multi-species coalescent
+      lecturer: Alexei Drummond
+      date: 2017-03-29
 
 - week: 5
   lectures:
@@ -73,3 +77,4 @@
   lectures:
       - title: Sampled Ancestors, FBD
         lecturer: Alxei Drummond
+        date: 2017-04-10
