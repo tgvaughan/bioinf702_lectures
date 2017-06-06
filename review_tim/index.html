@@ -1,0 +1,229 @@
+---
+title: Review Lecture
+date: 2017-06-07
+layout: none
+---
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>{{page.title}}</title>
+
+        <link rel="stylesheet" href="{{site.baseurl}}/js/reveal.js/css/reveal.css">
+
+        <link rel="stylesheet" href="{{site.baseurl}}/css/lecture_theme.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="{{site.baseurl}}/js/reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '{{site.baseurl}}/js/reveal.js/css/print/pdf.css' : '{{site.baseurl}}/js/reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+        <!-- JQuery -->
+        <script src="{{site.baseurl}}/js/jquery-3.2.0.min.js"></script>
+
+        <!-- Plotly -->
+        <script src="{{site.baseurl}}/js/plotly-latest.min.js"></script>
+
+        <!-- Include lecture-specific JS -->
+        {% for file in site.static_files %}{% if file.path contains page.dir and file.extname == ".js"%}
+            <script src="{{site.baseurl}}{{file.path}}"></script>
+        {% endif %} {% endfor %}
+        {% for url in page.scripts %}
+            <script src="{{url}}"></script>
+        {% endfor %}
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+                <section class="titlepage center">
+                    <div class="course">{{site.course}}</div>
+
+                    <div class="title">Review of Tim's lectures</div>
+                    <div id="print-button">
+                        <a href="{{site.baseurl}}{{page.url}}?print-pdf" target="_new">Generate layout for printing</a>
+                    </div>
+
+
+                    <div class="date">{{page.date | date: "%-d %B %Y"}}</div>
+
+                </section>
+
+
+                <section>
+                    <h2>Overview of lectures (first half)</h2>
+
+                    <table style="font-size: 0.8em">
+                    {% for week in site.data.lectures %}
+                    {% assign weekNum = forloop.index %}
+
+                    {% for lecture in week.lectures %}
+                    <tr><td style="border:0px; font-weight: {%if lecture.lecturer == "Tim Vaughan"%}bold{%else%}normal{% endif%} ">{{lecture.title}}</td></tr>
+                    {% endfor %}
+
+                    {% endfor %}
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Homology and Pairwise alignment</h2>
+                    <ul>
+                        <li>Principle of optimality</li>
+                        <li>Needleman &amp; Wunch algorithm</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Multiple sequence alignment</h2>
+                    <ul>
+                        <li>Multidimensional dynamic programming:
+                            <ul>
+                                <li>Naive approach</li>
+                                <li>Carillo &amp; Lipman DP algorithm</li>
+                            </ul>
+                        </li>
+                        <li>Progressive alignment:
+                            <ul>
+                                <li>General idea</li>
+                                <li>Feng &amp; Doolittle </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Hidden Markov Models</h2>
+
+                    <ul>
+                        <li>Definition</li>
+                        <li>Finding optimal paths using Viterbi Algorithm</li>
+                        <li>Forward-backward algorithm for computing probability of hidden states</li>
+                        <li>Baum-Welch algorithm for estimating unknown parameters.</li>
+                        <li>Application to alignment</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Model-based Phylogenetic Inference</h2>
+
+                    <ul>
+                        <li>Neutral sequence evolution
+                            <ul>
+                                <li>CTMC models (e.g. Jukes-Cantor)</li>
+                                <li>Relationship between $p$-distance and genetic distance</li>
+                                <li>Estimating genetic distance using Jukes-Cantor</li>
+                            </ul>
+                        </li>
+                        <li>Least-squares phylogenetic inference</li>
+                        <li>Felsenstein's pruning algorithm for the likelihood of a phylogenetic tree</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Bayesian Inference</h2>
+
+                    <ul>
+                        <li>Bayesian view of probability</li>
+                        <li>Bayes rule</li>
+                        <li>Classification of distributions into priors, likelihoods, and posteriors.</li>
+                        <li>Credible intervals</li>
+                        <li>Metropolis-Hastings MCMC</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2> Bayesian Phylogenetic Inference</h2>
+
+                    <ul>
+                        <li>The Phylogenetic Posterior Distribution
+                            <ul>
+                                <li>Components and their meanings</li>
+                                <li>The role of tree priors</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Master Equations and The Structured Coalescent</h2>
+
+                    <ul>
+                        <li>Master equations for CTMCs</li>
+                        <li>Introducing structure into the coalescent model</li>
+                        <li>Expected coalescent time for symmetric 2 deme case.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Coalescent with Recombination</h2>
+
+                    <ul>
+                        <li>Wright-Fisher model with recombination</li>
+                        <li>Ancestral recombination graphs (ARGs)</li>
+                        <li>Coalescent with recombination</li>
+                        <li>Challanges for Bayesian inference of ARGs</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Birth-death tree priors</h2>
+
+                    <ul>
+                        <li>Assumptions of the coalescent model</li>
+                        <li>Birth-death-sampling process</li>
+                        <li>Reconstructed birth-death-sampling trees</li>
+                        <li>Comparison with coalescent</li>
+                    </ul>
+                </section>
+			</div>
+		</div>
+
+		<script src="{{site.baseurl}}/js/reveal.js/lib/js/head.min.js"></script>
+		<script src="{{site.baseurl}}/js/reveal.js/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+                controls: {{page.reveal.controls}},
+                progress: {{page.reveal.progress}},
+                history: {{page.reveal.history}},
+                center: {{page.reveal.center}},
+                mouseWheel: {{page.reveal.mouseWheel}},
+                slideNumber: {{page.reveal.slideNumber}},
+
+                transition: '{{page.reveal.transition}}',
+
+                math: {
+                    mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                    config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+                },
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: '{{site.baseurl}}/js/reveal.js/plugin/markdown/marked.js' },
+					{ src: '{{site.baseurl}}/js/reveal.js/plugin/markdown/markdown.js' },
+					{ src: '{{site.baseurl}}/js/reveal.js/plugin/notes/notes.js', async: true },
+					{ src: '{{site.baseurl}}/js/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '{{site.baseurl}}/js/reveal.js/plugin/math/math.js', async: true }
+				]
+			});
+
+            // Hide print button if these are already the print-friendly slides
+            if (window.location.search.match( /print-pdf/gi ) ) {
+                document.getElementById("print-button").style.display = "none";
+                console.log("hey!");
+            }
+		</script>
+	</body>
+</html>
